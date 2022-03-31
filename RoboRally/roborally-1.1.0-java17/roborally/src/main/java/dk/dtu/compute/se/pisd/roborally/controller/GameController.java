@@ -197,22 +197,40 @@ public class GameController {
 
     // TODO Assignment V2
     public void moveForward(@NotNull Player player) {
+        Heading heading = player.getHeading();
+        Space oldSpace = player.getSpace();
+        switch (heading)
+        {
+            case SOUTH:
+                player.setSpace(board.getSpace(oldSpace.x, oldSpace.y+1));
+                break;
+            case WEST:
+                player.setSpace(board.getSpace( oldSpace.x-1, oldSpace.y));
+                break;
+            case NORTH:
+                player.setSpace(board.getSpace( oldSpace.x, oldSpace.y-1));
+                break;
+            case EAST:
+                player.setSpace(board.getSpace(oldSpace.x+1, oldSpace.y));
+                break;
 
+        }
     }
 
     // TODO Assignment V2
     public void fastForward(@NotNull Player player) {
-
+        moveForward(player);
+        moveForward(player);
     }
 
     // TODO Assignment V2
     public void turnRight(@NotNull Player player) {
-
+        player.setHeading(player.getHeading().next());
     }
 
     // TODO Assignment V2
     public void turnLeft(@NotNull Player player) {
-
+        player.setHeading(player.getHeading().prev());
     }
 
     public boolean moveCards(@NotNull CommandCardField source, @NotNull CommandCardField target) {
