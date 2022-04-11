@@ -57,6 +57,21 @@ public class Board extends Subject {
 
     private boolean stepMode;
 
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        if (this.count != count) {
+            this.count = count;
+            notifyChange();
+        }
+    }
+
+
+    //Count number of moves in the game.
+    private int count;
+
     public Board(int width, int height, @NotNull String boardName) {
         this.boardName = boardName;
         this.width = width;
@@ -208,7 +223,8 @@ public class Board extends Subject {
         // XXX: V2 changed the status so that it shows the phase, the player and the step
         return "Phase: " + getPhase().name() +
                 ", Player = " + getCurrentPlayer().getName() +
-                ", Step: " + getStep();
+                ", Step: " + getStep()  +
+                ", Number of moves: " + getCount();
     }
 
 
