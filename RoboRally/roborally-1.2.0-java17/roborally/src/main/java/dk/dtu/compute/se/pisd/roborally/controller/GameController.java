@@ -268,6 +268,7 @@ public class GameController {
         Player currentPlayer = board.getCurrentPlayer();
         int step = board.getStep();
         executeCommand(currentPlayer, command);
+        board.setPhase(Phase.ACTIVATION);
         int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
         if (nextPlayerNumber < board.getPlayersNumber()) {
             board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
