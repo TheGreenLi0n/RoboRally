@@ -266,8 +266,8 @@ public class GameController {
     }
 
     /**
-     *
-     * @param command
+     * executes A Command And Then Continues the programming phase.
+     * @param command A command in the current players register that should be executed.
      */
     public void executeCommandAndContinue(Command command){
         Player currentPlayer = board.getCurrentPlayer();
