@@ -264,6 +264,11 @@ public class GameController {
         // XXX just for now to indicate that the actual method is not yet implemented
         assert false;
     }
+
+    /**
+     *
+     * @param command
+     */
     public void executeCommandAndContinue(Command command){
         Player currentPlayer = board.getCurrentPlayer();
         int step = board.getStep();
@@ -280,10 +285,10 @@ public class GameController {
                 board.setCurrentPlayer(board.getPlayer(0));
             } else {
                 startProgrammingPhase();
-
-
+            }
+        }
+        if (!board.isStepMode()){
+            continuePrograms();
         }
     }
-    }
-
 }
