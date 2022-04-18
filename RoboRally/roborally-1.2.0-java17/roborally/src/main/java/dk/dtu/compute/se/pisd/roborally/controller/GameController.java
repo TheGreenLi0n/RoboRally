@@ -183,7 +183,12 @@ public class GameController {
         }
     }
 
-    // XXX: V2
+    /**
+     * Executes the command card that a player has chosen in their programming register.
+     *
+     * @param player is the player that is to be executing the command.
+     * @param command is the command card that the player is executing.
+     */
     private void executeCommand(@NotNull Player player, Command command) {
         if (player != null && player.board == board && command != null) {
             // XXX This is a very simplistic way of dealing with some basic cards and
@@ -191,7 +196,7 @@ public class GameController {
             //     (this concerns the way cards are modelled as well as the way they are executed).
 
             switch (command) {
-                case FORWARD:
+                case FORWARD_1:
                     this.moveForward(player);
                     break;
                 case RIGHT:
@@ -200,21 +205,27 @@ public class GameController {
                 case LEFT:
                     this.turnLeft(player);
                     break;
-                case FAST_FORWARD:
-                    this.fastForward(player);
+                case Forward_2:
+                    this.moveForward2(player);
                     break;
                 case U_TURN:
                     this.uTurn(player);
                     break;
                 case MOVE_BACK:
                     this.moveBack(player);
+                case Forward_3:
+                    this.moveForward3(player);
                 default:
                     // DO NOTHING (for now)
             }
         }
     }
 
-    // TODO: V2
+    /**
+     * A command that makes the player move 1 space forward on the board.
+     *
+     * @param player - the player that is executing the command.
+     */
     public void moveForward(@NotNull Player player) {
         Space space = player.getSpace();
         if (player != null && player.board == board && space != null) {
@@ -236,26 +247,54 @@ public class GameController {
         }
     }
 
-    // TODO: V2
-    public void fastForward(@NotNull Player player) {
+    /**
+     * A command that makes the player move 2 space forward on the board.
+     *
+     * @param player - the player that is executing the command.
+     */
+    public void moveForward2(@NotNull Player player) {
         moveForward(player);
         moveForward(player);
     }
 
-    // TODO: V2
+    /**
+     * A command that makes the player move 1 space forward on the board.
+     *
+     * @param player - the player that is executing the command.
+     */
+    public void moveForward3(@NotNull Player player) {
+        moveForward(player);
+        moveForward(player);
+        moveForward(player);
+    }
+
+    /**
+     * A command that makes the player turn right (clockwise) on the board.
+     *
+     * @param player - the player that is executing the command.
+     */
     public void turnRight(@NotNull Player player) {
         if (player != null && player.board == board) {
             player.setHeading(player.getHeading().next());
         }
     }
 
-    // TODO: V2
+    /**
+     * A command that makes the player turn left (counterclockwise) on the board.
+     *
+     * @param player - the player that is executing the command.
+     */
     public void turnLeft(@NotNull Player player) {
         if (player != null && player.board == board) {
             player.setHeading(player.getHeading().prev());
         }
     }
 
+    /**
+     * A command that makes the player turn 180 degrees on the board.
+     *
+     * @param player - the player that is executing the command.
+     */
     public void uTurn(@NotNull Player player){
         if (player != null && player.board == board){
             turnRight(player);
@@ -263,6 +302,11 @@ public class GameController {
         }
     }
 
+    /**
+     * A command that makes the player move one space backwards without changing the direction the player is facing on the board.
+     *
+     * @param player - the player that is executing the command.
+     */
     public void moveBack(@NotNull Player player){
         Space space = player.getSpace();
         if (player != null && player.board == board && space != null) {
