@@ -54,7 +54,7 @@ class GameControllerTest {
 
         gameController.moveForward(current);
 
-        Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should beSpace (0,1)!");
+        Assertions.assertEquals(current, board.getSpace(0, 1).getPlayer(), "Player " + current.getName() + " should be Space (0,1)!");
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading SOUTH!");
         Assertions.assertNull(board.getSpace(0, 0).getPlayer(), "Space (0,0) should be empty!");
     }
@@ -130,6 +130,21 @@ class GameControllerTest {
 
         Assertions.assertEquals(current, board.getSpace(0, 0).getPlayer(), "Player " + current.getName() + " should beSpace (0,0)!");
         Assertions.assertEquals(Heading.NORTH, current.getHeading(), "Player 0 should be heading NORTH!");
+    }
+
+    @Test
+    void movePlayer(){
+        Board board = gameController.board;
+        Player player1 = board.getPlayer(0);
+        Player player2 = board.getPlayer(1);
+
+        gameController.moveCurrentPlayerToSpace(board.getSpace(2, 4));
+        gameController.moveCurrentPlayerToSpace(board.getSpace(2, 5));
+        gameController.moveForward(player1);
+
+        Assertions.assertEquals(player1, board.getSpace(2, 5).getPlayer(), "Player " + player1.getName() + " should be Space (2,5)!");
+        Assertions.assertNull(board.getSpace(2, 4).getPlayer(), "Space (0,0) should be empty!");
+        Assertions.assertEquals(player2, board.getSpace(2, 6).getPlayer(), "Player " + player2.getName() + " should be Space (2,6)!");
     }
 
 }
