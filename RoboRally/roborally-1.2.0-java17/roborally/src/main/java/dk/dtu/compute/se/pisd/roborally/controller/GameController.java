@@ -203,6 +203,11 @@ public class GameController {
                 case FAST_FORWARD:
                     this.fastForward(player);
                     break;
+                case U_TURN:
+                    this.uTurn(player);
+                    break;
+                case MOVE_BACK:
+                    this.moveBack(player);
                 default:
                     // DO NOTHING (for now)
             }
@@ -241,6 +246,27 @@ public class GameController {
     public void turnLeft(@NotNull Player player) {
         if (player != null && player.board == board) {
             player.setHeading(player.getHeading().prev());
+        }
+    }
+
+    public void uTurn(@NotNull Player player){
+        if (player != null && player.board == board){
+            turnRight(player);
+            turnRight(player);
+        }
+    }
+
+    public void moveBack(@NotNull Player player){
+        Space space = player.getSpace();
+        if (player != null && player.board == board && space != null) {
+            Heading heading = player.getHeading().prev().prev();
+            Space target = board.getNeighbour(space, heading);
+            if (target != null) {
+                // XXX note that this removes an other player from the space, when there
+                //     is another player on the target. Eventually, this needs to be
+                //     implemented in a way so that other players are pushed away!
+                target.setPlayer(player);
+            }
         }
     }
 
