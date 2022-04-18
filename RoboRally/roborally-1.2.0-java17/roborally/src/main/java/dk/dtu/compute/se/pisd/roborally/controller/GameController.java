@@ -221,6 +221,13 @@ public class GameController {
             Heading heading = player.getHeading();
             Space target = board.getNeighbour(space, heading);
             if (target != null) {
+                if (target.getPlayer() != null){
+                    Player targetPlayer = target.getPlayer();
+                    Space pushTarget = board.getNeighbour(targetPlayer.getSpace(), heading);
+                    if (pushTarget != null) {
+                        targetPlayer.setSpace(pushTarget);
+                    }
+                }
                 // XXX note that this removes an other player from the space, when there
                 //     is another player on the target. Eventually, this needs to be
                 //     implemented in a way so that other players are pushed away!
@@ -262,6 +269,13 @@ public class GameController {
             Heading heading = player.getHeading().prev().prev();
             Space target = board.getNeighbour(space, heading);
             if (target != null) {
+                if (target.getPlayer() != null){
+                    Player targetPlayer = target.getPlayer();
+                    Space pushTarget = board.getNeighbour(targetPlayer.getSpace(), heading);
+                    if (pushTarget != null) {
+                        targetPlayer.setSpace(pushTarget);
+                    }
+                }
                 // XXX note that this removes an other player from the space, when there
                 //     is another player on the target. Eventually, this needs to be
                 //     implemented in a way so that other players are pushed away!
