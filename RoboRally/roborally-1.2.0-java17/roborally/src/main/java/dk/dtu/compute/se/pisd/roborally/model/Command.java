@@ -26,7 +26,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * ...
+ * The different commands that a player can use in their registers with the names in " ".
  *
  * @author Ekkart Kindler, ekki@dtu.dk
  *
@@ -35,10 +35,11 @@ public enum Command {
 
     // This is a very simplistic way of realizing different commands.
 
-    FORWARD("Fwd"),
+    FORWARD_1("Move fwd 1"),
     RIGHT("Turn Right"),
     LEFT("Turn Left"),
-    FAST_FORWARD("Fast Fwd"),
+    Forward_2("Move fwd 2"),
+    Forward_3("Move fwd 3"),
     MOVE_BACK("Move back"),
     U_TURN("U-turn"),
 
