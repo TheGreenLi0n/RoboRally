@@ -165,6 +165,7 @@ public class GameController {
                     board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
                 } else {
                     step++;
+                    firinMahLazer();
                     if (step < Player.NO_REGISTERS) {
                         makeProgramFieldsVisible(step);
                         board.setStep(step);
@@ -373,6 +374,57 @@ public class GameController {
         }
         if (!board.isStepMode()){
             continuePrograms();
+        }
+    }
+
+    /**
+     * Fires a laser from everyone in their headed direction, if it hits a player then the laser stops and the target that got hit
+     * takes 1 damage.
+     * It doesn't yet take walls and other obstacles into account. Unpredictable. Doesn't work like it's supposed to.
+     */
+    public void firinMahLazer(){
+        for (int i = 0; i < board.getPlayersNumber(); i++) {
+            Heading direction = board.getPlayer(i).getHeading();
+            Space position = board.getPlayer(i).getSpace();
+
+            switch (direction){
+                case NORTH -> {
+                    for (int j = position.y; j <= 0; j--) {
+                        if(board.getSpace(position.x, j).getPlayer()!=null){
+                            board.getSpace(position.x, j).getPlayer().dealDamage();
+                            break;
+                        }
+                    }
+                    break;
+                }
+                case EAST -> {
+                    for (int j = position.x; j <= board.width; j++) {
+                        if(board.getSpace(j, position.y).getPlayer()!=null){
+                            board.getSpace(j, position.y).getPlayer().dealDamage();
+                            break;
+                        }
+                    }
+                    break;
+                }
+                case SOUTH -> {
+                    for (int j = position.y; j <= board.height; j++) {
+                        if(board.getSpace(position.x, j).getPlayer()!=null){
+                            board.getSpace(position.x, j).getPlayer().dealDamage();
+                            break;
+                        }
+                    }
+                    break;
+                }
+                case WEST -> {
+                    for (int j = position.x; j <= 0; j--) {
+                        if(board.getSpace(j, position.y).getPlayer()!=null){
+                            board.getSpace(j, position.y).getPlayer().dealDamage();
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
         }
     }
 }

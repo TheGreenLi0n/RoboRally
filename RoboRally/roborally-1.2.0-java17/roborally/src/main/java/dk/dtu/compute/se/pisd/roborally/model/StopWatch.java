@@ -8,7 +8,8 @@ import java.util.TimerTask;
 /**
  * ...
  *
- * @author Martin Wenzel
+ * This class, is fortaking time during a players turn.
+ * it's not quite implmented yet but works as proof of concept. 
  */
 public class StopWatch extends Subject {
     private int timetotake;
