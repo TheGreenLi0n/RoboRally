@@ -37,7 +37,6 @@ import org.jetbrains.annotations.NotNull;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class SpaceView extends StackPane implements ViewObserver {
 
@@ -79,22 +78,68 @@ public class SpaceView extends StackPane implements ViewObserver {
         if (player != null) {
             Polygon arrow = new Polygon(0.0, 0.0,
                     10.0, 20.0,
-                    20.0, 0.0 );
+                    20.0, 0.0);
             try {
                 arrow.setFill(Color.valueOf(player.getColor()));
             } catch (Exception e) {
                 arrow.setFill(Color.MEDIUMPURPLE);
             }
 
-            arrow.setRotate((90*player.getHeading().ordinal())%360);
+            arrow.setRotate((90 * player.getHeading().ordinal()) % 360);
             this.getChildren().add(arrow);
         }
     }
 
+    /**
+     * Draws a wall on the gameboard.
+     *
+     * @return canvas
+     */
+    public Canvas drawWall(Heading heading) {
+        Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.setStroke(Color.RED);
+        gc.setLineWidth(5);
+        gc.setLineCap(StrokeLineCap.SQUARE);
+        // North wall gc.strokeLine(2,SPACE_HEIGHT-58,SPACE_WIDTH,SPACE_HEIGHT-58);
+        // West  wall  gc.strokeLine(2, SPACE_HEIGHT, SPACE_WIDTH - 58, SPACE_HEIGHT - 58);
+        // South wall gc.strokeLine(2, SPACE_HEIGHT, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+        // East wall  gc.strokeLine(SPACE_HEIGHT,SPACE_HEIGHT-2,SPACE_WIDTH,SPACE_HEIGHT-58);
+        switch (heading) {
+            case NORTH -> {
+                gc.strokeLine(2, SPACE_HEIGHT - 58, SPACE_WIDTH, SPACE_HEIGHT - 58);
+                break;
+            }
+            case WEST -> {
+                gc.strokeLine(2, SPACE_HEIGHT, SPACE_WIDTH - 58, SPACE_HEIGHT - 58);
+                break;
+            }
+            case SOUTH -> {
+                gc.strokeLine(2, SPACE_HEIGHT, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                break;
+            }
+            case EAST -> {
+                gc.strokeLine(SPACE_HEIGHT, SPACE_HEIGHT - 2, SPACE_WIDTH, SPACE_HEIGHT - 58);
+                break;
+            }
+
+        }
+        this.getChildren().add(canvas);
+        return canvas;
+
+    }
+
+
     @Override
     public void updateView(Subject subject) {
+
         if (subject == this.space) {
             updatePlayer();
+
+        }
+        if ((space.x == 2 && space.y == 2)){
+            space.setWallheading(Heading.WEST);
+            space.setWall(drawWall(space.getWallheading()));
         }
     }
 

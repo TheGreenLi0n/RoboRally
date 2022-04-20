@@ -20,17 +20,23 @@ public class StopWatch extends Subject {
         this.timetotake = timetotakeinseconds * 1000;
     }
     public void startTimer(){
-        clock.schedule(new RemindTask(),getTimetotake());
+        clock.schedule(new RemindTask(60),0,getTimetotake());
+
     }
 
-    public int getTimetotake() {
-        return timetotake;
-    }
+
     private class RemindTask extends TimerTask{
+        private int times;
+        private RemindTask(int times){
+        this.times = times;
+        }
         @Override
         public void run(){
-            System.out.println("test test test");
-            clock.cancel();
+            if (times == 0) clock.cancel();
+            times--;
         }
+    }
+    public int getTimetotake() {
+        return timetotake;
     }
 }

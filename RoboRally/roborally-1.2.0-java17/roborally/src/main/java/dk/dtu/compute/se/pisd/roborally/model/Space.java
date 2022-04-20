@@ -22,12 +22,12 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import javafx.scene.canvas.Canvas;
 
 /**
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class Space extends Subject {
 
@@ -35,14 +35,16 @@ public class Space extends Subject {
 
     public final int x;
     public final int y;
-
+    private Canvas wall;
     private Player player;
+    private Heading wallheading;
 
     public Space(Board board, int x, int y) {
         this.board = board;
         this.x = x;
         this.y = y;
         player = null;
+        wall = null;
     }
 
     public Player getPlayer() {
@@ -71,5 +73,20 @@ public class Space extends Subject {
         // notify the space of these changes by calling this method.
         notifyChange();
     }
+public void setWallheading(Heading wallheading){
+    this.wallheading = wallheading;
+}
+    public void setWall(Canvas wall) {
 
+        this.wall = wall;
+
+    }
+
+    public Heading getWallheading() {
+        return wallheading;
+    }
+
+    public Canvas getWall() {
+        return wall;
+    }
 }

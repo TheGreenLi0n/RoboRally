@@ -214,8 +214,10 @@ public class GameController {
                     break;
                 case MOVE_BACK:
                     this.moveBack(player);
+                    break;
                 case Forward_3:
                     this.moveForward3(player);
+                    break;
                 default:
                     // DO NOTHING (for now)
             }
@@ -229,6 +231,7 @@ public class GameController {
      */
     public void moveForward(@NotNull Player player) {
         Space space = player.getSpace();
+
         if (player != null && player.board == board && space != null) {
             Heading heading = player.getHeading();
             Space target = board.getNeighbour(space, heading);
@@ -239,6 +242,10 @@ public class GameController {
                     if (pushTarget != null) {
                         targetPlayer.setSpace(pushTarget);
                     }
+
+                }
+                if (target.getWall() != null && target.getWallheading() == player.getHeading()){
+                    return;
                 }
                 // XXX note that this removes an other player from the space, when there
                 //     is another player on the target. Eventually, this needs to be

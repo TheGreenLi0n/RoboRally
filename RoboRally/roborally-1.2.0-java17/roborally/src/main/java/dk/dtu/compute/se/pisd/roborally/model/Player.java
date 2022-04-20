@@ -30,7 +30,6 @@ import static dk.dtu.compute.se.pisd.roborally.model.Heading.SOUTH;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class Player extends Subject {
 
@@ -41,6 +40,8 @@ public class Player extends Subject {
 
     private String name;
     private String color;
+
+    private int damage;
 
     private Space space;
     private Heading heading = SOUTH;
@@ -124,6 +125,11 @@ public class Player extends Subject {
             }
         }
     }
+
+    public int getDamage() {
+        return damage;
+    }
+    public void dealDamage(){damage++;}
 
     public CommandCardField getProgramField(int i) {
         return program[i];
