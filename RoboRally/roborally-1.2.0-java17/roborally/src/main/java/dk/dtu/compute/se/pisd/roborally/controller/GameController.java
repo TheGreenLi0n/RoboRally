@@ -400,6 +400,9 @@ public class GameController {
                         if(board.getSpace(position.x, j).getPlayer()!=null){
                             board.getSpace(position.x, j).getPlayer().dealDamage();
                             break;
+                        } else if (board.getSpace(j, position.y).getWall()!=null){
+                            if (board.getSpace(j, position.y).getWallheading()==Heading.NORTH || board.getSpace(j, position.y).getWallheading()==Heading.SOUTH )
+                                break;
                         }
                     }
                     break;
@@ -409,6 +412,9 @@ public class GameController {
                         if(board.getSpace(j, position.y).getPlayer()!=null){
                             board.getSpace(j, position.y).getPlayer().dealDamage();
                             break;
+                        } else if (board.getSpace(j, position.y).getWall()!=null){
+                            if (board.getSpace(j, position.y).getWallheading()==Heading.WEST || board.getSpace(j, position.y).getWallheading()==Heading.EAST )
+                                break;
                         }
                     }
                     break;
@@ -418,6 +424,9 @@ public class GameController {
                         if(board.getSpace(position.x, j).getPlayer()!=null){
                             board.getSpace(position.x, j).getPlayer().dealDamage();
                             break;
+                        } else if (board.getSpace(j, position.y).getWall()!=null){
+                            if (board.getSpace(j, position.y).getWallheading()==Heading.NORTH || board.getSpace(j, position.y).getWallheading()==Heading.SOUTH )
+                                break;
                         }
                     }
                     break;
@@ -426,6 +435,9 @@ public class GameController {
                     for (int j = position.x; j <= 0; j--) {
                         if(board.getSpace(j, position.y).getPlayer()!=null){
                             board.getSpace(j, position.y).getPlayer().dealDamage();
+                            break;
+                        } else if (board.getSpace(j, position.y).getWall()!=null){
+                            if (board.getSpace(j, position.y).getWallheading()==Heading.WEST || board.getSpace(j, position.y).getWallheading()==Heading.EAST )
                             break;
                         }
                     }
