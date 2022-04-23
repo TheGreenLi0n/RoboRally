@@ -449,6 +449,10 @@ public class GameController {
         }
     }
 
+    /**
+     * This method is used to declare a player the
+     * @param player - the player that is to be declared winner
+     */
     public void makeWinner(Player player) {
         Alert winnerMsg = new Alert(Alert.AlertType.INFORMATION, "Player \"" + player.getName() + "\" is the winner!");
         this.winner = true;
