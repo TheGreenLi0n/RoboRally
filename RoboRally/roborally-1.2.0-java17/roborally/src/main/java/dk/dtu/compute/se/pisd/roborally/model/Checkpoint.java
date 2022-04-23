@@ -8,7 +8,7 @@ import dk.dtu.compute.se.pisd.roborally.controller.GameController;
  */
 
 public class Checkpoint extends FieldAction {
-        private int checkpointNo;
+    public int checkpointNo;
 
     public Checkpoint(int checkpointNo){
         this.checkpointNo = checkpointNo;

@@ -97,15 +97,4 @@ public void setWallheading(Heading wallheading){
     }
 
 
-    public void addAction(FieldAction action) {
-        this.actions.add(action);
-
-        if (action instanceof Checkpoint) {
-            this.board.setCheckpoint((Checkpoint) action);
-        }
-
-        notifyChange();
-    }
-
-
 }
