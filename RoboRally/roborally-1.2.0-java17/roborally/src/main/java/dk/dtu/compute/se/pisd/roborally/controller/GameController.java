@@ -449,6 +449,11 @@ public class GameController {
         }
     }
 
+    public void setPlayerPrio()
+    {
+        
+    }
+
     /**
      * This method is used to declare a player the
      * @param player - the player that is to be declared winner

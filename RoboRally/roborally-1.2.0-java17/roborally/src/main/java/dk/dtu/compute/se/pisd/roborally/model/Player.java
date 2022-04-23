@@ -42,6 +42,7 @@ public class Player extends Subject {
     private String color;
 
     private int damage;
+    private int reachedCheckpoint = 0;
 
     private Space space;
     private Heading heading = SOUTH;
@@ -130,6 +131,15 @@ public class Player extends Subject {
         return damage;
     }
     public void dealDamage(){damage++;}
+
+    public int getReachedCheckpoint() {
+        return reachedCheckpoint;
+    }
+
+    public void setReachedCheckpoint(int reachedCheckpoint) {
+        this.reachedCheckpoint = reachedCheckpoint;
+    }
+
 
     public CommandCardField getProgramField(int i) {
         return program[i];

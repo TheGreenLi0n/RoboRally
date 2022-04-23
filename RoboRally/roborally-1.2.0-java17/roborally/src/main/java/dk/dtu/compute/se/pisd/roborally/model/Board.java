@@ -47,6 +47,10 @@ public class Board extends Subject {
 
     private final Space[][] spaces;
 
+    private ArrayList<Checkpoint> checkpoints = new ArrayList<Checkpoint>();
+
+    private Antenna antenna;
+
     private final List<Player> players = new ArrayList<>();
 
     private Player current;
@@ -96,6 +100,22 @@ public class Board extends Subject {
         } else {
             return null;
         }
+    }
+
+    public ArrayList<Checkpoint> getCheckpoints() {
+        return checkpoints;
+    }
+
+    public void setCheckpoint(Checkpoint checkpoint) {
+        this.checkpoints.add(checkpoint);
+    }
+
+    public Antenna getAntenna() {
+        return antenna;
+    }
+
+    public void setAntenna(Antenna antenna) {
+        this.antenna = antenna;
     }
 
     public int getPlayersNumber() {
