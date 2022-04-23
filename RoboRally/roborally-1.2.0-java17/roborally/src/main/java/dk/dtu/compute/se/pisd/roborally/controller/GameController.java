@@ -22,6 +22,7 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import javafx.scene.control.Alert;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -33,6 +34,7 @@ import org.jetbrains.annotations.NotNull;
 public class GameController {
 
     final public Board board;
+    public boolean winner = false;
 
     public GameController(@NotNull Board board) {
         this.board = board;
@@ -446,4 +448,11 @@ public class GameController {
             }
         }
     }
+
+    public void makeWinner(Player player) {
+        Alert winnerMsg = new Alert(Alert.AlertType.INFORMATION, "Player \"" + player.getName() + "\" is the winner!");
+        this.winner = true;
+        winnerMsg.showAndWait();
+    }
+
 }
