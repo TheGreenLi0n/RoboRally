@@ -22,7 +22,11 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import javafx.scene.control.Alert;
 import org.jetbrains.annotations.NotNull;
+import java.util.PriorityQueue;
+
+import java.util.List;
 
 /**
  * ...
@@ -33,6 +37,8 @@ import org.jetbrains.annotations.NotNull;
 public class GameController {
 
     final public Board board;
+    public boolean winner = false;
+    private PriorityQueue<Player> playerOrder;
 
     public GameController(@NotNull Board board) {
         this.board = board;
@@ -100,6 +106,7 @@ public class GameController {
         makeProgramFieldsVisible(0);
         board.setPhase(Phase.ACTIVATION);
         board.setCurrentPlayer(board.getPlayer(0));
+        //board.setCurrentPlayer(board.getPlayer( ));
         board.setStep(0);
     }
 
@@ -446,4 +453,33 @@ public class GameController {
             }
         }
     }
+
+
+    /**
+     * WIP, very early code. not functional yet.
+     */
+    public void setPlayerPrio()
+    {
+        PriorityQueue tmpQue = new PriorityQueue();
+        for ( int i=0; 1 >= board.getPlayersNumber(); i++){
+            Player player = board.getPlayer(i);
+            Antenna antenna = board.getAntenna();
+           tmpQue.add(player);
+           player.getSpace();
+           int dist = Math.abs(antenna.x - player.getSpace().x) + Math.abs(antenna.y - player.getSpace().y);
+        }
+        playerOrder = tmpQue;
+        board.setCurrentPlayer( playerOrder.poll());
+    }
+
+    /**
+     * This method is used to declare a player the
+     * @param player - the player that is to be declared winner
+     */
+    public void makeWinner(Player player) {
+        Alert winnerMsg = new Alert(Alert.AlertType.INFORMATION, "Player \"" + player.getName() + "\" is the winner!");
+        this.winner = true;
+        winnerMsg.showAndWait();
+    }
+
 }
