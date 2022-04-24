@@ -47,7 +47,7 @@ public class Board extends Subject {
 
     private final Space[][] spaces;
 
-    private ArrayList<Checkpoint> checkpoints = new ArrayList<Checkpoint>();
+    private List<Checkpoint> checkpoints = new ArrayList<Checkpoint>();
 
     private Antenna antenna;
 
@@ -102,7 +102,7 @@ public class Board extends Subject {
         }
     }
 
-    public ArrayList<Checkpoint> getCheckpoints() {
+    public List<Checkpoint> getCheckpoints() {
         return checkpoints;
     }
 
