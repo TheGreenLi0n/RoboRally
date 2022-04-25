@@ -394,7 +394,7 @@ public class GameController {
     /**
      * Fires a laser from everyone in their headed direction, if it hits a player then the laser stops and the target that got hit
      * takes 1 damage.
-     * It doesn't yet take walls and other obstacles into account. Unpredictable. Doesn't work like it's supposed to.
+     * If the laser hits a wall before it hits a player, then the laser stops.
      */
     public void firinMahLazer(){
         for (int i = 0; i < board.getPlayersNumber(); i++) {
@@ -404,47 +404,63 @@ public class GameController {
             switch (direction){
                 case NORTH -> {
                     for (int j = position.y; j >= 0; j--) {
-                        if(board.getSpace(position.x, j).getPlayer()!=null&&board.getSpace(position.x, j).getPlayer()!= board.getPlayer(i)){
+                        if (board.getSpace(position.x,j).getWall()!=null&&board.getSpace(position.x,j).getWallheading()==Heading.NORTH&&board.getSpace(position.x,j)==position){
+                            break;
+                        }
+                        if (board.getSpace(position.x,j).getWall()!=null&&board.getSpace(position.x,j).getWallheading()==Heading.SOUTH&&board.getSpace(position.x,j)!=position){
+                            break;
+                        } else if(board.getSpace(position.x, j).getPlayer()!=null&&board.getSpace(position.x, j).getPlayer()!= board.getPlayer(i)){
                             board.getSpace(position.x, j).getPlayer().dealDamage();
                             break;
-                        } else if (board.getSpace(j, position.y).getWall()!=null){
-                            if (board.getSpace(j, position.y).getWallheading()==Heading.NORTH || board.getSpace(j, position.y).getWallheading()==Heading.SOUTH )
-                                break;
+                        } else if (board.getSpace(position.x, j).getWall()!=null&&board.getSpace(position.x, j).getWallheading()==Heading.NORTH){
+                            break;
                         }
                     }
                     break;
                 }
                 case EAST -> {
                     for (int j = position.x; j <= board.width-1; j++) {
-                        if(board.getSpace(j, position.y).getPlayer()!=null&&board.getSpace(j, position.y).getPlayer()!= board.getPlayer(i)){
+                        if (board.getSpace(j, position.y).getWall()!=null&&board.getSpace(j, position.y).getWallheading()==Heading.EAST&&board.getSpace(j, position.y)==position){
+                            break;
+                        }
+                        if (board.getSpace(j, position.y).getWall()!=null&&board.getSpace(j, position.y).getWallheading()==Heading.WEST&&board.getSpace(j, position.y)!=position){
+                            break;
+                        } else if(board.getSpace(j, position.y).getPlayer()!=null&&board.getSpace(j, position.y).getPlayer()!= board.getPlayer(i)){
                             board.getSpace(j, position.y).getPlayer().dealDamage();
                             break;
-                        } else if (board.getSpace(j, position.y).getWall()!=null){
-                            if (board.getSpace(j, position.y).getWallheading()==Heading.WEST || board.getSpace(j, position.y).getWallheading()==Heading.EAST )
-                                break;
+                        } else if (board.getSpace(j, position.y).getWall()!=null&&board.getSpace(j, position.y).getWallheading()==Heading.EAST){
+                            break;
                         }
                     }
                     break;
                 }
                 case SOUTH -> {
                     for (int j = position.y; j <= board.height-1; j++) {
-                        if(board.getSpace(position.x, j).getPlayer()!=null&&board.getSpace(position.x, j).getPlayer()!= board.getPlayer(i)){
+                        if (board.getSpace(position.x,j).getWall()!=null&&board.getSpace(position.x,j).getWallheading()==Heading.SOUTH&&board.getSpace(position.x,j)==position){
+                            break;
+                        }
+                        if (board.getSpace(position.x,j).getWall()!=null&&board.getSpace(position.x,j).getWallheading()==Heading.NORTH&&board.getSpace(position.x,j)!=position){
+                            break;
+                        } else if(board.getSpace(position.x, j).getPlayer()!=null&&board.getSpace(position.x, j).getPlayer()!= board.getPlayer(i)){
                             board.getSpace(position.x, j).getPlayer().dealDamage();
                             break;
-                        } else if (board.getSpace(position.x, j).getWall()!=null){
-                            if (board.getSpace(position.x, j).getWallheading()==Heading.NORTH || board.getSpace(position.x, j).getWallheading()==Heading.SOUTH )
-                                break;
+                        } else if (board.getSpace(position.x, j).getWall()!=null&&board.getSpace(position.x, j).getWallheading()==Heading.SOUTH){
+                            break;
                         }
                     }
                     break;
                 }
                 case WEST -> {
                     for (int j = position.x; j >= 0; j--) {
-                        if(board.getSpace(j, position.y).getPlayer()!=null&&board.getSpace(j, position.y).getPlayer()!= board.getPlayer(i)){
+                        if (board.getSpace(j, position.y).getWall()!=null&&board.getSpace(j, position.y).getWallheading()==Heading.WEST&&board.getSpace(j, position.y)==position){
+                            break;
+                        }
+                        if (board.getSpace(j, position.y).getWall()!=null&&board.getSpace(j, position.y).getWallheading()==Heading.EAST&&board.getSpace(j, position.y)!=position){
+                            break;
+                        } else if(board.getSpace(j, position.y).getPlayer()!=null&&board.getSpace(j, position.y).getPlayer()!= board.getPlayer(i)){
                             board.getSpace(j, position.y).getPlayer().dealDamage();
                             break;
-                        } else if (board.getSpace(j, position.y).getWall()!=null){
-                            if (board.getSpace(j, position.y).getWallheading()==Heading.WEST || board.getSpace(j, position.y).getWallheading()==Heading.EAST )
+                        } else if (board.getSpace(j, position.y).getWall()!=null&&board.getSpace(j, position.y).getWallheading()==Heading.WEST){
                             break;
                         }
                     }
