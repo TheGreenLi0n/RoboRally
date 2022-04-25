@@ -79,15 +79,34 @@ public class Space extends Subject {
         // notify the space of these changes by calling this method.
         notifyChange();
     }
-public void setWallheading(Heading wallheading){
-    this.wallheading = wallheading;
-}
+
+    public void setWallheading(Heading wallheading) {
+        this.wallheading = wallheading;
+    }
+
     public void setWall(Canvas wall) {
 
         this.wall = wall;
 
     }
 
+    public Heading getOppositeHeading() {
+        switch (wallheading) {
+            case SOUTH -> {
+                return Heading.NORTH;
+            }
+            case WEST -> {
+                return Heading.EAST;
+            }
+            case EAST -> {
+                return Heading.WEST;
+            }
+            case NORTH -> {
+                return Heading.SOUTH;
+            }
+    }
+        return getWallheading();
+    }
     public Heading getWallheading() {
         return wallheading;
     }

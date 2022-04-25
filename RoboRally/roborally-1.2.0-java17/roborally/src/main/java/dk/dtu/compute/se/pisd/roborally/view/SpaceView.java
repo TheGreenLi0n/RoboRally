@@ -115,19 +115,19 @@ public class SpaceView extends StackPane implements ViewObserver {
         // South wall gc.strokeLine(2, SPACE_HEIGHT, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
         // East wall  gc.strokeLine(SPACE_HEIGHT,SPACE_HEIGHT-2,SPACE_WIDTH,SPACE_HEIGHT-58);
         switch (heading) {
-            case NORTH -> {
+            case SOUTH -> {
                 gc.strokeLine(2, SPACE_HEIGHT - 58, SPACE_WIDTH, SPACE_HEIGHT - 58);
                 break;
             }
-            case WEST -> {
+            case EAST -> {
                 gc.strokeLine(2, SPACE_HEIGHT, SPACE_WIDTH - 58, SPACE_HEIGHT - 58);
                 break;
             }
-            case SOUTH -> {
+            case NORTH -> {
                 gc.strokeLine(2, SPACE_HEIGHT, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
                 break;
             }
-            case EAST -> {
+            case WEST -> {
                 gc.strokeLine(SPACE_HEIGHT, SPACE_HEIGHT - 2, SPACE_WIDTH, SPACE_HEIGHT - 58);
                 break;
             }

@@ -252,8 +252,41 @@ public class GameController {
 
                 }
                 if (target.getWall() != null && target.getWallheading() == player.getHeading()){
+                    System.out.println("work please ");
                     return;
                 }
+                else if(player.getSpace().getWall() != null && player.getHeading() == player.getSpace().getOppositeHeading()){
+                    System.out.println("is this right?");
+                    return;
+                }
+           /*     else if(board.getNeighbour(target,Heading.SOUTH).getWall()==null){
+                    if ((board.getNeighbour(target, Heading.SOUTH).getWallheading() == player.getHeading())){
+                        System.out.println("i did 1 ");
+                        return;}
+                }
+
+                else if(board.getNeighbour(target,Heading.WEST).getWall()==null){
+                    if ((board.getNeighbour(target, Heading.WEST).getWallheading() == player.getHeading()))
+                        System.out.println("i did 2 ");{
+                        return;}
+                }
+
+                else if(board.getNeighbour(target,Heading.NORTH).getWall()==null){
+                    if ((board.getNeighbour(target, Heading.NORTH).getWallheading() == player.getHeading()))
+                    {System.out.println("i did 3 ");
+                        return;}
+                }
+                else if(board.getNeighbour(target,Heading.EAST).getWall()==null){
+                    if ((board.getNeighbour(target, Heading.EAST).getWallheading() == player.getHeading())){
+                        System.out.println("i did 4 ");
+                        return;}
+                }
+                else if(player.getSpace().getWall() != null && player.getHeading() == player.getSpace().getWallheading()){
+                    System.out.println("i did help ");
+                    return;
+
+                }*/
+
                 // XXX note that this removes an other player from the space, when there
                 //     is another player on the target. Eventually, this needs to be
                 //     implemented in a way so that other players are pushed away!
