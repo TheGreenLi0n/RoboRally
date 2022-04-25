@@ -24,6 +24,7 @@ package dk.dtu.compute.se.pisd.roborally.controller;
 import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.scene.control.Alert;
 import org.jetbrains.annotations.NotNull;
+
 import java.util.PriorityQueue;
 
 import java.util.List;
@@ -32,7 +33,6 @@ import java.util.List;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
- *
  */
 public class GameController {
 
@@ -50,7 +50,7 @@ public class GameController {
      *
      * @param space the space to which the current player should move
      */
-    public void moveCurrentPlayerToSpace(@NotNull Space space)  {
+    public void moveCurrentPlayerToSpace(@NotNull Space space) {
         // TODO Assignment V1: method should be implemented by the students:
         //   - the current player should be moved to the given space
         //     (if it is free()
@@ -160,7 +160,7 @@ public class GameController {
                 CommandCard card = currentPlayer.getProgramField(step).getCard();
                 if (card != null) {
                     Command command = card.command;
-                    if (command.isInteractive()){
+                    if (command.isInteractive()) {
                         board.setPhase(Phase.PLAYER_INTERACTION);
                         return;
                     }
@@ -194,7 +194,7 @@ public class GameController {
     /**
      * Executes the command card that a player has chosen in their programming register.
      *
-     * @param player is the player that is to be executing the command.
+     * @param player  is the player that is to be executing the command.
      * @param command is the command card that the player is executing.
      */
     private void executeCommand(@NotNull Player player, Command command) {
@@ -239,27 +239,37 @@ public class GameController {
     public void moveForward(@NotNull Player player) {
         Space space = player.getSpace();
 
+
         if (player != null && player.board == board && space != null) {
             Heading heading = player.getHeading();
             Space target = board.getNeighbour(space, heading);
+            if (target.getWall() != null && target.getWallheading() == player.getHeading()) {
+
+                return;
+            } else if (player.getSpace().getWall() != null && player.getHeading() == player.getSpace().getOppositeHeading()) {
+
+                return;
+            } else if (target.getWall() != null && (target.getPlayer() != null && player.getHeading() == target.getOppositeHeading())) {
+                System.out.println("heeeeeeelllooo");
+                return;
+            } else if (target.getWall() == null && (target.getPlayer() != null && player.getHeading() == board.getNeighbour(target,Heading.WEST).getWallheading())) {
+                System.out.println("hello");
+                return;
+            }
+
             if (target != null) {
-                if (target.getPlayer() != null){
+                if (target.getPlayer() != null) {
                     Player targetPlayer = target.getPlayer();
                     Space pushTarget = board.getNeighbour(targetPlayer.getSpace(), heading);
+                    if (pushTarget.getWallheading() != player.getHeading()) {
+                        return;
+                    }
                     if (pushTarget != null) {
                         targetPlayer.setSpace(pushTarget);
                     }
 
                 }
-                if (target.getWall() != null && target.getWallheading() == player.getHeading()){
-                    System.out.println("work please ");
-                    return;
-                }
-                else if(player.getSpace().getWall() != null && player.getHeading() == player.getSpace().getOppositeHeading()){
-                    System.out.println("is this right?");
-                    return;
-                }
-           /*     else if(board.getNeighbour(target,Heading.SOUTH).getWall()==null){
+/*                else if(board.getNeighbour(target,Heading.SOUTH).getWall()==null){
                     if ((board.getNeighbour(target, Heading.SOUTH).getWallheading() == player.getHeading())){
                         System.out.println("i did 1 ");
                         return;}
@@ -291,10 +301,10 @@ public class GameController {
                 //     is another player on the target. Eventually, this needs to be
                 //     implemented in a way so that other players are pushed away!
                 target.setPlayer(player);
+
             }
         }
     }
-
     /**
      * A command that makes the player move 2 space forward on the board.
      *
@@ -343,8 +353,8 @@ public class GameController {
      *
      * @param player - the player that is executing the command.
      */
-    public void uTurn(@NotNull Player player){
-        if (player != null && player.board == board){
+    public void uTurn(@NotNull Player player) {
+        if (player != null && player.board == board) {
             turnRight(player);
             turnRight(player);
         }
@@ -355,13 +365,13 @@ public class GameController {
      *
      * @param player - the player that is executing the command.
      */
-    public void moveBack(@NotNull Player player){
+    public void moveBack(@NotNull Player player) {
         Space space = player.getSpace();
         if (player != null && player.board == board && space != null) {
             Heading heading = player.getHeading().prev().prev();
             Space target = board.getNeighbour(space, heading);
             if (target != null) {
-                if (target.getPlayer() != null){
+                if (target.getPlayer() != null) {
                     Player targetPlayer = target.getPlayer();
                     Space pushTarget = board.getNeighbour(targetPlayer.getSpace(), heading);
                     if (pushTarget != null) {
@@ -399,9 +409,10 @@ public class GameController {
 
     /**
      * executes A Command And Then Continues the programming phase.
+     *
      * @param command A command in the current players register that should be executed.
      */
-    public void executeCommandAndContinue(Command command){
+    public void executeCommandAndContinue(Command command) {
         Player currentPlayer = board.getCurrentPlayer();
         int step = board.getStep();
         executeCommand(currentPlayer, command);
@@ -419,7 +430,7 @@ public class GameController {
                 startProgrammingPhase();
             }
         }
-        if (!board.isStepMode()){
+        if (!board.isStepMode()) {
             continuePrograms();
         }
     }
@@ -429,43 +440,43 @@ public class GameController {
      * takes 1 damage.
      * It doesn't yet take walls and other obstacles into account. Unpredictable. Doesn't work like it's supposed to.
      */
-    public void firinMahLazer(){
+    public void firinMahLazer() {
         for (int i = 0; i < board.getPlayersNumber(); i++) {
             Heading direction = board.getPlayer(i).getHeading();
             Space position = board.getPlayer(i).getSpace();
 
-            switch (direction){
+            switch (direction) {
                 case NORTH -> {
                     for (int j = position.y; j >= 0; j--) {
-                        if(board.getSpace(position.x, j).getPlayer()!=null&&board.getSpace(position.x, j).getPlayer()!= board.getPlayer(i)){
+                        if (board.getSpace(position.x, j).getPlayer() != null && board.getSpace(position.x, j).getPlayer() != board.getPlayer(i)) {
                             board.getSpace(position.x, j).getPlayer().dealDamage();
                             break;
-                        } else if (board.getSpace(j, position.y).getWall()!=null){
-                            if (board.getSpace(j, position.y).getWallheading()==Heading.NORTH || board.getSpace(j, position.y).getWallheading()==Heading.SOUTH )
+                        } else if (board.getSpace(j, position.y).getWall() != null) {
+                            if (board.getSpace(j, position.y).getWallheading() == Heading.NORTH || board.getSpace(j, position.y).getWallheading() == Heading.SOUTH)
                                 break;
                         }
                     }
                     break;
                 }
                 case EAST -> {
-                    for (int j = position.x; j <= board.width-1; j++) {
-                        if(board.getSpace(j, position.y).getPlayer()!=null&&board.getSpace(j, position.y).getPlayer()!= board.getPlayer(i)){
+                    for (int j = position.x; j <= board.width - 1; j++) {
+                        if (board.getSpace(j, position.y).getPlayer() != null && board.getSpace(j, position.y).getPlayer() != board.getPlayer(i)) {
                             board.getSpace(j, position.y).getPlayer().dealDamage();
                             break;
-                        } else if (board.getSpace(j, position.y).getWall()!=null){
-                            if (board.getSpace(j, position.y).getWallheading()==Heading.WEST || board.getSpace(j, position.y).getWallheading()==Heading.EAST )
+                        } else if (board.getSpace(j, position.y).getWall() != null) {
+                            if (board.getSpace(j, position.y).getWallheading() == Heading.WEST || board.getSpace(j, position.y).getWallheading() == Heading.EAST)
                                 break;
                         }
                     }
                     break;
                 }
                 case SOUTH -> {
-                    for (int j = position.y; j <= board.height-1; j++) {
-                        if(board.getSpace(position.x, j).getPlayer()!=null&&board.getSpace(position.x, j).getPlayer()!= board.getPlayer(i)){
+                    for (int j = position.y; j <= board.height - 1; j++) {
+                        if (board.getSpace(position.x, j).getPlayer() != null && board.getSpace(position.x, j).getPlayer() != board.getPlayer(i)) {
                             board.getSpace(position.x, j).getPlayer().dealDamage();
                             break;
-                        } else if (board.getSpace(position.x, j).getWall()!=null){
-                            if (board.getSpace(position.x, j).getWallheading()==Heading.NORTH || board.getSpace(position.x, j).getWallheading()==Heading.SOUTH )
+                        } else if (board.getSpace(position.x, j).getWall() != null) {
+                            if (board.getSpace(position.x, j).getWallheading() == Heading.NORTH || board.getSpace(position.x, j).getWallheading() == Heading.SOUTH)
                                 break;
                         }
                     }
@@ -473,12 +484,12 @@ public class GameController {
                 }
                 case WEST -> {
                     for (int j = position.x; j >= 0; j--) {
-                        if(board.getSpace(j, position.y).getPlayer()!=null&&board.getSpace(j, position.y).getPlayer()!= board.getPlayer(i)){
+                        if (board.getSpace(j, position.y).getPlayer() != null && board.getSpace(j, position.y).getPlayer() != board.getPlayer(i)) {
                             board.getSpace(j, position.y).getPlayer().dealDamage();
                             break;
-                        } else if (board.getSpace(j, position.y).getWall()!=null){
-                            if (board.getSpace(j, position.y).getWallheading()==Heading.WEST || board.getSpace(j, position.y).getWallheading()==Heading.EAST )
-                            break;
+                        } else if (board.getSpace(j, position.y).getWall() != null) {
+                            if (board.getSpace(j, position.y).getWallheading() == Heading.WEST || board.getSpace(j, position.y).getWallheading() == Heading.EAST)
+                                break;
                         }
                     }
                     break;
@@ -491,22 +502,22 @@ public class GameController {
     /**
      * WIP, very early code. not functional yet.
      */
-    public void setPlayerPrio()
-    {
+    public void setPlayerPrio() {
         PriorityQueue tmpQue = new PriorityQueue();
-        for ( int i=0; 1 >= board.getPlayersNumber(); i++){
+        for (int i = 0; 1 >= board.getPlayersNumber(); i++) {
             Player player = board.getPlayer(i);
             Antenna antenna = board.getAntenna();
-           tmpQue.add(player);
-           player.getSpace();
-           int dist = Math.abs(antenna.x - player.getSpace().x) + Math.abs(antenna.y - player.getSpace().y);
+            tmpQue.add(player);
+            player.getSpace();
+            int dist = Math.abs(antenna.x - player.getSpace().x) + Math.abs(antenna.y - player.getSpace().y);
         }
         playerOrder = tmpQue;
-        board.setCurrentPlayer( playerOrder.poll());
+        board.setCurrentPlayer(playerOrder.poll());
     }
 
     /**
      * This method is used to declare a player the
+     *
      * @param player - the player that is to be declared winner
      */
     public void makeWinner(Player player) {
