@@ -57,6 +57,7 @@ public class PlayerView extends Tab implements ViewObserver {
     private Button finishButton;
     private Button executeButton;
     private Button stepButton;
+    public Label reachedCheckpoint;
 
     private VBox playerInteractionPanel;
 
@@ -98,8 +99,10 @@ public class PlayerView extends Tab implements ViewObserver {
 
         stepButton = new Button("Execute Current Register");
         stepButton.setOnAction( e-> gameController.executeStep());
+        reachedCheckpoint = new Label("You've made it to checkpoint number: " + this.player.getReachedCheckpoint());
 
-        buttonPanel = new VBox(finishButton, executeButton, stepButton);
+
+        buttonPanel = new VBox(finishButton, executeButton, stepButton, reachedCheckpoint);
         buttonPanel.setAlignment(Pos.CENTER_LEFT);
         buttonPanel.setSpacing(3.0);
         // programPane.add(buttonPanel, Player.NO_REGISTERS, 0); done in update now
@@ -134,6 +137,11 @@ public class PlayerView extends Tab implements ViewObserver {
 
     @Override
     public void updateView(Subject subject) {
+
+        if (subject == player) {
+            this.reachedCheckpoint.setText("You've made it to checkpoint number: " + ((Player) subject).getReachedCheckpoint());
+        }
+
         if (subject == player.board) {
             for (int i = 0; i < Player.NO_REGISTERS; i++) {
                 CardFieldView cardFieldView = programCardViews[i];
