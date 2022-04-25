@@ -148,5 +148,36 @@ public class SpaceView extends StackPane implements ViewObserver {
             space.setWall(drawWall(space.getWallheading()));
         }
 
+        for (FieldAction action : space.actions) {
+            if (action instanceof Checkpoint) {
+                addImage("images/checkpoint" + ((Checkpoint) action).checkpointNo + ".png", -90);
+            }
+
+        }
+    }
+
+    private ImageView addImage (String name){
+        Image img = null;
+        try {
+            img = new Image(SpaceView.class.getClassLoader().getResource(name).toURI().toString());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        ImageView imgView = new ImageView(img);
+        imgView.setImage(img);
+        imgView.setFitHeight(SPACE_HEIGHT);
+        imgView.setFitWidth(SPACE_WIDTH);
+        imgView.setVisible(true);
+
+        this.getChildren().add(imgView);
+
+        return imgView;
+    }
+
+    private ImageView addImage (String name,double rotation){
+        ImageView imageView = addImage(name);
+        imageView.setRotate(rotation);
+
+        return imageView;
     }
 }
