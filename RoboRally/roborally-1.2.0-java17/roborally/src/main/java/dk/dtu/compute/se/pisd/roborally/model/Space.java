@@ -22,7 +22,11 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import javafx.scene.canvas.Canvas;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * ...
@@ -38,6 +42,8 @@ public class Space extends Subject {
     private Canvas wall;
     private Player player;
     private Heading wallheading;
+
+    public List<FieldAction> actions = new ArrayList<>();
 
     public Space(Board board, int x, int y) {
         this.board = board;
@@ -89,4 +95,6 @@ public void setWallheading(Heading wallheading){
     public Canvas getWall() {
         return wall;
     }
+
+
 }

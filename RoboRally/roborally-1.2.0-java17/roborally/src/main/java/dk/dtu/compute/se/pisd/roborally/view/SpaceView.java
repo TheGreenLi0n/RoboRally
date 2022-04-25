@@ -22,11 +22,15 @@
 package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
+import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
+import dk.dtu.compute.se.pisd.roborally.model.Checkpoint;
 import dk.dtu.compute.se.pisd.roborally.model.Heading;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -35,6 +39,8 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import org.jetbrains.annotations.NotNull;
+
+import java.net.URISyntaxException;
 
 /**
  * ...
@@ -163,7 +169,7 @@ public class SpaceView extends StackPane implements ViewObserver {
             updatePlayer();
 
         }
-        if ((space.x == 2 && space.y == 2)){
+        if ((space.x == 2 && space.y == 2)) {
             space.setWallheading(Heading.WEST);
             space.setWall(drawWall(space.getWallheading()));
         }
@@ -172,4 +178,4 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
     }
 
-}
+    }

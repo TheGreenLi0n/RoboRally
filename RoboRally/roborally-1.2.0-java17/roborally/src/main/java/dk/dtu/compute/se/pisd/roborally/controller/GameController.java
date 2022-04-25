@@ -22,7 +22,11 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
 import dk.dtu.compute.se.pisd.roborally.model.*;
+import javafx.scene.control.Alert;
 import org.jetbrains.annotations.NotNull;
+import java.util.PriorityQueue;
+
+import java.util.List;
 
 /**
  * ...
@@ -33,6 +37,8 @@ import org.jetbrains.annotations.NotNull;
 public class GameController {
 
     final public Board board;
+    public boolean winner = false;
+    private PriorityQueue<Player> playerOrder;
 
     public GameController(@NotNull Board board) {
         this.board = board;
@@ -100,6 +106,7 @@ public class GameController {
         makeProgramFieldsVisible(0);
         board.setPhase(Phase.ACTIVATION);
         board.setCurrentPlayer(board.getPlayer(0));
+        //board.setCurrentPlayer(board.getPlayer( ));
         board.setStep(0);
     }
 
@@ -396,36 +403,48 @@ public class GameController {
 
             switch (direction){
                 case NORTH -> {
-                    for (int j = position.y; j <= 0; j--) {
-                        if(board.getSpace(position.x, j).getPlayer()!=null){
+                    for (int j = position.y; j >= 0; j--) {
+                        if(board.getSpace(position.x, j).getPlayer()!=null&&board.getSpace(position.x, j).getPlayer()!= board.getPlayer(i)){
                             board.getSpace(position.x, j).getPlayer().dealDamage();
                             break;
+                        } else if (board.getSpace(j, position.y).getWall()!=null){
+                            if (board.getSpace(j, position.y).getWallheading()==Heading.NORTH || board.getSpace(j, position.y).getWallheading()==Heading.SOUTH )
+                                break;
                         }
                     }
                     break;
                 }
                 case EAST -> {
-                    for (int j = position.x; j <= board.width; j++) {
-                        if(board.getSpace(j, position.y).getPlayer()!=null){
+                    for (int j = position.x; j <= board.width-1; j++) {
+                        if(board.getSpace(j, position.y).getPlayer()!=null&&board.getSpace(j, position.y).getPlayer()!= board.getPlayer(i)){
                             board.getSpace(j, position.y).getPlayer().dealDamage();
                             break;
+                        } else if (board.getSpace(j, position.y).getWall()!=null){
+                            if (board.getSpace(j, position.y).getWallheading()==Heading.WEST || board.getSpace(j, position.y).getWallheading()==Heading.EAST )
+                                break;
                         }
                     }
                     break;
                 }
                 case SOUTH -> {
-                    for (int j = position.y; j <= board.height; j++) {
-                        if(board.getSpace(position.x, j).getPlayer()!=null){
+                    for (int j = position.y; j <= board.height-1; j++) {
+                        if(board.getSpace(position.x, j).getPlayer()!=null&&board.getSpace(position.x, j).getPlayer()!= board.getPlayer(i)){
                             board.getSpace(position.x, j).getPlayer().dealDamage();
                             break;
+                        } else if (board.getSpace(position.x, j).getWall()!=null){
+                            if (board.getSpace(position.x, j).getWallheading()==Heading.NORTH || board.getSpace(position.x, j).getWallheading()==Heading.SOUTH )
+                                break;
                         }
                     }
                     break;
                 }
                 case WEST -> {
-                    for (int j = position.x; j <= 0; j--) {
-                        if(board.getSpace(j, position.y).getPlayer()!=null){
+                    for (int j = position.x; j >= 0; j--) {
+                        if(board.getSpace(j, position.y).getPlayer()!=null&&board.getSpace(j, position.y).getPlayer()!= board.getPlayer(i)){
                             board.getSpace(j, position.y).getPlayer().dealDamage();
+                            break;
+                        } else if (board.getSpace(j, position.y).getWall()!=null){
+                            if (board.getSpace(j, position.y).getWallheading()==Heading.WEST || board.getSpace(j, position.y).getWallheading()==Heading.EAST )
                             break;
                         }
                     }
@@ -434,4 +453,33 @@ public class GameController {
             }
         }
     }
+
+
+    /**
+     * WIP, very early code. not functional yet.
+     */
+    public void setPlayerPrio()
+    {
+        PriorityQueue tmpQue = new PriorityQueue();
+        for ( int i=0; 1 >= board.getPlayersNumber(); i++){
+            Player player = board.getPlayer(i);
+            Antenna antenna = board.getAntenna();
+           tmpQue.add(player);
+           player.getSpace();
+           int dist = Math.abs(antenna.x - player.getSpace().x) + Math.abs(antenna.y - player.getSpace().y);
+        }
+        playerOrder = tmpQue;
+        board.setCurrentPlayer( playerOrder.poll());
+    }
+
+    /**
+     * This method is used to declare a player the
+     * @param player - the player that is to be declared winner
+     */
+    public void makeWinner(Player player) {
+        Alert winnerMsg = new Alert(Alert.AlertType.INFORMATION, "Player \"" + player.getName() + "\" is the winner!");
+        this.winner = true;
+        winnerMsg.showAndWait();
+    }
+
 }
