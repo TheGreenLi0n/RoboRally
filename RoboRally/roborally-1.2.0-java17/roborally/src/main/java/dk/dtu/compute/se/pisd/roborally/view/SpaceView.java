@@ -27,9 +27,12 @@ import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import org.jetbrains.annotations.NotNull;
 
@@ -130,6 +133,29 @@ public class SpaceView extends StackPane implements ViewObserver {
     }
 
 
+    private void drawLine() {
+        /*Pane pane = new Pane();
+        Rectangle rectangle  = new Rectangle(0.0,0.0,SPACE_WIDTH,SPACE_HEIGHT);
+        rectangle.setFill(Color.TRANSPARENT);
+        pane.getChildren().add(rectangle);
+        Line line = new Line(2, SPACE_HEIGHT-2,SPACE_WIDTH-2,SPACE_HEIGHT-2);
+        line.setStroke(Color.BLUE);
+        line.setStrokeWidth(5);
+        pane.getChildren().add(line);
+        this.getChildren().add(pane);*/
+        // east wall  gc.strokeLine(SPACE_HEIGHT,SPACE_HEIGHT,SPACE_WIDTH,SPACE_HEIGHT-58);
+        // south wall gc.strokeLine(2, SPACE_HEIGHT, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+        // north wall
+        // west wall
+        Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.setStroke(Color.RED);
+        gc.setLineWidth(5);
+        gc.setLineCap(StrokeLineCap.SQUARE);
+        gc.strokeLine(SPACE_HEIGHT,SPACE_WIDTH,SPACE_WIDTH-2,SPACE_HEIGHT-2);
+        this.getChildren().add(canvas);
+    }
+
     @Override
     public void updateView(Subject subject) {
 
@@ -140,6 +166,9 @@ public class SpaceView extends StackPane implements ViewObserver {
         if ((space.x == 2 && space.y == 2)){
             space.setWallheading(Heading.WEST);
             space.setWall(drawWall(space.getWallheading()));
+        }
+        if (space.x == 2 && space.y == 2) {
+            drawLine();
         }
     }
 
