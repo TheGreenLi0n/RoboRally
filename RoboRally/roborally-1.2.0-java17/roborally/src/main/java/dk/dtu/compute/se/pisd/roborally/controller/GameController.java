@@ -171,8 +171,15 @@ public class GameController {
                 if (nextPlayerNumber < board.getPlayersNumber()) {
                     board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
                 } else {
-                    step++;
-                    firinMahLazer();
+                    for (int i = 0; i < board.getPlayersNumber(); i++) {
+                        for (FieldAction action : board.getPlayer(i).getSpace().getActions()) {
+                            action.doAction(this, board.getPlayer(i).getSpace());
+                        }
+                    }
+
+
+                        firinMahLazer();
+                        step++;
                     if (step < Player.NO_REGISTERS) {
                         makeProgramFieldsVisible(step);
                         board.setStep(step);

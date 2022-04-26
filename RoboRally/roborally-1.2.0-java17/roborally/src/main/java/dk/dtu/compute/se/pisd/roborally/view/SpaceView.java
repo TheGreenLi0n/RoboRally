@@ -51,6 +51,8 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     public final Space space;
 
+    private ImageView checkpoint;
+
 
     public SpaceView(@NotNull Space space) {
         this.space = space;
@@ -78,7 +80,6 @@ public class SpaceView extends StackPane implements ViewObserver {
     }
 
     private void updatePlayer() {
-        this.getChildren().clear();
 
         Player player = space.getPlayer();
         if (player != null) {
@@ -135,24 +136,25 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     }
 
+    public void updateCheckpoint()
+    {
+        Checkpoint checkpoint = space.getCheckpoint();
+        if (space.getCheckpoint() != null){
+            addImage("images/checkpoint" + checkpoint.checkpointNo + ".png",0);
+        }
+
+    }
 
     @Override
     public void updateView(Subject subject) {
-
+        this.getChildren().clear();
         if (subject == this.space) {
+            updateCheckpoint();
             updatePlayer();
-
         }
         if ((space.x == 2 && space.y == 2)) {
             space.setWallheading(Heading.WEST);
             space.setWall(drawWall(space.getWallheading()));
-        }
-
-        for (FieldAction action : space.actions) {
-            if (action instanceof Checkpoint) {
-                addImage("images/checkpoint" + ((Checkpoint) action).checkpointNo + ".png", -90);
-            }
-
         }
     }
 

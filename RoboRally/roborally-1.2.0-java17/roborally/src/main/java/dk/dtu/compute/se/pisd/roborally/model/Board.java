@@ -77,6 +77,12 @@ public class Board extends Subject {
 
     public Board(int width, int height) {
         this(width, height, "defaultboard");
+        Checkpoint checkpoint1 = new Checkpoint(1, 6, 5);
+        checkpoints.add(checkpoint1);
+        spaces[checkpoint1.x][checkpoint1.y].setCheckpoint(checkpoint1);
+        Checkpoint checkpoint2 = new Checkpoint(2, 2, 2);
+        checkpoints.add(checkpoint2);;
+        spaces[checkpoint2.x][checkpoint2.y].setCheckpoint(checkpoint2);
     }
 
     public Integer getGameId() {

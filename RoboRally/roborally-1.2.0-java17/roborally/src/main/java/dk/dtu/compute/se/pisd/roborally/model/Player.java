@@ -140,6 +140,7 @@ public class Player extends Subject {
 
     public void setReachedCheckpoint(int reachedCheckpoint) {
         this.reachedCheckpoint = reachedCheckpoint;
+        notifyChange();
     }
 
 

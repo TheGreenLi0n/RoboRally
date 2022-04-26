@@ -24,6 +24,7 @@ package dk.dtu.compute.se.pisd.roborally.model;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,7 @@ public class Space extends Subject {
     public final int y;
     private Canvas wall;
     private Player player;
+    private Checkpoint checkpoint;
     private Heading wallheading;
 
     public List<FieldAction> actions = new ArrayList<>();
@@ -79,7 +81,17 @@ public class Space extends Subject {
         // notify the space of these changes by calling this method.
         notifyChange();
     }
-public void setWallheading(Heading wallheading){
+
+    public Checkpoint getCheckpoint() {
+        return checkpoint;
+    }
+
+    public void setCheckpoint(Checkpoint checkpoint) {
+        this.checkpoint = checkpoint;
+        this.actions.add(checkpoint);
+    }
+
+    public void setWallheading(Heading wallheading){
     this.wallheading = wallheading;
 }
     public void setWall(Canvas wall) {
@@ -94,6 +106,10 @@ public void setWallheading(Heading wallheading){
 
     public Canvas getWall() {
         return wall;
+    }
+
+    public List<FieldAction> getActions() {
+        return actions;
     }
 
 
