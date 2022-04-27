@@ -23,10 +23,7 @@ package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
-import dk.dtu.compute.se.pisd.roborally.model.Checkpoint;
-import dk.dtu.compute.se.pisd.roborally.model.Heading;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
-import dk.dtu.compute.se.pisd.roborally.model.Space;
+import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -144,6 +141,24 @@ public class SpaceView extends StackPane implements ViewObserver {
             for (FieldAction action : actions) {
                 if (action.getClass() == Checkpoint.class) {
                     addImage("images/checkpoint" + (((Checkpoint) action).checkpointNo) + ".png", 270);
+                }
+                if (action.getClass() == ConveyorBelt.class){
+                    if(((ConveyorBelt) action).getSpeed() == 1) {
+                        switch (((ConveyorBelt) action).getHeading()) {
+                            case SOUTH:
+                                addImage("images/ConveyorBeltGreen.png", 270);
+                                break;
+                            case EAST:
+                                addImage("images/ConveyorBeltGreen.png", 180);
+                                break;
+                            case WEST:
+                                addImage("images/ConveyorBeltGreen.png", 0);
+                                break;
+                            case NORTH:
+                                addImage("images/ConveyorBeltGreen.png", 90);
+                                break;
+                        }
+                    }
                 }
             }
         }

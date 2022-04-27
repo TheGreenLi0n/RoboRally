@@ -28,7 +28,15 @@
     },
     {
       "walls": [],
-      "actions": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "NORTH",
+            "speed": 1
+          }
+        }
+      ],
       "x": 1,
       "y": 2
     },

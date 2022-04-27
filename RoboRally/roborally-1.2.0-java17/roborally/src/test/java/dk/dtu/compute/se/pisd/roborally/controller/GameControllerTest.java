@@ -169,5 +169,23 @@ class GameControllerTest {
         Assertions.assertNotEquals(2, player2.getReachedCheckpoint(), "Player 2 should not have reached any checkpoint");
     }
 
+    @Test
+    void makeWinner(){
+        Board board = gameController.board;
+        Checkpoint checkpoint1 = new Checkpoint(1,2,2);
+        Checkpoint checkpoint2 = new Checkpoint(2,2,3);
+        board.addCheckpoint(checkpoint1);
+        board.addCheckpoint(checkpoint2);
 
+        Player player1 = board.getPlayer(0);
+
+        gameController.moveCurrentPlayerToSpace(board.getSpace(2, 1));
+        player1.getProgramField(1).setCard(new CommandCard(Command.FORWARD_1));
+        player1.getProgramField(2).setCard(new CommandCard(Command.FORWARD_1));
+        gameController.finishProgrammingPhase();
+        gameController.executePrograms();
+
+        Assertions.assertEquals(2, player1.getReachedCheckpoint(), "Player 1 should have reached checkpoint 2!");
+
+    }
 }
