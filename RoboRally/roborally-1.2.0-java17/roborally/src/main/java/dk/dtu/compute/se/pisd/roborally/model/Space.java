@@ -43,7 +43,8 @@ public class Space extends Subject {
     private Canvas wall;
     private Player player;
     private Checkpoint checkpoint;
-    private Heading wallheading;
+
+
 
     public List<FieldAction> actions = new ArrayList<>();
 

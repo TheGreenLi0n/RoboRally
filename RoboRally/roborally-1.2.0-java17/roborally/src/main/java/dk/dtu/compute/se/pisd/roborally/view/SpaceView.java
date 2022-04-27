@@ -41,6 +41,7 @@ import javafx.scene.shape.StrokeLineCap;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * ...
@@ -147,6 +148,14 @@ public class SpaceView extends StackPane implements ViewObserver {
         }
 
     }
+    public void updateWalls(){
+        List<Heading> headings = space.getWalls();
+        if (headings!=null){
+            for(Heading heading: headings){
+                drawWall(heading);
+            }
+        }
+    }
 
     private void drawLine() {
         /*Pane pane = new Pane();
@@ -177,6 +186,7 @@ public class SpaceView extends StackPane implements ViewObserver {
         if (subject == this.space) {
             updateCheckpoint();
             updatePlayer();
+            updateWalls();
 
         }
         if ((space.x == 2 && space.y == 2)) {

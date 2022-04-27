@@ -178,8 +178,8 @@ public class GameController {
                     }
 
 
-                        firinMahLazer();
-                        step++;
+                    //firinMahLazer();
+                    step++;
                     if (step < Player.NO_REGISTERS) {
                         makeProgramFieldsVisible(step);
                         board.setStep(step);
@@ -384,6 +384,7 @@ public class GameController {
         if (nextPlayerNumber < board.getPlayersNumber()) {
             board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
         } else {
+            //firinMahLazer();
             step++;
             if (step < Player.NO_REGISTERS) {
                 makeProgramFieldsVisible(step);
@@ -402,6 +403,7 @@ public class GameController {
      * Fires a laser from everyone in their headed direction, if it hits a player then the laser stops and the target that got hit
      * takes 1 damage.
      * If the laser hits a wall before it hits a player, then the laser stops.
+     * Disabled for now, need to update to the new wall.
      */
     public void firinMahLazer(){
         for (int i = 0; i < board.getPlayersNumber(); i++) {
@@ -411,47 +413,47 @@ public class GameController {
             switch (direction){
                 case NORTH -> {
                     for (int j = position.y; j >= 0; j--) {
-                        if (board.getSpace(position.x,j).getWall()!=null&&board.getSpace(position.x,j).getWallheading()==Heading.NORTH&&board.getSpace(position.x,j)==position){
+                        if (board.getSpace(position.x, j).getWalls() != null && board.getSpace(position.x, j).getWalls().contains(Heading.NORTH) && board.getSpace(position.x, j) == position) {
                             break;
                         }
-                        if (board.getSpace(position.x,j).getWall()!=null&&board.getSpace(position.x,j).getWallheading()==Heading.SOUTH&&board.getSpace(position.x,j)!=position){
+                        if (board.getSpace(position.x, j).getWalls() != null && board.getSpace(position.x, j).getWalls().contains(Heading.SOUTH) && board.getSpace(position.x, j) != position) {
                             break;
                         } else if(board.getSpace(position.x, j).getPlayer()!=null&&board.getSpace(position.x, j).getPlayer()!= board.getPlayer(i)){
                             board.getSpace(position.x, j).getPlayer().dealDamage();
                             break;
-                        } else if (board.getSpace(position.x, j).getWall()!=null&&board.getSpace(position.x, j).getWallheading()==Heading.NORTH){
+                        } else if (board.getSpace(position.x, j).getWalls() != null && board.getSpace(position.x, j).getWalls().contains(Heading.NORTH)) {
                             break;
                         }
                     }
                     break;
                 }
                 case EAST -> {
-                    for (int j = position.x; j <= board.width-1; j++) {
-                        if (board.getSpace(j, position.y).getWall()!=null&&board.getSpace(j, position.y).getWallheading()==Heading.EAST&&board.getSpace(j, position.y)==position){
+                    for (int j = position.x; j <= board.width - 1; j++) {
+                        if (board.getSpace(j, position.y).getWalls() != null && board.getSpace(j, position.y).getWalls().contains(Heading.EAST) && board.getSpace(j, position.y) == position) {
                             break;
                         }
-                        if (board.getSpace(j, position.y).getWall()!=null&&board.getSpace(j, position.y).getWallheading()==Heading.WEST&&board.getSpace(j, position.y)!=position){
+                        if (board.getSpace(j, position.y).getWalls() != null && board.getSpace(j, position.y).getWalls().contains(Heading.WEST) && board.getSpace(j, position.y) != position) {
                             break;
                         } else if(board.getSpace(j, position.y).getPlayer()!=null&&board.getSpace(j, position.y).getPlayer()!= board.getPlayer(i)){
                             board.getSpace(j, position.y).getPlayer().dealDamage();
                             break;
-                        } else if (board.getSpace(j, position.y).getWall()!=null&&board.getSpace(j, position.y).getWallheading()==Heading.EAST){
+                        } else if (board.getSpace(j, position.y).getWalls() != null && board.getSpace(j, position.y).getWalls().contains(Heading.EAST)) {
                             break;
                         }
                     }
                     break;
                 }
                 case SOUTH -> {
-                    for (int j = position.y; j <= board.height-1; j++) {
-                        if (board.getSpace(position.x,j).getWall()!=null&&board.getSpace(position.x,j).getWallheading()==Heading.SOUTH&&board.getSpace(position.x,j)==position){
+                    for (int j = position.y; j <= board.height - 1; j++) {
+                        if (board.getSpace(position.x, j).getWalls() != null && board.getSpace(position.x, j).getWalls().contains(Heading.SOUTH) && board.getSpace(position.x, j) == position) {
                             break;
                         }
-                        if (board.getSpace(position.x,j).getWall()!=null&&board.getSpace(position.x,j).getWallheading()==Heading.NORTH&&board.getSpace(position.x,j)!=position){
+                        if (board.getSpace(position.x, j).getWalls() != null && board.getSpace(position.x, j).getWalls().contains(Heading.NORTH) && board.getSpace(position.x, j) != position) {
                             break;
                         } else if(board.getSpace(position.x, j).getPlayer()!=null&&board.getSpace(position.x, j).getPlayer()!= board.getPlayer(i)){
                             board.getSpace(position.x, j).getPlayer().dealDamage();
                             break;
-                        } else if (board.getSpace(position.x, j).getWall()!=null&&board.getSpace(position.x, j).getWallheading()==Heading.SOUTH){
+                        } else if (board.getSpace(position.x, j).getWalls() != null && board.getSpace(position.x, j).getWalls().contains(Heading.SOUTH)) {
                             break;
                         }
                     }
@@ -459,15 +461,15 @@ public class GameController {
                 }
                 case WEST -> {
                     for (int j = position.x; j >= 0; j--) {
-                        if (board.getSpace(j, position.y).getWall()!=null&&board.getSpace(j, position.y).getWallheading()==Heading.WEST&&board.getSpace(j, position.y)==position){
+                        if (board.getSpace(j, position.y).getWalls() != null && board.getSpace(j, position.y).getWalls().contains(Heading.WEST) && board.getSpace(j, position.y) == position) {
                             break;
                         }
-                        if (board.getSpace(j, position.y).getWall()!=null&&board.getSpace(j, position.y).getWallheading()==Heading.EAST&&board.getSpace(j, position.y)!=position){
+                        if (board.getSpace(j, position.y).getWalls() != null && board.getSpace(j, position.y).getWalls().contains(Heading.EAST) && board.getSpace(j, position.y) != position) {
                             break;
                         } else if(board.getSpace(j, position.y).getPlayer()!=null&&board.getSpace(j, position.y).getPlayer()!= board.getPlayer(i)){
                             board.getSpace(j, position.y).getPlayer().dealDamage();
                             break;
-                        } else if (board.getSpace(j, position.y).getWall()!=null&&board.getSpace(j, position.y).getWallheading()==Heading.WEST){
+                        } else if (board.getSpace(j, position.y).getWalls() != null && board.getSpace(j, position.y).getWalls().contains(Heading.WEST)) {
                             break;
                         }
                     }
