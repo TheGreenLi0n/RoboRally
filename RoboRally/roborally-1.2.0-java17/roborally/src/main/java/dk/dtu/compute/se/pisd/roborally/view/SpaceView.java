@@ -189,14 +189,14 @@ public class SpaceView extends StackPane implements ViewObserver {
             updateWalls();
 
         }
-        if ((space.x == 2 && space.y == 2)) {
+       /* if ((space.x == 2 && space.y == 2)) {
             space.setWallheading(Heading.WEST);
-            space.setWall(drawWall(space.getWallheading()));
+            space.setWall(drawWall(space.getWallheading()));*/
         }
-        if (space.x == 2 && space.y == 2) {
-            drawLine();
-        }
-    }
+        //if (space.x == 2 && space.y == 2) {
+          //  drawLine();
+        //}
+    //}
 
     private ImageView addImage (String name){
         Image img = null;
