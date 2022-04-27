@@ -92,14 +92,7 @@
       "walls": [
         "NORTH"
       ],
-      "actions": [
-        {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Checkpoint",
-          "INSTANCE": {
-            "checkpointNo": 3
-          }
-        }
-      ],
+      "actions": [],
       "x": 6,
       "y": 6
     },
