@@ -160,25 +160,13 @@ class GameControllerTest {
 
         gameController.moveCurrentPlayerToSpace(board.getSpace(2, 1));
         gameController.moveCurrentPlayerToSpace(board.getSpace(3, 1));
-        CommandCardField commandCardField1 = new CommandCardField(player1);
-        CommandCardField commandCardField2 = new CommandCardField(player2);
-        commandCardField1.setCard(new CommandCard(Command.FORWARD_1));
-        commandCardField2.setCard(new CommandCard(Command.FORWARD_1));
+        player1.getProgramField(1).setCard(new CommandCard(Command.FORWARD_1));
+        player2.getProgramField(1).setCard(new CommandCard(Command.FORWARD_1));
         gameController.finishProgrammingPhase();
         gameController.executePrograms();
 
         Assertions.assertEquals(1, player1.getReachedCheckpoint(), "Player 1 should have reached checkpoint 1!");
         Assertions.assertNotEquals(2, player2.getReachedCheckpoint(), "Player 2 should not have reached any checkpoint");
-
-
-
-        /*
-        player1.setReachedCheckpoint(1);
-        Assertions.assertEquals(1,player1.getReachedCheckpoint(),"Player 1 should have reached checkpoint 1!");
-
-        player1.setReachedCheckpoint(3);
-        Assertions.assertNotEquals(3,player1.getReachedCheckpoint(),"Player 1 should not have reached checkpoint 3!");
-        */
     }
 
 
