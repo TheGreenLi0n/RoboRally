@@ -185,7 +185,8 @@ class GameControllerTest {
         gameController.finishProgrammingPhase();
         gameController.executePrograms();
 
-        Assertions.assertEquals(2, player1.getReachedCheckpoint(), "Player 1 should have reached checkpoint 2!");
+        Assertions.assertEquals(2, player1.getReachedCheckpoint(), "The player should have reached all checkpoints (2)");
+        Assertions.assertTrue(gameController.winner, "We should have found a winner!");
 
     }
 }
