@@ -54,6 +54,8 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     public final Space space;
 
+    private ImageView checkpoint;
+
 
     public SpaceView(@NotNull Space space) {
         this.space = space;
@@ -81,7 +83,6 @@ public class SpaceView extends StackPane implements ViewObserver {
     }
 
     private void updatePlayer() {
-        this.getChildren().clear();
 
         Player player = space.getPlayer();
         if (player != null) {
@@ -138,6 +139,14 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     }
 
+    public void updateCheckpoint()
+    {
+        Checkpoint checkpoint = space.getCheckpoint();
+        if (space.getCheckpoint() != null){
+            addImage("images/checkpoint" + checkpoint.checkpointNo + ".png",0);
+        }
+
+    }
 
     private void drawLine() {
         /*Pane pane = new Pane();
@@ -164,8 +173,9 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     @Override
     public void updateView(Subject subject) {
-
+        this.getChildren().clear();
         if (subject == this.space) {
+            updateCheckpoint();
             updatePlayer();
 
         }
@@ -176,6 +186,31 @@ public class SpaceView extends StackPane implements ViewObserver {
         if (space.x == 2 && space.y == 2) {
             drawLine();
         }
+    }
+
+    private ImageView addImage (String name){
+        Image img = null;
+        try {
+            img = new Image(SpaceView.class.getClassLoader().getResource(name).toURI().toString());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        ImageView imgView = new ImageView(img);
+        imgView.setImage(img);
+        imgView.setFitHeight(SPACE_HEIGHT);
+        imgView.setFitWidth(SPACE_WIDTH);
+        imgView.setVisible(true);
+
+        this.getChildren().add(imgView);
+
+        return imgView;
+    }
+
+    private ImageView addImage (String name,double rotation){
+        ImageView imageView = addImage(name);
+        imageView.setRotate(rotation);
+
+        return imageView;
     }
 
     }
