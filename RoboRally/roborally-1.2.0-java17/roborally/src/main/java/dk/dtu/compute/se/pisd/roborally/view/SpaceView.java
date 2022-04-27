@@ -38,6 +38,7 @@ import javafx.scene.shape.StrokeLineCap;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * ...
@@ -50,6 +51,8 @@ public class SpaceView extends StackPane implements ViewObserver {
     final public static int SPACE_WIDTH = 60; // 75;
 
     public final Space space;
+
+    private ImageView checkpoint;
 
 
     public SpaceView(@NotNull Space space) {
@@ -78,7 +81,6 @@ public class SpaceView extends StackPane implements ViewObserver {
     }
 
     private void updatePlayer() {
-        this.getChildren().clear();
 
         Player player = space.getPlayer();
         if (player != null) {
@@ -135,18 +137,90 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     }
 
+    public void updateFieldAction()
+    {
+        List<FieldAction> actions = space.getActions();
+        if (actions != null) {
+            for (FieldAction action : actions) {
+                if (action.getClass() == Checkpoint.class) {
+                    addImage("images/checkpoint" + (((Checkpoint) action).checkpointNo) + ".png", 270);
+                }
+            }
+        }
+    }
+    public void updateWalls(){
+        List<Heading> headings = space.getWalls();
+        if (headings!=null){
+            for(Heading heading: headings){
+                drawWall(heading);
+            }
+        }
+    }
+
+    private void drawLine() {
+        /*Pane pane = new Pane();
+        Rectangle rectangle  = new Rectangle(0.0,0.0,SPACE_WIDTH,SPACE_HEIGHT);
+        rectangle.setFill(Color.TRANSPARENT);
+        pane.getChildren().add(rectangle);
+        Line line = new Line(2, SPACE_HEIGHT-2,SPACE_WIDTH-2,SPACE_HEIGHT-2);
+        line.setStroke(Color.BLUE);
+        line.setStrokeWidth(5);
+        pane.getChildren().add(line);
+        this.getChildren().add(pane);*/
+        // east wall  gc.strokeLine(SPACE_HEIGHT,SPACE_HEIGHT,SPACE_WIDTH,SPACE_HEIGHT-58);
+        // south wall gc.strokeLine(2, SPACE_HEIGHT, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+        // north wall
+        // west wall
+        Canvas canvas = new Canvas(SPACE_WIDTH, SPACE_HEIGHT);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        gc.setStroke(Color.RED);
+        gc.setLineWidth(5);
+        gc.setLineCap(StrokeLineCap.SQUARE);
+        gc.strokeLine(SPACE_HEIGHT,SPACE_WIDTH,SPACE_WIDTH-2,SPACE_HEIGHT-2);
+        this.getChildren().add(canvas);
+    }
 
     @Override
     public void updateView(Subject subject) {
-
+        this.getChildren().clear();
         if (subject == this.space) {
+            updateFieldAction();
             updatePlayer();
+            updateWalls();
 
         }
-        if ((space.x == 2 && space.y == 2)) {
+       /* if ((space.x == 2 && space.y == 2)) {
             space.setWallheading(Heading.WEST);
-            space.setWall(drawWall(space.getWallheading()));
+            space.setWall(drawWall(space.getWallheading()));*/
         }
+        //if (space.x == 2 && space.y == 2) {
+          //  drawLine();
+        //}
+    //}
+
+    private ImageView addImage (String name){
+        Image img = null;
+        try {
+            img = new Image(SpaceView.class.getClassLoader().getResource(name).toURI().toString());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        ImageView imgView = new ImageView(img);
+        imgView.setImage(img);
+        imgView.setFitHeight(SPACE_HEIGHT);
+        imgView.setFitWidth(SPACE_WIDTH);
+        imgView.setVisible(true);
+
+        this.getChildren().add(imgView);
+
+        return imgView;
+    }
+
+    private ImageView addImage (String name,double rotation){
+        ImageView imageView = addImage(name);
+        imageView.setRotate(rotation);
+
+        return imageView;
+    }
 
     }
-}

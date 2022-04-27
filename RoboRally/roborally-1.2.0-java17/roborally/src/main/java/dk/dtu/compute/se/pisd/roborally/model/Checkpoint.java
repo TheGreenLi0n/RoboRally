@@ -8,10 +8,17 @@ import dk.dtu.compute.se.pisd.roborally.controller.GameController;
  */
 
 public class Checkpoint extends FieldAction {
+
+    public int x;
+    public int y;
+
     public int checkpointNo;
 
-    public Checkpoint(int checkpointNo){
+
+    public Checkpoint(int checkpointNo, int x, int y){
         this.checkpointNo = checkpointNo;
+        this.x = x;
+        this.y = y;
     }
 
     /**
@@ -28,8 +35,8 @@ public class Checkpoint extends FieldAction {
                 player.setReachedCheckpoint(this.checkpointNo);
                 if (player.getReachedCheckpoint() >= gameController.board.getCheckpoints().size()){
                     gameController.makeWinner(player);
-                    return true;
                 }
+                return true;
             }
         }
         return false;

@@ -1,9 +1,6 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
-import dk.dtu.compute.se.pisd.roborally.model.Board;
-import dk.dtu.compute.se.pisd.roborally.model.Heading;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
-import dk.dtu.compute.se.pisd.roborally.model.Space;
+import dk.dtu.compute.se.pisd.roborally.model.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -146,5 +143,31 @@ class GameControllerTest {
         Assertions.assertNull(board.getSpace(2, 4).getPlayer(), "Space (0,0) should be empty!");
         Assertions.assertEquals(player2, board.getSpace(2, 6).getPlayer(), "Player " + player2.getName() + " should be Space (2,6)!");
     }
+
+    @Test
+    void checkpointFunctionality(){
+        Board board = gameController.board;
+        Checkpoint checkpoint1 = new Checkpoint(1,2,2);
+        Checkpoint checkpoint2 = new Checkpoint(2,3,2);
+        Checkpoint checkpoint3 = new Checkpoint(3,4,2);
+        board.addCheckpoint(checkpoint1);
+        board.addCheckpoint(checkpoint2);
+        board.addCheckpoint(checkpoint3);
+
+        Player player1 = board.getPlayer(0);
+        Player player2 = board.getPlayer(1);
+
+
+        gameController.moveCurrentPlayerToSpace(board.getSpace(2, 1));
+        gameController.moveCurrentPlayerToSpace(board.getSpace(3, 1));
+        player1.getProgramField(1).setCard(new CommandCard(Command.FORWARD_1));
+        player2.getProgramField(1).setCard(new CommandCard(Command.FORWARD_1));
+        gameController.finishProgrammingPhase();
+        gameController.executePrograms();
+
+        Assertions.assertEquals(1, player1.getReachedCheckpoint(), "Player 1 should have reached checkpoint 1!");
+        Assertions.assertNotEquals(2, player2.getReachedCheckpoint(), "Player 2 should not have reached any checkpoint");
+    }
+
 
 }

@@ -30,6 +30,7 @@ import static dk.dtu.compute.se.pisd.roborally.model.Heading.SOUTH;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
+ *
  */
 public class Player extends Subject {
 
@@ -41,13 +42,8 @@ public class Player extends Subject {
     private String name;
     private String color;
 
-    private int damage;
-    private int reachedCheckpoint = 0;
-
     private Space space;
     private Heading heading = SOUTH;
-
-    private int prioNo;
 
     private CommandCardField[] program;
     private CommandCardField[] cards;
@@ -127,29 +123,6 @@ public class Player extends Subject {
                 space.playerChanged();
             }
         }
-    }
-
-    public int getDamage() {
-        return damage;
-    }
-    public void dealDamage(){damage++;}
-
-    public int getReachedCheckpoint() {
-        return reachedCheckpoint;
-    }
-
-    public void setReachedCheckpoint(int reachedCheckpoint) {
-        this.reachedCheckpoint = reachedCheckpoint;
-        notifyChange();
-    }
-
-
-    public int getPrioNo() {
-        return prioNo;
-    }
-
-    public void setPrioNo(int prioNo) {
-        this.prioNo = prioNo;
     }
 
     public CommandCardField getProgramField(int i) {
