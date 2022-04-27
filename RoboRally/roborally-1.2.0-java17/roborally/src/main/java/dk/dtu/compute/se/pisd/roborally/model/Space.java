@@ -40,10 +40,11 @@ public class Space extends Subject {
 
     public final int x;
     public final int y;
-    private Canvas wall;
+    public List<Heading> walls;
     private Player player;
     private Checkpoint checkpoint;
-    private Heading wallheading;
+
+
 
     public List<FieldAction> actions = new ArrayList<>();
 
@@ -52,7 +53,7 @@ public class Space extends Subject {
         this.x = x;
         this.y = y;
         player = null;
-        wall = null;
+        this.walls = new ArrayList<>();
     }
 
     public Player getPlayer() {
@@ -91,21 +92,12 @@ public class Space extends Subject {
         this.actions.add(checkpoint);
     }
 
-    public void setWallheading(Heading wallheading){
-    this.wallheading = wallheading;
-}
-    public void setWall(Canvas wall) {
-
-        this.wall = wall;
-
+    public List<Heading> getWalls() {
+        return walls;
     }
 
-    public Heading getWallheading() {
-        return wallheading;
-    }
-
-    public Canvas getWall() {
-        return wall;
+    public void setWalls(List<Heading> walls) {
+        this.walls = walls;
     }
 
     public List<FieldAction> getActions() {

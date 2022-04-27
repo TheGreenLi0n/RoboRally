@@ -149,6 +149,14 @@ public class SpaceView extends StackPane implements ViewObserver {
             }
         }
     }
+    public void updateWalls(){
+        List<Heading> headings = space.getWalls();
+        if (headings!=null){
+            for(Heading heading: headings){
+                drawWall(heading);
+            }
+        }
+    }
 
     private void drawLine() {
         /*Pane pane = new Pane();
@@ -179,16 +187,17 @@ public class SpaceView extends StackPane implements ViewObserver {
         if (subject == this.space) {
             updateFieldAction();
             updatePlayer();
+            updateWalls();
 
         }
-        if ((space.x == 2 && space.y == 2)) {
+       /* if ((space.x == 2 && space.y == 2)) {
             space.setWallheading(Heading.WEST);
-            space.setWall(drawWall(space.getWallheading()));
+            space.setWall(drawWall(space.getWallheading()));*/
         }
-        if (space.x == 2 && space.y == 2) {
-            drawLine();
-        }
-    }
+        //if (space.x == 2 && space.y == 2) {
+          //  drawLine();
+        //}
+    //}
 
     private ImageView addImage (String name){
         Image img = null;
