@@ -254,8 +254,7 @@ public class GameController {
                 return;
             } else if (target.getWall() == null && (target.getPlayer() != null && player.getHeading() == board.getNeighbour(target,Heading.WEST).getWallheading())) {
                 System.out.println("hello");
-                return;
-            }
+                return;}
 
             if (target != null) {
                 if (target.getPlayer() != null) {
