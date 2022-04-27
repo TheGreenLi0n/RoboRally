@@ -31,16 +31,14 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * ...
@@ -139,13 +137,17 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     }
 
-    public void updateCheckpoint()
+    public void updateFieldAction()
     {
-        Checkpoint checkpoint = space.getCheckpoint();
-        if (space.getCheckpoint() != null){
-            addImage("images/checkpoint" + checkpoint.checkpointNo + ".png",0);
+        List<FieldAction> actions = space.getActions();
+        if (actions != null) {
+            for (FieldAction action : actions) {
+                if (action.getClass() == Checkpoint.class) {
+                    Checkpoint checkpoint = space.getCheckpoint();
+                    addImage("images/checkpoint" + checkpoint.checkpointNo + ".png", 270);
+                }
+            }
         }
-
     }
 
     private void drawLine() {
@@ -175,7 +177,7 @@ public class SpaceView extends StackPane implements ViewObserver {
     public void updateView(Subject subject) {
         this.getChildren().clear();
         if (subject == this.space) {
-            updateCheckpoint();
+            updateFieldAction();
             updatePlayer();
 
         }
