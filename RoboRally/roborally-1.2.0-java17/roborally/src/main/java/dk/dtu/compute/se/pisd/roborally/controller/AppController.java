@@ -82,11 +82,6 @@ public class AppController implements Observer {
             Board board = LoadBoard.loadBoard("defaultboard");
             //Board board = new Board(8,8);
             gameController = new GameController(board);
-
-            Checkpoint checkpoint1 = new Checkpoint(1, 6, 5);
-            board.addCheckpoint(checkpoint1);
-            Checkpoint checkpoint2 = new Checkpoint(2, 1, 2);
-            board.addCheckpoint(checkpoint2);
             int no = result.get();
             for (int i = 0; i < no; i++) {
                 Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));

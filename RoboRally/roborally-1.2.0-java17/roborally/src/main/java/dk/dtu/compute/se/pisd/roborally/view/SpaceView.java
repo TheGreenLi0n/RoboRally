@@ -143,8 +143,7 @@ public class SpaceView extends StackPane implements ViewObserver {
         if (actions != null) {
             for (FieldAction action : actions) {
                 if (action.getClass() == Checkpoint.class) {
-                    Checkpoint checkpoint = space.getCheckpoint();
-                    addImage("images/checkpoint" + checkpoint.checkpointNo + ".png", 270);
+                    addImage("images/checkpoint" + (((Checkpoint) action).checkpointNo) + ".png", 270);
                 }
             }
         }
