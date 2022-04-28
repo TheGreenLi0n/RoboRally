@@ -178,7 +178,7 @@ public class GameController {
                     }
 
 
-                    //firinMahLazer();
+                    firinMahLazer();
                     step++;
                     if (step < Player.NO_REGISTERS) {
                         makeProgramFieldsVisible(step);
@@ -397,7 +397,7 @@ public class GameController {
         if (nextPlayerNumber < board.getPlayersNumber()) {
             board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
         } else {
-            //firinMahLazer();
+            firinMahLazer();
             step++;
             if (step < Player.NO_REGISTERS) {
                 makeProgramFieldsVisible(step);
@@ -416,7 +416,6 @@ public class GameController {
      * Fires a laser from everyone in their headed direction, if it hits a player then the laser stops and the target that got hit
      * takes 1 damage.
      * If the laser hits a wall before it hits a player, then the laser stops.
-     * Disabled for now, need to update to the new wall.
      */
     public void firinMahLazer() {
         for (int i = 0; i < board.getPlayersNumber(); i++) {

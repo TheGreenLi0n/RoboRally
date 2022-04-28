@@ -37,6 +37,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
+import javafx.scene.control.TextInputDialog;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -57,6 +58,7 @@ public class AppController implements Observer {
     final private RoboRally roboRally;
 
     private GameController gameController;
+    private Board board;
 
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;
@@ -79,7 +81,7 @@ public class AppController implements Observer {
 
             // XXX the board should eventually be created programmatically or loaded from a file
             //     here we just create an empty board with the required number of players.
-            Board board = LoadBoard.loadBoard("defaultboard");
+            board = LoadBoard.loadBoard("defaultboard");
             //Board board = new Board(8,8);
             gameController = new GameController(board);
             int no = result.get();
@@ -99,6 +101,14 @@ public class AppController implements Observer {
 
     public void saveGame() {
         // XXX needs to be implemented eventually
+        TextInputDialog input = new TextInputDialog();
+        input.setHeaderText("Enter name for the save file");
+        input.setTitle("Save Game");
+        Optional<String> name = input.showAndWait();
+
+        name.ifPresent(result ->{
+            LoadBoard.saveBoard(board,result);
+        });
     }
 
     public void loadGame() {
