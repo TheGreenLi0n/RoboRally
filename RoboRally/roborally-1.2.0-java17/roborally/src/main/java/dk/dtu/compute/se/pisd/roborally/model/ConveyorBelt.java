@@ -36,7 +36,7 @@ public class ConveyorBelt extends FieldAction {
         Player player = space.getPlayer();
         if (player != null){
             Space neighborSpace = space.board.getNeighbour(space, heading);
-            if(neighborSpace.getPlayer() != null){
+            if(neighborSpace.getPlayer() == null){
                 player.setSpace(neighborSpace);
                 if (speed == 2) {
                     for (FieldAction action : neighborSpace.actions) {
