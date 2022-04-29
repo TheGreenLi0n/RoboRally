@@ -145,18 +145,18 @@ public class SpaceView extends StackPane implements ViewObserver {
                 if (action.getClass() == ConveyorBelt.class){
                     if(((ConveyorBelt) action).getSpeed() == 1) {
                         switch (((ConveyorBelt) action).getHeading()) {
-                            case SOUTH -> addImage("images/ConveyorBeltGreen.png", 180);
-                            case EAST -> addImage("images/ConveyorBeltGreen.png", 270);
-                            case WEST -> addImage("images/ConveyorBeltGreen.png", 90);
-                            case NORTH -> addImage("images/ConveyorBeltGreen.png", 0);
+                            case SOUTH -> addImageWithRotation("images/ConveyorBeltGreen.png", 180);
+                            case EAST -> addImageWithRotation("images/ConveyorBeltGreen.png", 90);
+                            case WEST -> addImageWithRotation("images/ConveyorBeltGreen.png", 270);
+                            case NORTH -> addImageWithRotation("images/ConveyorBeltGreen.png", 0);
                         }
                     }
                     else if (((ConveyorBelt) action).getSpeed() == 2) {
                         switch (((ConveyorBelt) action).getHeading()) {
-                            case SOUTH -> addImage("images/ConveyorBeltBlue.png", 180);
-                            case EAST -> addImage("images/ConveyorBeltBlue.png", 270);
-                            case WEST -> addImage("images/ConveyorBeltBlue.png", 90);
-                            case NORTH -> addImage("images/ConveyorBeltBlue.png", 0);
+                            case SOUTH -> addImageWithRotation("images/ConveyorBeltBlue.png", 180);
+                            case EAST -> addImageWithRotation("images/ConveyorBeltBlue.png", 90);
+                            case WEST -> addImageWithRotation("images/ConveyorBeltBlue.png", 270);
+                            case NORTH -> addImageWithRotation("images/ConveyorBeltBlue.png", 0);
                         }
                     }
                 }

@@ -85,7 +85,7 @@
         {
           "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.ConveyorBelt",
           "INSTANCE": {
-            "heading": "NORTH",
+            "heading": "WEST",
             "speed": 2
           }
         }

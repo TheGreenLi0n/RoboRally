@@ -189,4 +189,24 @@ class GameControllerTest {
         Assertions.assertTrue(gameController.winner, "We should have found a winner!");
 
     }
+
+    @Test
+    public void ConveyorBeltMove(){
+        Board board = gameController.board;
+        ConveyorBelt conveyorBelt1 = new ConveyorBelt(Heading.EAST,2);
+        ConveyorBelt conveyorBelt2 = new ConveyorBelt(Heading.NORTH,2);
+        board.getSpace(6,2).setConveyorBelt(conveyorBelt1);
+        board.getSpace(6,3).setConveyorBelt(conveyorBelt2);
+
+        Player current = board.getPlayer(0);
+
+        gameController.moveCurrentPlayerToSpace(board.getSpace(6, 4));
+
+        current.getProgramField(1).setCard(new CommandCard(Command.MOVE_BACK));
+        gameController.finishProgrammingPhase();
+        gameController.executePrograms();
+
+        Assertions.assertEquals(current, board.getSpace(7, 2).getPlayer(), "Player " + current.getName() + " should be on space (7,2)!");
+        Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading South!");
+    }
 }
