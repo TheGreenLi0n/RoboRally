@@ -140,23 +140,23 @@ public class SpaceView extends StackPane implements ViewObserver {
         if (actions != null) {
             for (FieldAction action : actions) {
                 if (action.getClass() == Checkpoint.class) {
-                    addImage("images/checkpoint" + (((Checkpoint) action).checkpointNo) + ".png", 270);
+                    addImageWithRotation("images/checkpoint" + (((Checkpoint) action).checkpointNo) + ".png", 270);
                 }
                 if (action.getClass() == ConveyorBelt.class){
                     if(((ConveyorBelt) action).getSpeed() == 1) {
                         switch (((ConveyorBelt) action).getHeading()) {
-                            case SOUTH:
-                                addImage("images/ConveyorBeltGreen.png", 270);
-                                break;
-                            case EAST:
-                                addImage("images/ConveyorBeltGreen.png", 180);
-                                break;
-                            case WEST:
-                                addImage("images/ConveyorBeltGreen.png", 0);
-                                break;
-                            case NORTH:
-                                addImage("images/ConveyorBeltGreen.png", 90);
-                                break;
+                            case SOUTH -> addImageWithRotation("images/ConveyorBeltGreen.png", 180);
+                            case EAST -> addImageWithRotation("images/ConveyorBeltGreen.png", 90);
+                            case WEST -> addImageWithRotation("images/ConveyorBeltGreen.png", 270);
+                            case NORTH -> addImageWithRotation("images/ConveyorBeltGreen.png", 0);
+                        }
+                    }
+                    else if (((ConveyorBelt) action).getSpeed() == 2) {
+                        switch (((ConveyorBelt) action).getHeading()) {
+                            case SOUTH -> addImageWithRotation("images/ConveyorBeltBlue.png", 180);
+                            case EAST -> addImageWithRotation("images/ConveyorBeltBlue.png", 90);
+                            case WEST -> addImageWithRotation("images/ConveyorBeltBlue.png", 270);
+                            case NORTH -> addImageWithRotation("images/ConveyorBeltBlue.png", 0);
                         }
                     }
                 }
@@ -231,7 +231,7 @@ public class SpaceView extends StackPane implements ViewObserver {
         return imgView;
     }
 
-    private ImageView addImage (String name,double rotation){
+    private ImageView addImageWithRotation(String name, double rotation){
         ImageView imageView = addImage(name);
         imageView.setRotate(rotation);
 

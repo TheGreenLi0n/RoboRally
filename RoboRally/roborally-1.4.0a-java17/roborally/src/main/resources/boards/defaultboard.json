@@ -113,9 +113,7 @@
       "y": 6
     },
     {
-      "walls": [
-        "NORTH"
-      ],
+      "walls": [],
       "actions": [
         {
           "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.controller.ConveyorBelt",
