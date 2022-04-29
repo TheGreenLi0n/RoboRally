@@ -140,7 +140,7 @@ public class SpaceView extends StackPane implements ViewObserver {
         if (actions != null) {
             for (FieldAction action : actions) {
                 if (action.getClass() == Checkpoint.class) {
-                    addImage("images/checkpoint" + (((Checkpoint) action).checkpointNo) + ".png", 270);
+                    addImageWithRotation("images/checkpoint" + (((Checkpoint) action).checkpointNo) + ".png", 270);
                 }
                 if (action.getClass() == ConveyorBelt.class){
                     if(((ConveyorBelt) action).getSpeed() == 1) {
@@ -231,7 +231,7 @@ public class SpaceView extends StackPane implements ViewObserver {
         return imgView;
     }
 
-    private ImageView addImage (String name,double rotation){
+    private ImageView addImageWithRotation(String name, double rotation){
         ImageView imageView = addImage(name);
         imageView.setRotate(rotation);
 
