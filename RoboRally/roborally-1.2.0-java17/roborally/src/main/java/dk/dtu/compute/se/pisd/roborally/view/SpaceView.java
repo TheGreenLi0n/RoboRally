@@ -34,8 +34,8 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineCap;
 import org.jetbrains.annotations.NotNull;
 
-import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * ...
@@ -217,18 +217,11 @@ public class SpaceView extends StackPane implements ViewObserver {
      * The method for adding an image to a single space on the board.
      * @param name - the name of the image to be added
      * @param rotation - the degrees that an image should be rotated
-     * @return - returns the image
      */
 
-    private ImageView addImage (String name, int rotation){
+    private void addImage (String name, int rotation)  {
 
-        Image img = null;
-
-        try {
-            img = new Image(SpaceView.class.getClassLoader().getResource(name).toURI().toString());
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
+        Image img = new Image(Objects.requireNonNull(SpaceView.class.getClassLoader().getResourceAsStream(name)));
 
         ImageView imgToAdd = new ImageView(img);
         imgToAdd.setFitHeight(SPACE_HEIGHT);
@@ -237,7 +230,6 @@ public class SpaceView extends StackPane implements ViewObserver {
 
         this.getChildren().add(imgToAdd);
 
-        return imgToAdd;
     }
 
-    }
+}
