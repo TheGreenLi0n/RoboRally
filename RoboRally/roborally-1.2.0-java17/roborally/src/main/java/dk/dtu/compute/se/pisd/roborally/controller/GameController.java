@@ -255,10 +255,17 @@ public class GameController {
                     Space pushTarget = board.getNeighbour(targetPlayer.getSpace(), heading);
 
                     if (pushTarget != null) {
-                        if (pushTarget.getWalls().contains(player.getHeading().prev().prev())) {
+                        Player secondtarget = pushTarget.getPlayer();
+                        Space secondPushtarget = board.getNeighbour(secondtarget.getSpace(), heading);
 
+                        if (secondPushtarget.getWalls().contains(player.getHeading().prev().prev()) ||secondtarget.getSpace().getWalls().contains(heading) ) {
+                            return;}
+                        if (secondPushtarget != null) {
+                            secondtarget.setSpace(secondPushtarget);
+                        }
+                        if (pushTarget.getWalls().contains(player.getHeading().prev().prev())) {
                             return;
-                        } else if (targetPlayer.getSpace().getWalls().contains(player.getHeading())) {
+                        } else if (targetPlayer.getSpace().getWalls().contains(heading)) {
                             return;
                         }
                         targetPlayer.setSpace(pushTarget);
@@ -346,11 +353,23 @@ public class GameController {
                 if (target.getPlayer() != null) {
                     Player targetPlayer = target.getPlayer();
                     Space pushTarget = board.getNeighbour(targetPlayer.getSpace(), heading);
-                    if (pushTarget.getWalls().contains(player.getHeading()) || pushTarget.getWalls().contains(player.getHeading().prev().prev())) {
-                        return;}
-                    if (pushTarget != null) {
-                        targetPlayer.setSpace(pushTarget);
+                    if (pushTarget.getPlayer() != null){
+                        Player secondtarget = pushTarget.getPlayer();
+                        Space secondPushtarget = board.getNeighbour(secondtarget.getSpace(), heading);
+
+                        if (secondPushtarget.getWalls().contains(player.getHeading()) || secondtarget.getSpace().getWalls().contains(player.getHeading().prev().prev())) {
+                            return;}
+                        if (secondPushtarget != null) {
+                            secondtarget.setSpace(secondPushtarget);
+                        }
+                        if (pushTarget.getWalls().contains(player.getHeading()) || pushTarget.getWalls().contains(player.getHeading().prev().prev())) {
+                            return;}
+                        if (pushTarget != null) {
+                            targetPlayer.setSpace(pushTarget);
+                        }
+
                     }
+
                 }
                 if (target.getWalls().contains(player.getHeading()) || player.getSpace().getWalls().contains(player.getHeading().prev().prev())) {
                     return;}
