@@ -34,8 +34,8 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineCap;
 import org.jetbrains.annotations.NotNull;
 
-import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * ...
@@ -145,18 +145,18 @@ public class SpaceView extends StackPane implements ViewObserver {
                 if (action.getClass() == ConveyorBelt.class){
                     if(((ConveyorBelt) action).getSpeed() == 1) {
                         switch (((ConveyorBelt) action).getHeading()) {
-                            case SOUTH:
-                                addImage("images/ConveyorBeltGreen.png", 270);
-                                break;
-                            case EAST:
-                                addImage("images/ConveyorBeltGreen.png", 180);
-                                break;
-                            case WEST:
-                                addImage("images/ConveyorBeltGreen.png", 0);
-                                break;
-                            case NORTH:
-                                addImage("images/ConveyorBeltGreen.png", 90);
-                                break;
+                            case SOUTH -> addImage("images/ConveyorBeltGreen.png", 180);
+                            case EAST -> addImage("images/ConveyorBeltGreen.png", 90);
+                            case WEST -> addImage("images/ConveyorBeltGreen.png", 270);
+                            case NORTH -> addImage("images/ConveyorBeltGreen.png", 0);
+                        }
+                    }
+                    else if (((ConveyorBelt) action).getSpeed() == 2) {
+                        switch (((ConveyorBelt) action).getHeading()) {
+                            case SOUTH -> addImage("images/ConveyorBeltBlue.png", 180);
+                            case EAST -> addImage("images/ConveyorBeltBlue.png", 90);
+                            case WEST -> addImage("images/ConveyorBeltBlue.png", 270);
+                            case NORTH -> addImage("images/ConveyorBeltBlue.png", 0);
                         }
                     }
                 }
@@ -213,29 +213,23 @@ public class SpaceView extends StackPane implements ViewObserver {
         //}
     //}
 
-    private ImageView addImage (String name){
-        Image img = null;
-        try {
-            img = new Image(SpaceView.class.getClassLoader().getResource(name).toURI().toString());
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        ImageView imgView = new ImageView(img);
-        imgView.setImage(img);
-        imgView.setFitHeight(SPACE_HEIGHT);
-        imgView.setFitWidth(SPACE_WIDTH);
-        imgView.setVisible(true);
+    /**
+     * The method for adding an image to a single space on the board.
+     * @param name - the name of the image to be added
+     * @param rotation - the degrees that an image should be rotated
+     */
 
-        this.getChildren().add(imgView);
+    private void addImage (String name, int rotation)  {
 
-        return imgView;
-    }
+        Image img = new Image(Objects.requireNonNull(SpaceView.class.getClassLoader().getResourceAsStream(name)));
 
-    private ImageView addImage (String name,double rotation){
-        ImageView imageView = addImage(name);
-        imageView.setRotate(rotation);
+        ImageView imgToAdd = new ImageView(img);
+        imgToAdd.setFitHeight(SPACE_HEIGHT);
+        imgToAdd.setFitWidth(SPACE_WIDTH);
+        imgToAdd.setRotate(rotation);
 
-        return imageView;
-    }
+        this.getChildren().add(imgToAdd);
 
     }
+
+}

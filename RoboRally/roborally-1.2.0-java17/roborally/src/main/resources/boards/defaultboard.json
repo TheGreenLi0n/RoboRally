@@ -14,14 +14,20 @@
       "walls": [
         "NORTH"
       ],
-      "actions": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "NORTH",
+            "speed": 2
+          }
+        }
+      ],
       "x": 1,
       "y": 0
     },
     {
-      "walls": [
-        "WEST"
-      ],
+      "walls": [],
       "actions": [],
       "x": 1,
       "y": 1
@@ -74,17 +80,35 @@
       "y": 6
     },
     {
-      "walls": [
-        "NORTH"
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "WEST",
+            "speed": 2
+          }
+        }
       ],
-      "actions": [],
       "x": 2,
       "y": 2
     },
     {
-      "walls": [
-        "EAST"
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "NORTH",
+            "speed": 2
+          }
+        }
       ],
+      "x": 2,
+      "y": 3
+    },
+    {
+      "walls": [],
       "actions": [],
       "x": 3,
       "y": 3
