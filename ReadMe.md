@@ -20,6 +20,8 @@ This is the current iteration of the RoboRally project from group 16 in DTU's co
 6. Winning the game by going through the correct order of checkpoints.
 7. A checkpoint counter for each player that shows the last valid checkpoint they visited.
 8. Robots can shoot a laser in their headed position to damage other robots. The lasers are currently invisible.
+9. Load - it is possible to load a previous game however there are issues with loading a JSON file that contains a player.
+10. Save - it is possible to save a game however the players' cards both in the registers and hands are considered "null".
 
 ## How to play RoboRally
 RoboRally is played in rounds consisting of three phases: The upgrade phase, the
