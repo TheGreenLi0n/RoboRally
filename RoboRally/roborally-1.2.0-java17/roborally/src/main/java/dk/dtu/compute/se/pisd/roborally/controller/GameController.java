@@ -253,26 +253,56 @@ public class GameController {
                 if (target.getPlayer() != null) {
                     Player targetPlayer = target.getPlayer();
                     Space pushTarget = board.getNeighbour(targetPlayer.getSpace(), heading);
-
-                    if (pushTarget != null) {
+                    if (pushTarget.getPlayer() != null) {
                         Player secondtarget = pushTarget.getPlayer();
                         Space secondPushtarget = board.getNeighbour(secondtarget.getSpace(), heading);
+                        if (secondPushtarget.getPlayer() != null) {
+                            Player thirdTarget = secondPushtarget.getPlayer();
+                            Space thirdPushTarget = board.getNeighbour(thirdTarget.getSpace(), heading);
+                            if (thirdPushTarget.getPlayer() != null) {
+                                Player fourthtarget = thirdPushTarget.getPlayer();
+                                Space fourthpushtarget = board.getNeighbour(fourthtarget.getSpace(), heading);
+                                if (fourthpushtarget.getPlayer() != null) {
+                                    Player fifthtarget = fourthpushtarget.getPlayer();
+                                    Space fifthpushtarget = board.getNeighbour(fifthtarget.getSpace(), heading);
+                                    if (fifthpushtarget.getWalls().contains(player.getHeading().prev().prev()) || fifthtarget.getSpace().getWalls().contains(player.getHeading())) {
+                                        return;
+                                    }
+                                    if (fifthpushtarget != null) {
+                                        fifthtarget.setSpace(fifthpushtarget);
+                                    }
+                                }
+                                if (fourthpushtarget.getWalls().contains(player.getHeading().prev().prev()) || fourthtarget.getSpace().getWalls().contains(player.getHeading())) {
+                                    return;
+                                }
+                                if (fourthpushtarget != null) {
+                                    fourthtarget.setSpace(fourthpushtarget);
+                                }
 
-                        if (secondPushtarget.getWalls().contains(player.getHeading().prev().prev()) ||secondtarget.getSpace().getWalls().contains(heading) ) {
-                            return;}
+                            }
+                            if (thirdPushTarget.getWalls().contains(player.getHeading().prev().prev()) || thirdTarget.getSpace().getWalls().contains(player.getHeading())) {
+                                return;
+                            }
+                            if (thirdPushTarget != null) {
+                                thirdTarget.setSpace(thirdPushTarget);
+                            }
+                        }
+                        if (secondPushtarget.getWalls().contains(player.getHeading().prev().prev()) || secondtarget.getSpace().getWalls().contains(player.getHeading())) {
+                            return;
+                        }
                         if (secondPushtarget != null) {
                             secondtarget.setSpace(secondPushtarget);
                         }
-                        if (pushTarget.getWalls().contains(player.getHeading().prev().prev())) {
-                            return;
-                        } else if (targetPlayer.getSpace().getWalls().contains(heading)) {
-                            return;
-                        }
+                    }
+                    if (pushTarget.getWalls().contains(player.getHeading()) || pushTarget.getWalls().contains(player.getHeading().prev().prev())) {
+                        return;
+                    }
+                    if (pushTarget != null) {
                         targetPlayer.setSpace(pushTarget);
                     }
 
                 }
-                if (target.getWalls().contains(player.getHeading().prev().prev()) || player.getSpace().getWalls().contains(player.getHeading())) {
+                if (target.getWalls().contains(player.getHeading()) || player.getSpace().getWalls().contains(player.getHeading().prev().prev())) {
                     return;
                 }
                 // XXX note that this removes an other player from the space, when there
@@ -353,26 +383,58 @@ public class GameController {
                 if (target.getPlayer() != null) {
                     Player targetPlayer = target.getPlayer();
                     Space pushTarget = board.getNeighbour(targetPlayer.getSpace(), heading);
-                    if (pushTarget.getPlayer() != null){
+                    if (pushTarget.getPlayer() != null) {
                         Player secondtarget = pushTarget.getPlayer();
                         Space secondPushtarget = board.getNeighbour(secondtarget.getSpace(), heading);
+                        if (secondPushtarget.getPlayer() != null) {
+                            Player thirdTarget = secondPushtarget.getPlayer();
+                            Space thirdPushTarget = board.getNeighbour(thirdTarget.getSpace(), heading);
+                            if (thirdPushTarget.getPlayer() != null) {
+                                Player fourthtarget = thirdPushTarget.getPlayer();
+                                Space fourthpushtarget = board.getNeighbour(fourthtarget.getSpace(), heading);
+                                if (fourthpushtarget.getPlayer() != null) {
+                                    Player fifthtarget = fourthpushtarget.getPlayer();
+                                    Space fifthpushtarget = board.getNeighbour(fifthtarget.getSpace(), heading);
+                                    if (fifthpushtarget.getWalls().contains(player.getHeading()) || fifthtarget.getSpace().getWalls().contains(player.getHeading().prev().prev())) {
+                                        return;
+                                    }
+                                    if (fifthpushtarget != null) {
+                                        fifthtarget.setSpace(fifthpushtarget);
+                                    }
+                                }
+                                if (fourthpushtarget.getWalls().contains(player.getHeading()) || fourthtarget.getSpace().getWalls().contains(player.getHeading().prev().prev())) {
+                                    return;
+                                }
+                                if (fourthpushtarget != null) {
+                                    fourthtarget.setSpace(fourthpushtarget);
+                                }
 
+                            }
+                            if (thirdPushTarget.getWalls().contains(player.getHeading()) || thirdTarget.getSpace().getWalls().contains(player.getHeading().prev().prev())) {
+                                return;
+                            }
+                            if (thirdPushTarget != null) {
+                                thirdTarget.setSpace(thirdPushTarget);
+                            }
+                        }
                         if (secondPushtarget.getWalls().contains(player.getHeading()) || secondtarget.getSpace().getWalls().contains(player.getHeading().prev().prev())) {
-                            return;}
+                            return;
+                        }
                         if (secondPushtarget != null) {
                             secondtarget.setSpace(secondPushtarget);
                         }
-                        if (pushTarget.getWalls().contains(player.getHeading()) || pushTarget.getWalls().contains(player.getHeading().prev().prev())) {
-                            return;}
-                        if (pushTarget != null) {
-                            targetPlayer.setSpace(pushTarget);
-                        }
-
+                    }
+                    if (pushTarget.getWalls().contains(player.getHeading()) || pushTarget.getWalls().contains(player.getHeading().prev().prev())) {
+                        return;
+                    }
+                    if (pushTarget != null) {
+                        targetPlayer.setSpace(pushTarget);
                     }
 
                 }
                 if (target.getWalls().contains(player.getHeading()) || player.getSpace().getWalls().contains(player.getHeading().prev().prev())) {
-                    return;}
+                    return;
+                }
                 // XXX note that this removes an other player from the space, when there
                 //     is another player on the target. Eventually, this needs to be
                 //     implemented in a way so that other players are pushed away!
@@ -535,7 +597,7 @@ public class GameController {
      */
     public void makeWinner(Player player) {
         this.winner = true;
-        if (player.getName() != "testPlayer" ){
+        if (player.getName() != "testPlayer") {
             Alert winnerMsg = new Alert(Alert.AlertType.INFORMATION, "Player \"" + player.getName() + "\" is the winner!");
             winnerMsg.showAndWait();
         }
