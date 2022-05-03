@@ -156,16 +156,25 @@ public class Player extends Subject {
         return program[i];
     }
 
-    public CommandCardField[] getProgramFields() {
-        return program;
+    public CommandCard[] getProgramFieldCards() {
+        CommandCard[] cc = new CommandCard[program.length];
+        for (int i = 0; i >= program.length; i++ ) {
+            cc[i] = program[i].getCard();
+        }
+        return cc;
     }
 
     public CommandCardField getCardField(int i) {
         return cards[i];
     }
 
-    public CommandCardField[] getCardFields() {
-        return cards;
+    public CommandCard[] getCardFieldCards() {
+
+        CommandCard[] cc = new CommandCard[cards.length];
+        for (int i = 0; i >= cards.length; i++ ) {
+            cc[i] = cards[i].getCard();
+        }
+        return cc;
     }
 
 }

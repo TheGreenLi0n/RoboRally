@@ -117,8 +117,8 @@ public class LoadBoard {
                         playerTemplate.heading = space.getPlayer().getHeading();
                         playerTemplate.reachedCheckpoint = space.getPlayer().getReachedCheckpoint();
                         playerTemplate.damage = space.getPlayer().getDamage();
-                        //playerTemplate.program = space.getPlayer().getProgramFields();
-                        //playerTemplate.cards = space.getPlayer().getCardFields();
+                        playerTemplate.program = space.getPlayer().getProgramFieldCards();
+                        playerTemplate.cards = space.getPlayer().getCardFieldCards();
 
                         spaceTemplate.player = playerTemplate;
                     }
