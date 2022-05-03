@@ -71,6 +71,10 @@ public class GameController {
     }
 
     // XXX: V2
+
+    /**
+     * Method for starting the programming phase. Primarily uses the board and player class.
+     */
     public void startProgrammingPhase() {
         board.setPhase(Phase.PROGRAMMING);
         board.setCurrentPlayer(board.getPlayer(0));
@@ -94,6 +98,11 @@ public class GameController {
     }
 
     // XXX: V2
+
+    /**
+     * Method for generating random command cards.
+     * @return CommandCard
+     */
     private CommandCard generateRandomCommandCard() {
         Command[] commands = Command.values();
         int random = (int) (Math.random() * commands.length);
@@ -101,6 +110,10 @@ public class GameController {
     }
 
     // XXX: V2
+
+    /**
+     * Method for finishing the programming phase.
+     */
     public void finishProgrammingPhase() {
         makeProgramFieldsInvisible();
         makeProgramFieldsVisible(0);
@@ -111,6 +124,11 @@ public class GameController {
     }
 
     // XXX: V2
+
+    /**
+     * Method for making program fields visible.
+     * @param register
+     */
     private void makeProgramFieldsVisible(int register) {
         if (register >= 0 && register < Player.NO_REGISTERS) {
             for (int i = 0; i < board.getPlayersNumber(); i++) {
@@ -122,6 +140,10 @@ public class GameController {
     }
 
     // XXX: V2
+
+    /**
+     * Method for making programming fields invisible.
+     */
     private void makeProgramFieldsInvisible() {
         for (int i = 0; i < board.getPlayersNumber(); i++) {
             Player player = board.getPlayer(i);
@@ -133,18 +155,30 @@ public class GameController {
     }
 
     // XXX: V2
+
+    /**
+     * executes all the programs in the register of the players in the correct order, while not in stepmode.
+     */
     public void executePrograms() {
         board.setStepMode(false);
         continuePrograms();
     }
 
     // XXX: V2
+
+    /**
+     * Executes the register step by step in correct order while in stepmode.
+     */
     public void executeStep() {
         board.setStepMode(true);
         continuePrograms();
     }
 
     // XXX: V2
+
+    /**
+     * While in activation phase this method executes the next step of current player's register.
+     */
     private void continuePrograms() {
         do {
             executeNextStep();
@@ -152,6 +186,10 @@ public class GameController {
     }
 
     // XXX: V2
+
+    /**
+     * executes the next step of the current players register in the activation phase.
+     */
     private void executeNextStep() {
         Player currentPlayer = board.getCurrentPlayer();
         if (board.getPhase() == Phase.ACTIVATION && currentPlayer != null) {
@@ -362,6 +400,12 @@ public class GameController {
         }
     }
 
+    /**
+     * The method for drag and dropping cards into the register and reverse.
+     * @param source
+     * @param target
+     * @return
+     */
     public boolean moveCards(@NotNull CommandCardField source, @NotNull CommandCardField target) {
         CommandCard sourceCard = source.getCard();
         CommandCard targetCard = target.getCard();

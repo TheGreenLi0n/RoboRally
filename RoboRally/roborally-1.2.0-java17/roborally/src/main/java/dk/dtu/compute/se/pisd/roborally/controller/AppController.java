@@ -64,6 +64,9 @@ public class AppController implements Observer {
         this.roboRally = roboRally;
     }
 
+    /**
+     * Method for creating a new game which creates a default board and the chosen number of players for the given game.
+     */
     public void newGame() {
         ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
         dialog.setTitle("Player number");
@@ -140,6 +143,10 @@ public class AppController implements Observer {
         }
         return false;
     }
+
+    /**
+     * Method for when exiting roborally get a Confirmation Window to check if the player is sure about closing the game.
+     */
 
     public void exit() {
         if (gameController != null) {
