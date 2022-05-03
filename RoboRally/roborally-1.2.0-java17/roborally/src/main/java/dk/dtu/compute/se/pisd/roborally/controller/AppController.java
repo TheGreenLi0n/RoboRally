@@ -39,6 +39,7 @@ import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextField;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -57,6 +58,7 @@ public class AppController implements Observer {
     final private RoboRally roboRally;
 
     private GameController gameController;
+    private Board board;
 
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;
@@ -79,7 +81,7 @@ public class AppController implements Observer {
 
             // XXX the board should eventually be created programmatically or loaded from a file
             //     here we just create an empty board with the required number of players.
-            Board board = LoadBoard.loadBoard("defaultboard");
+            board = LoadBoard.loadBoard("defaultboard");
             //Board board = new Board(8,8);
             gameController = new GameController(board);
             int no = result.get();
@@ -105,7 +107,30 @@ public class AppController implements Observer {
         // XXX needs to be implememted eventually
         // for now, we just create a new game
         if (gameController == null) {
-            newGame();
+            String path = "RoboRally/roborally-1.2.0-java17/roborally/target/classes/boards";
+            File file = new File(path);
+            String absPath = file.getAbsolutePath();
+            absPath =absPath.replaceAll("\\\\", "$0$0");
+            File filePath = new File(absPath);
+            File[] folder = filePath.listFiles();
+            String[] filenames = new String[folder.length];
+            for (int i = 0; i < filenames.length; i++) {
+                filenames[i] = folder[i].getName().substring(0,folder[i].getName().length()-5);
+            }
+
+//            newGame();
+            ChoiceDialog<String> dialog = new ChoiceDialog<>(filenames[0],filenames);
+            dialog.setTitle("Load Game");
+            dialog.setHeaderText("Select a game to load");
+            Optional<String> result = dialog.showAndWait();
+
+            result.ifPresent(choice->{
+                board = LoadBoard.loadBoard(choice);
+//                gameController = new GameController(board);
+//                gameController.startProgrammingPhase();
+//                roboRally.createBoardView(gameController);
+                System.out.println("test");
+            });
         }
     }
 
