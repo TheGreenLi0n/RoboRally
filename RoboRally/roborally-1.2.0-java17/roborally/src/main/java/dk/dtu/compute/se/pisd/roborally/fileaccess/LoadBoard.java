@@ -26,6 +26,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.BoardTemplate;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.model.PlayerTemplate;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.SpaceTemplate;
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
@@ -103,12 +104,24 @@ public class LoadBoard {
         for (int i=0; i<board.width; i++) {
             for (int j=0; j<board.height; j++) {
                 Space space = board.getSpace(i,j);
-                if (!space.getWalls().isEmpty() || !space.getActions().isEmpty()) {
+                if (!space.getWalls().isEmpty() || !space.getActions().isEmpty() || space.getPlayer() != null) {
                     SpaceTemplate spaceTemplate = new SpaceTemplate();
                     spaceTemplate.x = space.x;
                     spaceTemplate.y = space.y;
                     spaceTemplate.actions.addAll(space.getActions());
                     spaceTemplate.walls.addAll(space.getWalls());
+                    if (space.getPlayer() != null){
+                        PlayerTemplate playerTemplate = new PlayerTemplate();
+                        playerTemplate.name = space.getPlayer().getName();
+                        playerTemplate.color = space.getPlayer().getColor();
+                        playerTemplate.heading = space.getPlayer().getHeading();
+                        playerTemplate.reachedCheckpoint = space.getPlayer().getReachedCheckpoint();
+                        playerTemplate.damage = space.getPlayer().getDamage();
+                        //playerTemplate.program = space.getPlayer().getProgramFields();
+                        //playerTemplate.cards = space.getPlayer().getCardFields();
+
+                        spaceTemplate.player = playerTemplate;
+                    }
                     template.spaces.add(spaceTemplate);
                 }
             }
