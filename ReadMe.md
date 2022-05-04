@@ -22,7 +22,7 @@ This is the current iteration of the RoboRally project from group 16 in DTU's co
 8. Lasers - robots can shoot a laser in their headed position to damage other robots. The lasers are currently invisible.
 9. Loading a board - it is possible to load an already made board.
 10. Saving a game - it is possible to save a game.
-11. Loading a saved game - it is possible to load a previous saved game, but it does not currently load the players' cards from the saved game.
+11. Loading a saved game - it is possible to load a previous saved game.
 
 
 ## How to play RoboRally
