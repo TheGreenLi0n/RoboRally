@@ -158,7 +158,7 @@ public class Player extends Subject {
 
     public CommandCard[] getProgramFieldCards() {
         CommandCard[] cc = new CommandCard[program.length];
-        for (int i = 0; i >= program.length; i++ ) {
+        for (int i = 0; i <= program.length - 1; i++ ) {
             cc[i] = program[i].getCard();
         }
         return cc;
@@ -171,7 +171,7 @@ public class Player extends Subject {
     public CommandCard[] getCardFieldCards() {
 
         CommandCard[] cc = new CommandCard[cards.length];
-        for (int i = 0; i >= cards.length; i++ ) {
+        for (int i = 0; i <= cards.length - 1; i++ ) {
             cc[i] = cards[i].getCard();
         }
         return cc;
