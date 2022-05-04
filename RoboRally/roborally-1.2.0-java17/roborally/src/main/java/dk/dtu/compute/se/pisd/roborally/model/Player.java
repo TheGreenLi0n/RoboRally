@@ -70,10 +70,18 @@ public class Player extends Subject {
         }
     }
 
+    /**
+     *
+     * @return name of the player.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @param name of the player
+     */
     public void setName(String name) {
         if (name != null && !name.equals(this.name)) {
             this.name = name;
@@ -84,10 +92,18 @@ public class Player extends Subject {
         }
     }
 
+    /**
+     *
+     * @return color of the player
+     */
     public String getColor() {
         return color;
     }
 
+    /**
+     * set the color of the player
+     * @param color
+     */
     public void setColor(String color) {
         this.color = color;
         notifyChange();
@@ -96,10 +112,18 @@ public class Player extends Subject {
         }
     }
 
+    /**
+     *
+     * @return space of the player??
+     */
     public Space getSpace() {
         return space;
     }
 
+    /**
+     * space of the player??
+     * @param space
+     */
     public void setSpace(Space space) {
         Space oldSpace = this.space;
         if (space != oldSpace &&
@@ -115,10 +139,18 @@ public class Player extends Subject {
         }
     }
 
+    /**
+     *
+     * @return heading of the player
+     */
     public Heading getHeading() {
         return heading;
     }
 
+    /**
+     * sets the heading of the player.
+     * @param heading
+     */
     public void setHeading(@NotNull Heading heading) {
         if (heading != this.heading) {
             this.heading = heading;
@@ -129,33 +161,66 @@ public class Player extends Subject {
         }
     }
 
+    /**
+     *
+     * @return damage taken to the player.
+     */
     public int getDamage() {
         return damage;
     }
+
+    /**
+     *
+     */
     public void dealDamage(){damage++;}
 
+    /**
+     *
+     * @return last reached checkpoint for the player.
+     */
     public int getReachedCheckpoint() {
         return reachedCheckpoint;
     }
 
+    /**
+     * sets the reached checkpoint for the player.
+     * @param reachedCheckpoint
+     */
     public void setReachedCheckpoint(int reachedCheckpoint) {
         this.reachedCheckpoint = reachedCheckpoint;
         notifyChange();
     }
 
-
+    /**
+     *
+     * @return priority number for the player.
+     */
     public int getPrioNo() {
         return prioNo;
     }
 
+    /**
+     * sets the priority number for the player.
+     * @param prioNo
+     */
     public void setPrioNo(int prioNo) {
         this.prioNo = prioNo;
     }
 
+    /**
+     *
+     * @param i is the current card.
+     * @return a card in the player's register.
+     */
     public CommandCardField getProgramField(int i) {
         return program[i];
     }
 
+    /**
+     *
+     * @param i is the current card.
+     * @return a card in the player's card deck.
+     */
     public CommandCardField getCardField(int i) {
         return cards[i];
     }

@@ -82,7 +82,12 @@ public class BoardView extends VBox implements ViewObserver {
         update(board);
     }
 
+    /**
+     * updates the view of the board.
+     * @param subject
+     */
     @Override
+
     public void updateView(Subject subject) {
         if (subject == board) {
             Phase phase = board.getPhase();
@@ -100,6 +105,10 @@ public class BoardView extends VBox implements ViewObserver {
             this.gameController = gameController;
         }
 
+        /**
+         * Method to use the mouse to move objects?
+         * @param event
+         */
         @Override
         public void handle(MouseEvent event) {
             Object source = event.getSource();
