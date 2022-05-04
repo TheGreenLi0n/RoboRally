@@ -178,7 +178,7 @@ public class GameController {
                     }
 
 
-                    //firinMahLazer();
+                    firinMahLazer();
                     step++;
                     if (step < Player.NO_REGISTERS) {
                         makeProgramFieldsVisible(step);
@@ -342,13 +342,18 @@ public class GameController {
             Heading heading = player.getHeading().prev().prev();
             Space target = board.getNeighbour(space, heading);
             if (target != null) {
+
                 if (target.getPlayer() != null) {
                     Player targetPlayer = target.getPlayer();
                     Space pushTarget = board.getNeighbour(targetPlayer.getSpace(), heading);
+                    if (pushTarget.getWalls().contains(player.getHeading()) || pushTarget.getWalls().contains(player.getHeading().prev().prev())) {
+                        return;}
                     if (pushTarget != null) {
                         targetPlayer.setSpace(pushTarget);
                     }
                 }
+                if (target.getWalls().contains(player.getHeading()) || player.getSpace().getWalls().contains(player.getHeading().prev().prev())) {
+                    return;}
                 // XXX note that this removes an other player from the space, when there
                 //     is another player on the target. Eventually, this needs to be
                 //     implemented in a way so that other players are pushed away!
@@ -392,7 +397,7 @@ public class GameController {
         if (nextPlayerNumber < board.getPlayersNumber()) {
             board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
         } else {
-            //firinMahLazer();
+            firinMahLazer();
             step++;
             if (step < Player.NO_REGISTERS) {
                 makeProgramFieldsVisible(step);
@@ -411,7 +416,6 @@ public class GameController {
      * Fires a laser from everyone in their headed direction, if it hits a player then the laser stops and the target that got hit
      * takes 1 damage.
      * If the laser hits a wall before it hits a player, then the laser stops.
-     * Disabled for now, need to update to the new wall.
      */
     public void firinMahLazer() {
         for (int i = 0; i < board.getPlayersNumber(); i++) {
@@ -510,9 +514,11 @@ public class GameController {
      * @param player - the player that is to be declared winner
      */
     public void makeWinner(Player player) {
-        Alert winnerMsg = new Alert(Alert.AlertType.INFORMATION, "Player \"" + player.getName() + "\" is the winner!");
         this.winner = true;
-        winnerMsg.showAndWait();
+        if (player.getName() != "testPlayer" ){
+            Alert winnerMsg = new Alert(Alert.AlertType.INFORMATION, "Player \"" + player.getName() + "\" is the winner!");
+            winnerMsg.showAndWait();
+        }
     }
 
 }

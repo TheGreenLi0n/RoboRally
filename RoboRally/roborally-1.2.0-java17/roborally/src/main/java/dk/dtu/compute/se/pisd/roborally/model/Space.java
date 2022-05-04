@@ -43,6 +43,7 @@ public class Space extends Subject {
     public List<Heading> walls;
     private Player player;
     private Checkpoint checkpoint;
+    private ConveyorBelt conveyorBelt;
 
 
 
@@ -90,6 +91,15 @@ public class Space extends Subject {
     public void setCheckpoint(Checkpoint checkpoint) {
         this.checkpoint = checkpoint;
         this.actions.add(checkpoint);
+    }
+
+    public ConveyorBelt getConveyorBelt() {
+        return conveyorBelt;
+    }
+
+    public void setConveyorBelt(ConveyorBelt conveyorBelt) {
+        this.conveyorBelt = conveyorBelt;
+        this.actions.add(conveyorBelt);
     }
 
     public List<Heading> getWalls() {

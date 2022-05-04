@@ -23,25 +23,19 @@ package dk.dtu.compute.se.pisd.roborally.view;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
-import dk.dtu.compute.se.pisd.roborally.model.Checkpoint;
-import dk.dtu.compute.se.pisd.roborally.model.Heading;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
-import dk.dtu.compute.se.pisd.roborally.model.Space;
+import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.StrokeLineCap;
 import org.jetbrains.annotations.NotNull;
 
-import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * ...
@@ -126,11 +120,11 @@ public class SpaceView extends StackPane implements ViewObserver {
                 break;
             }
             case SOUTH -> {
-                gc.strokeLine(2, SPACE_HEIGHT, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
+                gc.strokeLine(2, SPACE_HEIGHT - 2, SPACE_WIDTH - 2, SPACE_HEIGHT - 2);
                 break;
             }
             case EAST -> {
-                gc.strokeLine(SPACE_HEIGHT, SPACE_HEIGHT - 2, SPACE_WIDTH, SPACE_HEIGHT - 58);
+                gc.strokeLine(SPACE_HEIGHT-3, SPACE_HEIGHT - 2, SPACE_WIDTH - 3, SPACE_HEIGHT - 58);
                 break;
             }
 
@@ -140,13 +134,34 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     }
 
-    public void updateCheckpoint()
+    public void updateFieldAction()
     {
-        Checkpoint checkpoint = space.getCheckpoint();
-        if (space.getCheckpoint() != null){
-            addImage("images/checkpoint" + checkpoint.checkpointNo + ".png",0);
+        List<FieldAction> actions = space.getActions();
+        if (actions != null) {
+            for (FieldAction action : actions) {
+                if (action.getClass() == Checkpoint.class) {
+                    addImage("images/checkpoint" + (((Checkpoint) action).checkpointNo) + ".png", 270);
+                }
+                if (action.getClass() == ConveyorBelt.class){
+                    if(((ConveyorBelt) action).getSpeed() == 1) {
+                        switch (((ConveyorBelt) action).getHeading()) {
+                            case SOUTH -> addImage("images/ConveyorBeltGreen.png", 180);
+                            case EAST -> addImage("images/ConveyorBeltGreen.png", 90);
+                            case WEST -> addImage("images/ConveyorBeltGreen.png", 270);
+                            case NORTH -> addImage("images/ConveyorBeltGreen.png", 0);
+                        }
+                    }
+                    else if (((ConveyorBelt) action).getSpeed() == 2) {
+                        switch (((ConveyorBelt) action).getHeading()) {
+                            case SOUTH -> addImage("images/ConveyorBeltBlue.png", 180);
+                            case EAST -> addImage("images/ConveyorBeltBlue.png", 90);
+                            case WEST -> addImage("images/ConveyorBeltBlue.png", 270);
+                            case NORTH -> addImage("images/ConveyorBeltBlue.png", 0);
+                        }
+                    }
+                }
+            }
         }
-
     }
     public void updateWalls(){
         List<Heading> headings = space.getWalls();
@@ -184,7 +199,7 @@ public class SpaceView extends StackPane implements ViewObserver {
     public void updateView(Subject subject) {
         this.getChildren().clear();
         if (subject == this.space) {
-            updateCheckpoint();
+            updateFieldAction();
             updatePlayer();
             updateWalls();
 
@@ -198,29 +213,23 @@ public class SpaceView extends StackPane implements ViewObserver {
         //}
     //}
 
-    private ImageView addImage (String name){
-        Image img = null;
-        try {
-            img = new Image(SpaceView.class.getClassLoader().getResource(name).toURI().toString());
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        ImageView imgView = new ImageView(img);
-        imgView.setImage(img);
-        imgView.setFitHeight(SPACE_HEIGHT);
-        imgView.setFitWidth(SPACE_WIDTH);
-        imgView.setVisible(true);
+    /**
+     * The method for adding an image to a single space on the board.
+     * @param name - the name of the image to be added
+     * @param rotation - the degrees that an image should be rotated
+     */
 
-        this.getChildren().add(imgView);
+    private void addImage (String name, int rotation)  {
 
-        return imgView;
-    }
+        Image img = new Image(Objects.requireNonNull(SpaceView.class.getClassLoader().getResourceAsStream(name)));
 
-    private ImageView addImage (String name,double rotation){
-        ImageView imageView = addImage(name);
-        imageView.setRotate(rotation);
+        ImageView imgToAdd = new ImageView(img);
+        imgToAdd.setFitHeight(SPACE_HEIGHT);
+        imgToAdd.setFitWidth(SPACE_WIDTH);
+        imgToAdd.setRotate(rotation);
 
-        return imageView;
-    }
+        this.getChildren().add(imgToAdd);
 
     }
+
+}

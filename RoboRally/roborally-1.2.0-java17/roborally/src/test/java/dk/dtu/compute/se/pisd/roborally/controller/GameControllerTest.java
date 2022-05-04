@@ -1,9 +1,6 @@
 package dk.dtu.compute.se.pisd.roborally.controller;
 
-import dk.dtu.compute.se.pisd.roborally.model.Board;
-import dk.dtu.compute.se.pisd.roborally.model.Heading;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
-import dk.dtu.compute.se.pisd.roborally.model.Space;
+import dk.dtu.compute.se.pisd.roborally.model.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,7 +18,7 @@ class GameControllerTest {
         Board board = new Board(TEST_WIDTH, TEST_HEIGHT);
         gameController = new GameController(board);
         for (int i = 0; i < 6; i++) {
-            Player player = new Player(board, null,"Player " + i);
+            Player player = new Player(board, null,"testPlayer");
             board.addPlayer(player);
             player.setSpace(board.getSpace(i, i));
             player.setHeading(Heading.values()[i % Heading.values().length]);
@@ -147,4 +144,69 @@ class GameControllerTest {
         Assertions.assertEquals(player2, board.getSpace(2, 6).getPlayer(), "Player " + player2.getName() + " should be Space (2,6)!");
     }
 
+    @Test
+    void checkpointFunctionality(){
+        Board board = gameController.board;
+        Checkpoint checkpoint1 = new Checkpoint(1,2,2);
+        Checkpoint checkpoint2 = new Checkpoint(2,3,2);
+        Checkpoint checkpoint3 = new Checkpoint(3,4,2);
+        board.addCheckpoint(checkpoint1);
+        board.addCheckpoint(checkpoint2);
+        board.addCheckpoint(checkpoint3);
+
+        Player player1 = board.getPlayer(0);
+        Player player2 = board.getPlayer(1);
+
+
+        gameController.moveCurrentPlayerToSpace(board.getSpace(2, 1));
+        gameController.moveCurrentPlayerToSpace(board.getSpace(3, 1));
+        player1.getProgramField(1).setCard(new CommandCard(Command.FORWARD_1));
+        player2.getProgramField(1).setCard(new CommandCard(Command.FORWARD_1));
+        gameController.finishProgrammingPhase();
+        gameController.executePrograms();
+
+        Assertions.assertEquals(1, player1.getReachedCheckpoint(), "Player 1 should have reached checkpoint 1!");
+        Assertions.assertNotEquals(2, player2.getReachedCheckpoint(), "Player 2 should not have reached any checkpoint");
+    }
+
+    @Test
+    void makeWinner(){
+        Board board = gameController.board;
+        Checkpoint checkpoint1 = new Checkpoint(1,2,2);
+        Checkpoint checkpoint2 = new Checkpoint(2,2,3);
+        board.addCheckpoint(checkpoint1);
+        board.addCheckpoint(checkpoint2);
+
+        Player player1 = board.getPlayer(0);
+
+        gameController.moveCurrentPlayerToSpace(board.getSpace(2, 1));
+        player1.getProgramField(1).setCard(new CommandCard(Command.FORWARD_1));
+        player1.getProgramField(2).setCard(new CommandCard(Command.FORWARD_1));
+        gameController.finishProgrammingPhase();
+        gameController.executePrograms();
+
+        Assertions.assertEquals(2, player1.getReachedCheckpoint(), "The player should have reached all checkpoints (2)");
+        Assertions.assertTrue(gameController.winner, "We should have found a winner!");
+
+    }
+
+    @Test
+    public void ConveyorBeltMove(){
+        Board board = gameController.board;
+        ConveyorBelt conveyorBelt1 = new ConveyorBelt(Heading.EAST,2);
+        ConveyorBelt conveyorBelt2 = new ConveyorBelt(Heading.NORTH,2);
+        board.getSpace(6,2).setConveyorBelt(conveyorBelt1);
+        board.getSpace(6,3).setConveyorBelt(conveyorBelt2);
+
+        Player current = board.getPlayer(0);
+
+        gameController.moveCurrentPlayerToSpace(board.getSpace(6, 4));
+
+        current.getProgramField(1).setCard(new CommandCard(Command.MOVE_BACK));
+        gameController.finishProgrammingPhase();
+        gameController.executePrograms();
+
+        Assertions.assertEquals(current, board.getSpace(7, 2).getPlayer(), "Player " + current.getName() + " should be on space (7,2)!");
+        Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading South!");
+    }
 }
