@@ -54,10 +54,18 @@ public class CommandCardField extends Subject {
         }
     }
 
+    /**
+     * Boolean method that checks if an object is visible
+     * @return true
+     */
     public boolean isVisible() {
         return visible;
     }
 
+    /**
+     * Makes an object visible and calls notifyChange to notify the observer of the changed visibility.
+     * @param visible
+     */
     public void setVisible(boolean visible) {
         if (visible != this.visible) {
             this.visible = visible;

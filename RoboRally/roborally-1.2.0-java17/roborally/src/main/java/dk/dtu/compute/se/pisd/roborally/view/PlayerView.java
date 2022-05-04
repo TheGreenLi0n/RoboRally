@@ -136,6 +136,10 @@ public class PlayerView extends Tab implements ViewObserver {
         player.attach(this);
     }
 
+    /**
+     * updates the user interface depending on the phase the user are in.
+     * @param subject
+     */
     @Override
     public void updateView(Subject subject) {
 

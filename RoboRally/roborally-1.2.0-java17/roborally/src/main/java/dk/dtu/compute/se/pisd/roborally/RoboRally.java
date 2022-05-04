@@ -52,6 +52,10 @@ public class RoboRally extends Application {
         super.init();
     }
 
+    /**
+     * Starts the application
+     * @param primaryStage
+     */
     @Override
     public void start(Stage primaryStage) {
         stage = primaryStage;
@@ -78,6 +82,10 @@ public class RoboRally extends Application {
         stage.show();
     }
 
+    /**
+     * creates a view for the board.
+     * @param gameController
+     */
     public void createBoardView(GameController gameController) {
         // if present, remove old BoardView
         boardRoot.getChildren().clear();
@@ -91,6 +99,10 @@ public class RoboRally extends Application {
         stage.sizeToScene();
     }
 
+    /**
+     * stops the application.
+     * @throws Exception
+     */
     @Override
     public void stop() throws Exception {
         super.stop();

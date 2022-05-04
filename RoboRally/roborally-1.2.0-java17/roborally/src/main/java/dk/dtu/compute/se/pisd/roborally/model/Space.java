@@ -57,10 +57,18 @@ public class Space extends Subject {
         this.walls = new ArrayList<>();
     }
 
+    /**
+     *
+     * @return player of the space.
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     * Moves the target player to the space.
+     * @param player
+     */
     public void setPlayer(Player player) {
         Player oldPlayer = this.player;
         if (player != oldPlayer &&
@@ -84,32 +92,60 @@ public class Space extends Subject {
         notifyChange();
     }
 
+    /**
+     *
+     * @return the checkpoint of the space.
+     */
     public Checkpoint getCheckpoint() {
         return checkpoint;
     }
 
+    /**
+     * sets the checkpoint at the targeted space on the board.
+     * @param checkpoint
+     */
     public void setCheckpoint(Checkpoint checkpoint) {
         this.checkpoint = checkpoint;
         this.actions.add(checkpoint);
     }
 
+    /**
+     *
+     * @return the conveyor belt of the targeted space.
+     */
     public ConveyorBelt getConveyorBelt() {
         return conveyorBelt;
     }
 
+    /**
+     * sets the conveyor belt to the targeted space.
+     * @param conveyorBelt
+     */
     public void setConveyorBelt(ConveyorBelt conveyorBelt) {
         this.conveyorBelt = conveyorBelt;
         this.actions.add(conveyorBelt);
     }
 
+    /**
+     *
+     * @return walls
+     */
     public List<Heading> getWalls() {
         return walls;
     }
 
+    /**
+     * moves walls with a specific heading to the targeted space.
+     * @param walls
+     */
     public void setWalls(List<Heading> walls) {
         this.walls = walls;
     }
 
+    /**
+     *
+     * @return the current actions of the current space.
+     */
     public List<FieldAction> getActions() {
         return actions;
     }

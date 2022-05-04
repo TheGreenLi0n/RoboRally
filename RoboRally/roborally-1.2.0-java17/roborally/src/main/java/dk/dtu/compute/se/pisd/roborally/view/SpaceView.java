@@ -77,6 +77,9 @@ public class SpaceView extends StackPane implements ViewObserver {
         update(space);
     }
 
+    /**
+     * adds player to the space of the UI.
+     */
     private void updatePlayer() {
 
         Player player = space.getPlayer();
@@ -134,6 +137,9 @@ public class SpaceView extends StackPane implements ViewObserver {
 
     }
 
+    /**
+     * updates the field action objects to the board.
+     */
     public void updateFieldAction()
     {
         List<FieldAction> actions = space.getActions();
@@ -163,6 +169,10 @@ public class SpaceView extends StackPane implements ViewObserver {
             }
         }
     }
+
+    /**
+     * updates walls to the board.
+     */
     public void updateWalls(){
         List<Heading> headings = space.getWalls();
         if (headings!=null){
@@ -195,6 +205,11 @@ public class SpaceView extends StackPane implements ViewObserver {
         this.getChildren().add(canvas);
     }
 
+    /**
+     * Updates the view of the spaces with the methods of above; updateFieldAction(),
+     * updatePlayer() & updateWalls()
+     * @param subject
+     */
     @Override
     public void updateView(Subject subject) {
         this.getChildren().clear();
