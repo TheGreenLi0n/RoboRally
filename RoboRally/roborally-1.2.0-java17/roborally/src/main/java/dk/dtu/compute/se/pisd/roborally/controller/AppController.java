@@ -149,7 +149,6 @@ public class AppController implements Observer {
                 board = LoadBoard.loadBoard(choice);
                 gameController = new GameController(board);
                 roboRally.createBoardView(gameController);
-                System.out.println("test");
             });
         }
     }
