@@ -30,6 +30,7 @@ import dk.dtu.compute.se.pisd.roborally.RoboRally;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.Checkpoint;
+import dk.dtu.compute.se.pisd.roborally.model.Phase;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
 import javafx.application.Platform;
@@ -147,7 +148,6 @@ public class AppController implements Observer {
             result.ifPresent(choice->{
                 board = LoadBoard.loadBoard(choice);
                 gameController = new GameController(board);
-                gameController.startProgrammingPhase();
                 roboRally.createBoardView(gameController);
                 System.out.println("test");
             });

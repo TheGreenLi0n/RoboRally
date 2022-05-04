@@ -31,6 +31,7 @@ import dk.dtu.compute.se.pisd.roborally.fileaccess.model.PlayerTemplate;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.SpaceTemplate;
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
+import dk.dtu.compute.se.pisd.roborally.model.CommandCardField;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
@@ -73,6 +74,9 @@ public class LoadBoard {
 			BoardTemplate template = gson.fromJson(reader, BoardTemplate.class);
 
 			result = new Board(template.width, template.height);
+
+            result.setPhase(template.phase);
+            result.setStep(template.step);;
 			for (SpaceTemplate spaceTemplate: template.spaces) {
 			    Space space = result.getSpace(spaceTemplate.x, spaceTemplate.y);
 			    if (space != null) {
@@ -83,6 +87,23 @@ public class LoadBoard {
                         player.setSpace(space);
                         player.setHeading(spaceTemplate.player.heading);
                         player.setReachedCheckpoint(spaceTemplate.player.reachedCheckpoint);
+                        CommandCardField[] commandCardFields = new CommandCardField[spaceTemplate.player.cards.length];
+                        for (int i = 0; i <= spaceTemplate.player.cards.length - 1; i++) {
+                            CommandCardField commandCardField = new CommandCardField(player);
+                            commandCardField.setCard(spaceTemplate.player.cards[i].card);
+                            commandCardField.setVisible(spaceTemplate.player.cards[i].visibility);
+                            commandCardFields[i] = commandCardField;
+                        }
+                        player.setCards(commandCardFields);
+                        CommandCardField[] commandProgramFields = new CommandCardField[spaceTemplate.player.program.length];
+                        for (int i = 0; i <= spaceTemplate.player.program.length - 1; i++) {
+                            CommandCardField commandProgramField = new CommandCardField(player);
+                            commandProgramField.setCard(spaceTemplate.player.program[i].card);
+                            commandProgramField.setVisible(spaceTemplate.player.program[i].visibility);
+                            commandProgramFields[i] = commandProgramField;
+                        }
+                        player.setProgram(commandProgramFields);
+                        result.setCurrentPlayer(result.getPlayer(template.currentPlayer));
                         result.addPlayer(player);
                     }
                 }
@@ -109,6 +130,9 @@ public class LoadBoard {
         BoardTemplate template = new BoardTemplate();
         template.width = board.width;
         template.height = board.height;
+        template.currentPlayer = board.getPlayerNumber(board.getCurrentPlayer());
+        template.phase = board.getPhase();
+        template.step = board.getStep();
 
         for (int i=0; i<board.width; i++) {
             for (int j=0; j<board.height; j++) {
@@ -136,12 +160,10 @@ public class LoadBoard {
                         }
                         for (int pn = 0; pn <= space.getPlayer().getProgramFieldCards().length - 1; pn++) {
                             CommandCardFieldTemplate commandProgramFieldTemplate = new CommandCardFieldTemplate();
-                            commandProgramFieldTemplate.card = space.getPlayer().getCardField(pn).getCard();
-                            commandProgramFieldTemplate.visibility = space.getPlayer().getCardField(pn).isVisible();
+                            commandProgramFieldTemplate.card = space.getPlayer().getProgramField(pn).getCard();
+                            commandProgramFieldTemplate.visibility = space.getPlayer().getProgramField(pn).isVisible();
                             playerTemplate.program[pn] = commandProgramFieldTemplate;
-
                         }
-
                         spaceTemplate.player = playerTemplate;
                     }
                     template.spaces.add(spaceTemplate);
