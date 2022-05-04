@@ -224,5 +224,15 @@ public class Player extends Subject {
     public CommandCardField getCardField(int i) {
         return cards[i];
     }
+    
+    
+    public CommandCard[] getCardFieldCards() {
+
+        CommandCard[] cc = new CommandCard[cards.length];
+        for (int i = 0; i <= cards.length - 1; i++ ) {
+            cc[i] = cards[i].getCard();
+        }
+        return cc;
+    }
 
 }
