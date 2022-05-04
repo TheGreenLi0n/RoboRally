@@ -243,5 +243,12 @@ public class Player extends Subject {
     public void setCards(CommandCardField[] cards) {
         this.cards = cards;
     }
+    public CommandCard[] getProgramFieldCards() {
+        CommandCard[] cc = new CommandCard[program.length];
+        for (int i = 0; i <= program.length - 1; i++ ) {
+            cc[i] = program[i].getCard();
+        }
+        return cc;
+    }
 
 }
