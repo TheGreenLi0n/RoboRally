@@ -16,7 +16,7 @@ public class PlayerTemplate {
     public int reachedCheckpoint;
     public Heading heading;
 
-    public CommandCard[] program;
-    public CommandCard[] cards;
+    public CommandCardFieldTemplate[] program;
+    public CommandCardFieldTemplate[] cards;
 
 }

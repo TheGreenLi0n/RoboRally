@@ -26,10 +26,12 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.BoardTemplate;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.model.CommandCardFieldTemplate;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.PlayerTemplate;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.SpaceTemplate;
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
+import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
 import java.io.*;
@@ -76,6 +78,13 @@ public class LoadBoard {
 			    if (space != null) {
                     space.getActions().addAll(spaceTemplate.actions);
                     space.getWalls().addAll(spaceTemplate.walls);
+                    if (spaceTemplate.player != null) {
+                        Player player = new Player(result, spaceTemplate.player.color, spaceTemplate.player.name);
+                        player.setSpace(space);
+                        player.setHeading(spaceTemplate.player.heading);
+                        player.setReachedCheckpoint(spaceTemplate.player.reachedCheckpoint);
+                        result.addPlayer(player);
+                    }
                 }
             }
 			reader.close();
@@ -117,8 +126,21 @@ public class LoadBoard {
                         playerTemplate.heading = space.getPlayer().getHeading();
                         playerTemplate.reachedCheckpoint = space.getPlayer().getReachedCheckpoint();
                         playerTemplate.damage = space.getPlayer().getDamage();
-                        playerTemplate.program = space.getPlayer().getProgramFieldCards();
-                        playerTemplate.cards = space.getPlayer().getCardFieldCards();
+                        playerTemplate.cards = new CommandCardFieldTemplate[space.getPlayer().getCardFieldCards().length];
+                        playerTemplate.program = new CommandCardFieldTemplate[space.getPlayer().getProgramFieldCards().length];
+                        for (int cn = 0; cn <= space.getPlayer().getCardFieldCards().length - 1; cn++) {
+                            CommandCardFieldTemplate commandCardFieldTemplate = new CommandCardFieldTemplate();
+                            commandCardFieldTemplate.card = space.getPlayer().getCardField(cn).getCard();
+                            commandCardFieldTemplate.visibility = space.getPlayer().getCardField(cn).isVisible();
+                            playerTemplate.cards[cn] = commandCardFieldTemplate;
+                        }
+                        for (int pn = 0; pn <= space.getPlayer().getProgramFieldCards().length - 1; pn++) {
+                            CommandCardFieldTemplate commandProgramFieldTemplate = new CommandCardFieldTemplate();
+                            commandProgramFieldTemplate.card = space.getPlayer().getCardField(pn).getCard();
+                            commandProgramFieldTemplate.visibility = space.getPlayer().getCardField(pn).isVisible();
+                            playerTemplate.program[pn] = commandProgramFieldTemplate;
+
+                        }
 
                         spaceTemplate.player = playerTemplate;
                     }

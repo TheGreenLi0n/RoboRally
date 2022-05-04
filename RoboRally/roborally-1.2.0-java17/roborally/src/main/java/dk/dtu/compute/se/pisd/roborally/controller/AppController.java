@@ -40,6 +40,7 @@ import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextInputDialog;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -64,11 +65,6 @@ public class AppController implements Observer {
         this.roboRally = roboRally;
     }
 
-    /**
-     * Method for creating a new game which creates a default board and the chosen number of players for the given game.
-     * If result.isPresent is true the program will create the board, gameController and players.
-     *
-     */
     public void newGame() {
         ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
         dialog.setTitle("Player number");
@@ -104,9 +100,6 @@ public class AppController implements Observer {
         }
     }
 
-    /**
-     * Saving the current game by the name entered by the player.
-     */
     public void saveGame() {
         // XXX needs to be implemented eventually
         TextInputDialog input = new TextInputDialog();
@@ -119,14 +112,34 @@ public class AppController implements Observer {
         });
     }
 
-    /**
-     * Loading a game....
-     */
     public void loadGame() {
         // XXX needs to be implememted eventually
         // for now, we just create a new game
         if (gameController == null) {
-            newGame();
+            String path = "RoboRally/roborally-1.2.0-java17/roborally/target/classes/boards";
+            File file = new File(path);
+            String absPath = file.getAbsolutePath();
+            absPath =absPath.replaceAll("\\\\", "$0$0");
+            File filePath = new File(absPath);
+            File[] folder = filePath.listFiles();
+            String[] filenames = new String[folder.length];
+            for (int i = 0; i < filenames.length; i++) {
+                filenames[i] = folder[i].getName().substring(0,folder[i].getName().length()-5);
+            }
+
+//            newGame();
+            ChoiceDialog<String> dialog = new ChoiceDialog<>(filenames[0],filenames);
+            dialog.setTitle("Load Game");
+            dialog.setHeaderText("Select a game to load");
+            Optional<String> result = dialog.showAndWait();
+
+            result.ifPresent(choice->{
+                board = LoadBoard.loadBoard(choice);
+                gameController = new GameController(board);
+                gameController.startProgrammingPhase();
+                roboRally.createBoardView(gameController);
+                System.out.println("test");
+            });
         }
     }
 
@@ -152,11 +165,6 @@ public class AppController implements Observer {
         return false;
     }
 
-    /**
-     * Method for when exiting roborally get a Confirmation Window to check if the player is sure about closing the game.
-     * Exits the game if gameController is null or stopGame() method is used.
-     */
-
     public void exit() {
         if (gameController != null) {
             Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -176,10 +184,6 @@ public class AppController implements Observer {
         }
     }
 
-    /**
-     * Boolean method to check if the game is running. If the gameController is not null the game is running(true).
-     * @return a true or false depending on whether gameController is null or not null.
-     */
     public boolean isGameRunning() {
         return gameController != null;
     }
