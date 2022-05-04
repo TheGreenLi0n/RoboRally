@@ -137,9 +137,6 @@ public class AppController implements Observer {
             result.ifPresent(choice->{
                 board = LoadBoard.loadBoard(choice);
                 gameController = new GameController(board);
-                board.setPhase(Phase.PROGRAMMING); //should be set by save
-                board.setCurrentPlayer(board.getPlayer(0));//should be set by save
-                board.setStep(0);//should be set by save
                 roboRally.createBoardView(gameController);
                 System.out.println("test");
             });

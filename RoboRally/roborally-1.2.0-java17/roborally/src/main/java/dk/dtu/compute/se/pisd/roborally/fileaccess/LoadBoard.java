@@ -74,6 +74,9 @@ public class LoadBoard {
 			BoardTemplate template = gson.fromJson(reader, BoardTemplate.class);
 
 			result = new Board(template.width, template.height);
+
+            result.setPhase(template.phase);
+            result.setStep(template.step);;
 			for (SpaceTemplate spaceTemplate: template.spaces) {
 			    Space space = result.getSpace(spaceTemplate.x, spaceTemplate.y);
 			    if (space != null) {
@@ -100,6 +103,7 @@ public class LoadBoard {
                             commandProgramFields[i] = commandProgramField;
                         }
                         player.setProgram(commandProgramFields);
+                        result.setCurrentPlayer(result.getPlayer(template.currentPlayer));
                         result.addPlayer(player);
                     }
                 }
@@ -126,6 +130,9 @@ public class LoadBoard {
         BoardTemplate template = new BoardTemplate();
         template.width = board.width;
         template.height = board.height;
+        template.currentPlayer = board.getPlayerNumber(board.getCurrentPlayer());
+        template.phase = board.getPhase();
+        template.step = board.getStep();
 
         for (int i=0; i<board.width; i++) {
             for (int j=0; j<board.height; j++) {
@@ -158,7 +165,6 @@ public class LoadBoard {
                             playerTemplate.program[pn] = commandProgramFieldTemplate;
 
                         }
-
                         spaceTemplate.player = playerTemplate;
                     }
                     template.spaces.add(spaceTemplate);
