@@ -160,10 +160,9 @@ public class LoadBoard {
                         }
                         for (int pn = 0; pn <= space.getPlayer().getProgramFieldCards().length - 1; pn++) {
                             CommandCardFieldTemplate commandProgramFieldTemplate = new CommandCardFieldTemplate();
-                            commandProgramFieldTemplate.card = space.getPlayer().getCardField(pn).getCard();
-                            commandProgramFieldTemplate.visibility = space.getPlayer().getCardField(pn).isVisible();
+                            commandProgramFieldTemplate.card = space.getPlayer().getProgramField(pn).getCard();
+                            commandProgramFieldTemplate.visibility = space.getPlayer().getProgramField(pn).isVisible();
                             playerTemplate.program[pn] = commandProgramFieldTemplate;
-
                         }
                         spaceTemplate.player = playerTemplate;
                     }
