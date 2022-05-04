@@ -31,6 +31,7 @@ import dk.dtu.compute.se.pisd.roborally.fileaccess.model.PlayerTemplate;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.SpaceTemplate;
 import dk.dtu.compute.se.pisd.roborally.controller.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
+import dk.dtu.compute.se.pisd.roborally.model.CommandCardField;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 import dk.dtu.compute.se.pisd.roborally.model.Space;
 
@@ -83,6 +84,22 @@ public class LoadBoard {
                         player.setSpace(space);
                         player.setHeading(spaceTemplate.player.heading);
                         player.setReachedCheckpoint(spaceTemplate.player.reachedCheckpoint);
+                        CommandCardField[] commandCardFields = new CommandCardField[spaceTemplate.player.cards.length];
+                        for (int i = 0; i <= spaceTemplate.player.cards.length - 1; i++) {
+                            CommandCardField commandCardField = new CommandCardField(player);
+                            commandCardField.setCard(spaceTemplate.player.cards[i].card);
+                            commandCardField.setVisible(spaceTemplate.player.cards[i].visibility);
+                            commandCardFields[i] = commandCardField;
+                        }
+                        player.setCards(commandCardFields);
+                        CommandCardField[] commandProgramFields = new CommandCardField[spaceTemplate.player.program.length];
+                        for (int i = 0; i <= spaceTemplate.player.program.length - 1; i++) {
+                            CommandCardField commandProgramField = new CommandCardField(player);
+                            commandProgramField.setCard(spaceTemplate.player.program[i].card);
+                            commandProgramField.setVisible(spaceTemplate.player.program[i].visibility);
+                            commandProgramFields[i] = commandProgramField;
+                        }
+                        player.setProgram(commandProgramFields);
                         result.addPlayer(player);
                     }
                 }
