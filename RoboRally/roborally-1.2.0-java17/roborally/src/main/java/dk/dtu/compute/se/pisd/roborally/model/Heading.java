@@ -31,10 +31,18 @@ public enum Heading {
 
     SOUTH, WEST, NORTH, EAST;
 
+    /**
+     * Method for making the robot or other objects change heading.
+     * @return the next heading
+     */
     public Heading next() {
         return values()[(this.ordinal() + 1) % values().length];
     }
 
+    /**
+     * Method for making the robot or other objects change heading.
+     * @return the previous heading.
+     */
     public Heading prev() {
         return values()[(this.ordinal() + values().length - 1) % values().length];
     }

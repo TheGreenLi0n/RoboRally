@@ -66,6 +66,8 @@ public class AppController implements Observer {
 
     /**
      * Method for creating a new game which creates a default board and the chosen number of players for the given game.
+     * If result.isPresent is true the program will create the board, gameController and players.
+     *
      */
     public void newGame() {
         ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
@@ -102,6 +104,9 @@ public class AppController implements Observer {
         }
     }
 
+    /**
+     * Saving the current game by the name entered by the player.
+     */
     public void saveGame() {
         // XXX needs to be implemented eventually
         TextInputDialog input = new TextInputDialog();
@@ -114,6 +119,9 @@ public class AppController implements Observer {
         });
     }
 
+    /**
+     * Loading a game....
+     */
     public void loadGame() {
         // XXX needs to be implememted eventually
         // for now, we just create a new game
@@ -146,6 +154,7 @@ public class AppController implements Observer {
 
     /**
      * Method for when exiting roborally get a Confirmation Window to check if the player is sure about closing the game.
+     * Exits the game if gameController is null or stopGame() method is used.
      */
 
     public void exit() {
@@ -167,6 +176,10 @@ public class AppController implements Observer {
         }
     }
 
+    /**
+     * Boolean method to check if the game is running. If the gameController is not null the game is running(true).
+     * @return a true or false depending on whether gameController is null or not null.
+     */
     public boolean isGameRunning() {
         return gameController != null;
     }

@@ -62,10 +62,18 @@ public enum Command {
         this.options = Collections.unmodifiableList(Arrays.asList(options));
     }
 
+    /**
+     * boolean method to check if ... is interactive
+     * @return true if options is not empty
+     */
     public boolean isInteractive() {
         return !options.isEmpty();
     }
 
+    /**
+     * a list method to
+     * @return options
+     */
     public List<Command> getOptions() {
         return options;
     }
