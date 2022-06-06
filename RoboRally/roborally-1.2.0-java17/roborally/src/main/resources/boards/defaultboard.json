@@ -80,6 +80,19 @@
       "y": 6
     },
     {
+      "walls": [
+      ],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Antenna",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 2,
+      "y": 0
+    },
+    {
       "walls": [],
       "actions": [
         {
@@ -114,12 +127,38 @@
       "y": 3
     },
     {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Gear",
+          "INSTANCE": {
+            "color": "Green"
+          }
+        }
+      ],
+      "x": 3,
+      "y": 6
+    },
+    {
       "walls": [
         "SOUTH"
       ],
       "actions": [],
       "x": 4,
       "y": 4
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Gear",
+          "INSTANCE": {
+            "color": "Red"
+          }
+        }
+      ],
+      "x": 4,
+      "y": 5
     },
     {
       "walls": [

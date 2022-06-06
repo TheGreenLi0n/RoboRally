@@ -44,6 +44,7 @@ public class Space extends Subject {
     private Player player;
     private Checkpoint checkpoint;
     private ConveyorBelt conveyorBelt;
+    private Antenna antenna;
 
 
 
@@ -151,4 +152,20 @@ public class Space extends Subject {
     }
 
 
+    /**
+     *
+     * @return Antenna
+     */
+    public Antenna getAntenna() {
+        return antenna;
+    }
+
+    /**
+     *
+     * @param antenna
+     */
+    public void setAntenna(Antenna antenna) {
+        this.antenna = antenna;
+        this.actions.add(antenna);
+    }
 }
