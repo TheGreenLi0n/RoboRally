@@ -130,7 +130,7 @@ class GameControllerTest {
     }
 
     @Test
-    void movePlayer(){
+    void pushPlayer(){
         Board board = gameController.board;
         Player player1 = board.getPlayer(0);
         Player player2 = board.getPlayer(1);
@@ -157,7 +157,6 @@ class GameControllerTest {
         Player player1 = board.getPlayer(0);
         Player player2 = board.getPlayer(1);
 
-
         gameController.moveCurrentPlayerToSpace(board.getSpace(2, 1));
         gameController.moveCurrentPlayerToSpace(board.getSpace(3, 1));
         player1.getProgramField(1).setCard(new CommandCard(Command.FORWARD_1));
@@ -165,8 +164,8 @@ class GameControllerTest {
         gameController.finishProgrammingPhase();
         gameController.executePrograms();
 
-        Assertions.assertEquals(1, player1.getReachedCheckpoint(), "Player 1 should have reached checkpoint 1!");
-        Assertions.assertNotEquals(2, player2.getReachedCheckpoint(), "Player 2 should not have reached any checkpoint");
+        Assertions.assertEquals(1, player1.getReachedCheckpoint(), "Player 1 should have completed checkpoint 1!");
+        Assertions.assertNotEquals(2, player2.getReachedCheckpoint(), "Player 2 should not have completed any checkpoint");
     }
 
     @Test
@@ -191,7 +190,7 @@ class GameControllerTest {
     }
 
     @Test
-    public void ConveyorBeltMove(){
+    void ConveyorBeltMove(){
         Board board = gameController.board;
         ConveyorBelt conveyorBelt1 = new ConveyorBelt(Heading.EAST,2);
         ConveyorBelt conveyorBelt2 = new ConveyorBelt(Heading.NORTH,2);
