@@ -145,11 +145,11 @@ class GameControllerTest {
     }
 
     @Test
-    void checkpointFunctionality(){
+    void checkpointFunctionality() {
         Board board = gameController.board;
-        Checkpoint checkpoint1 = new Checkpoint(1,2,2);
-        Checkpoint checkpoint2 = new Checkpoint(2,3,2);
-        Checkpoint checkpoint3 = new Checkpoint(3,4,2);
+        Checkpoint checkpoint1 = new Checkpoint(1, 2, 2);
+        Checkpoint checkpoint2 = new Checkpoint(2, 3, 2);
+        Checkpoint checkpoint3 = new Checkpoint(3, 4, 2);
         board.addCheckpoint(checkpoint1);
         board.addCheckpoint(checkpoint2);
         board.addCheckpoint(checkpoint3);
@@ -207,5 +207,74 @@ class GameControllerTest {
 
         Assertions.assertEquals(current, board.getSpace(7, 2).getPlayer(), "Player " + current.getName() + " should be on space (7,2)!");
         Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading South!");
+    }
+
+
+    @Test
+    void pushOnConveyorBelt(){
+        Board board = gameController.board;
+        Player player1 = board.getPlayer(0);
+        Player player2 = board.getPlayer(1);
+
+        gameController.moveCurrentPlayerToSpace(board.getSpace(2, 4));
+        gameController.moveCurrentPlayerToSpace(board.getSpace(2, 5));
+        gameController.moveForward(player1);
+
+        Assertions.assertEquals(player1, board.getSpace(2, 5).getPlayer(), "Player " + player1.getName() + " should be Space (2,5)!");
+        Assertions.assertNull(board.getSpace(2, 4).getPlayer(), "Space (0,0) should be empty!");
+        Assertions.assertEquals(player2, board.getSpace(2, 6).getPlayer(), "Player " + player2.getName() + " should be Space (2,6)!");
+
+    }
+
+    @Test
+    void wallStopMove(){
+        Board board = gameController.board;
+
+        board.getSpace(7,2).walls.add(Heading.NORTH);
+
+        Player current = board.getPlayer(0);
+
+        gameController.moveCurrentPlayerToSpace(board.getSpace(7, 2));
+
+        current.getProgramField(1).setCard(new CommandCard(Command.MOVE_BACK));
+        gameController.finishProgrammingPhase();
+        gameController.executePrograms();
+
+        Assertions.assertEquals(current, board.getSpace(7, 2).getPlayer(), "Player " + current.getName() + " should be on space (7,2)!");
+        Assertions.assertEquals(Heading.SOUTH, current.getHeading(), "Player 0 should be heading South!");
+    }
+
+    @Test
+    void laserStopOnHit(){
+        Board board = gameController.board;
+        Player player1 = board.getPlayer(0);
+        Player player2 = board.getPlayer(1);
+
+        board.getSpace(4,1).walls.add(Heading.NORTH);
+
+        gameController.moveCurrentPlayerToSpace(board.getSpace(4, 0));
+        gameController.moveCurrentPlayerToSpace(board.getSpace(4, 2));
+
+        gameController.finishProgrammingPhase();
+        gameController.executePrograms();
+
+        Assertions.assertEquals(0,player2.getDamage(), "player " + player2.getName() + "should not have taken damage! " );
+    }
+
+    @Test
+    void laserDmgPlayer(){
+        Board board = gameController.board;
+        Player player1 = board.getPlayer(0);
+        Player player2 = board.getPlayer(1);
+
+
+        gameController.moveCurrentPlayerToSpace(board.getSpace(4, 0));
+        gameController.moveCurrentPlayerToSpace(board.getSpace(4, 2));
+
+        gameController.finishProgrammingPhase();
+        gameController.executePrograms();
+
+        player1.getDamage();
+        Assertions.assertEquals(5,player2.getDamage(), "player " + player2.getName() + "should have taken 5 damage! " );
     }
 }
