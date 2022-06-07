@@ -38,13 +38,13 @@ public enum Command {
     FORWARD_1("Move fwd 1"),
     RIGHT("Turn Right"),
     LEFT("Turn Left"),
-    Forward_2("Move fwd 2"),
-    Forward_3("Move fwd 3"),
+    FORWARD_2("Move fwd 2"),
+    FORWARD_3("Move fwd 3"),
     MOVE_BACK("Move back"),
     U_TURN("U-turn"),
 
-    // XXX Assignment P3
-    OPTION_LEFT_RIGHT("Left OR Right", LEFT, RIGHT);
+    OPTION_LEFT_RIGHT("Left OR Right", LEFT, RIGHT),
+    OPTION_FORWARD_1_2_3("Move fwd 1, 2 or 3",FORWARD_1, FORWARD_2, FORWARD_3);
 
     final public String displayName;
 

@@ -70,11 +70,16 @@ public class SpaceView extends StackPane implements ViewObserver {
             this.setStyle("-fx-background-color: black;");
         }
 
+
         // updatePlayer();
 
         // This space view should listen to changes of the space
         space.attach(this);
         update(space);
+    }
+
+    private void updateSpace(){
+
     }
 
     /**
@@ -84,7 +89,7 @@ public class SpaceView extends StackPane implements ViewObserver {
 
         Player player = space.getPlayer();
         if (player != null) {
-            Polygon arrow = new Polygon(0.0, 0.0,
+            /*Polygon arrow = new Polygon(0.0, 0.0,
                     10.0, 20.0,
                     20.0, 0.0);
             try {
@@ -94,7 +99,8 @@ public class SpaceView extends StackPane implements ViewObserver {
             }
 
             arrow.setRotate((90 * player.getHeading().ordinal()) % 360);
-            this.getChildren().add(arrow);
+            this.getChildren().add(arrow);*/
+            addImage("images/"+ player.getColor() +"Robot.png",(90 * player.getHeading().ordinal()) % 360);
         }
     }
 
@@ -166,6 +172,17 @@ public class SpaceView extends StackPane implements ViewObserver {
                         }
                     }
                 }
+                if (action.getClass() == Gear.class){
+                    if (((Gear) action).getColor().equals("Green")){
+                        addImage("images/GreenGear.png", 0);
+                    }
+                    if (((Gear) action).getColor().equals("Red")){
+                        addImage("images/RedGear.png", 0);
+                    }
+                }
+                if (action.getClass() == Antenna.class){
+                    addImage("images/PrioAntenna.png", 0);
+                }
             }
         }
     }
@@ -177,7 +194,13 @@ public class SpaceView extends StackPane implements ViewObserver {
         List<Heading> headings = space.getWalls();
         if (headings!=null){
             for(Heading heading: headings){
-                drawWall(heading);
+                switch (heading){
+                    case NORTH -> addImage("images/Wall.png",0);
+                    case EAST -> addImage("images/Wall.png",90);
+                    case SOUTH -> addImage("images/Wall.png",180);
+                    case WEST -> addImage("images/Wall.png",270);
+                }
+                //drawWall(heading);
             }
         }
     }
@@ -214,10 +237,10 @@ public class SpaceView extends StackPane implements ViewObserver {
     public void updateView(Subject subject) {
         this.getChildren().clear();
         if (subject == this.space) {
+            addImage("images/Floor.png",0);
             updateFieldAction();
             updatePlayer();
             updateWalls();
-
         }
        /* if ((space.x == 2 && space.y == 2)) {
             space.setWallheading(Heading.WEST);
