@@ -26,6 +26,9 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
+
 /**
  * ...
  *
@@ -46,6 +49,10 @@ public class RoboRallyMenuBar extends MenuBar {
 
     private MenuItem stopGame;
 
+    private MenuItem joinGame;
+
+    private MenuItem hostGame;
+
     private MenuItem exitApp;
 
     public RoboRallyMenuBar(AppController appController) {
@@ -58,6 +65,20 @@ public class RoboRallyMenuBar extends MenuBar {
         newGame.setOnAction( e -> this.appController.newGame());
         controlMenu.getItems().add(newGame);
 
+        hostGame = new MenuItem(("Host Game"));
+        hostGame.setOnAction( e -> {
+            try {
+                this.appController.hostGame();
+            } catch (ExecutionException ex) {
+                ex.printStackTrace();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            } catch (TimeoutException ex) {
+                ex.printStackTrace();
+            }
+        });
+        controlMenu.getItems().add(hostGame);
+
         stopGame = new MenuItem("Stop Game");
         stopGame.setOnAction( e -> this.appController.stopGame());
         controlMenu.getItems().add(stopGame);
@@ -69,6 +90,20 @@ public class RoboRallyMenuBar extends MenuBar {
         loadGame = new MenuItem("Load Game");
         loadGame.setOnAction( e -> this.appController.loadGame());
         controlMenu.getItems().add(loadGame);
+
+        joinGame = new MenuItem(("Join Game"));
+        joinGame.setOnAction( e -> {
+            try {
+                this.appController.joinGame();
+            } catch (ExecutionException ex) {
+                ex.printStackTrace();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            } catch (TimeoutException ex) {
+                ex.printStackTrace();
+            }
+        });
+        controlMenu.getItems().add(joinGame);
 
         exitApp = new MenuItem("Exit");
         exitApp.setOnAction( e -> this.appController.exit());

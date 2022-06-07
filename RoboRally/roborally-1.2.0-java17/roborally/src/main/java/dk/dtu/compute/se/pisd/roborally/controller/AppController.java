@@ -21,16 +21,20 @@
  */
 package dk.dtu.compute.se.pisd.roborally.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.stream.JsonReader;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Observer;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
 
 
+import dk.dtu.compute.se.pisd.roborally.fileaccess.Adapter;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
+import dk.dtu.compute.se.pisd.roborally.fileaccess.model.BoardTemplate;
 import dk.dtu.compute.se.pisd.roborally.model.Board;
-import dk.dtu.compute.se.pisd.roborally.model.Checkpoint;
-import dk.dtu.compute.se.pisd.roborally.model.Phase;
+import dk.dtu.compute.se.pisd.roborally.model.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
 import javafx.application.Platform;
@@ -41,10 +45,23 @@ import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextInputDialog;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.nio.charset.StandardCharsets;
+import java.time.Duration;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * ...
@@ -61,6 +78,11 @@ public class AppController implements Observer {
 
     private GameController gameController;
     private Board board;
+
+    private static final HttpClient httpClient = HttpClient.newBuilder()
+            .version(HttpClient.Version.HTTP_2)
+            .connectTimeout(Duration.ofSeconds(10))
+            .build();
 
     public AppController(@NotNull RoboRally roboRally) {
         this.roboRally = roboRally;
@@ -152,6 +174,29 @@ public class AppController implements Observer {
             });
         }
     }
+
+    /**
+     * Method to join an online game
+     * Needs to be implemented
+     */
+    public void joinGame() throws ExecutionException, InterruptedException, TimeoutException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .GET()
+                .uri(URI.create("http://localhost:8080/games"))
+                .build();
+
+        CompletableFuture<HttpResponse<String>> response =
+                httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+
+        String result = response.thenApply((r)->r.body()).get(5, TimeUnit.SECONDS);
+
+        System.out.println(result);
+    }
+
+    public void hostGame() throws ExecutionException, InterruptedException, TimeoutException {
+
+    }
+
 
     /**
      * Stop playing the current game, giving the user the option to save
