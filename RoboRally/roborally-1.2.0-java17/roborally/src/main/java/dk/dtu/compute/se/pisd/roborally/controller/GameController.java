@@ -27,8 +27,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.PriorityQueue;
 
-import java.util.List;
-
 /**
  * ...
  *
@@ -258,7 +256,7 @@ public class GameController {
                 case LEFT:
                     this.turnLeft(player);
                     break;
-                case Forward_2:
+                case FORWARD_2:
                     this.moveForward2(player);
                     break;
                 case U_TURN:
@@ -267,7 +265,7 @@ public class GameController {
                 case MOVE_BACK:
                     this.moveBack(player);
                     break;
-                case Forward_3:
+                case FORWARD_3:
                     this.moveForward3(player);
                     break;
                 default:
