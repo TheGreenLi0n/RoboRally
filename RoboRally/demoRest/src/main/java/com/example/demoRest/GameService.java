@@ -5,19 +5,13 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProductService implements IProductService
+public class GameService implements IGameService
 {
     //creating an object of ArrayList
     ArrayList<Game> games = new ArrayList<Game>();
 
-    public ProductService() {
-    //adding products to the List
-//        products.add(new Product(100, "Mobile", 9000.00));
-//        products.add(new Product(101, "Smart TV",  60000.00));
-//        products.add(new Product(102, "Washing Machine", 9000.00));
-//        products.add(new Product(103, "Laptop", 24000.00));
-//        products.add(new Product(104, "Air Conditioner", 30000.00));
-//        products.add(new Product(105, "Refrigerator ", 10000.00));
+    public GameService() {
+
         games.add(new Game(101));
 
     }
@@ -30,13 +24,13 @@ public class ProductService implements IProductService
     }
 
     @Override
-    public boolean addProduct(Game p) {
+    public boolean addGame(Game p) {
         games.add(p);
         return true;
     }
 
     @Override
-    public Game getProductById(int id) {
+    public Game getGameById(int id) {
         for(Game p : games) {
             if(p.getId() == id) {
                 return p;
@@ -46,7 +40,7 @@ public class ProductService implements IProductService
     }
 
     @Override
-    public boolean updateProduct(int id, Game p) {
+    public boolean updateGame(int id, Game p) {
         for(Game currProd : games) {
             if(currProd.getId() == id) {
                 currProd.setId(p.getId());
@@ -57,14 +51,14 @@ public class ProductService implements IProductService
     }
 
     @Override
-    public boolean deleteProductById(int id) {
-        ArrayList<Game> newProducts = new ArrayList<Game>();
+    public boolean deleteGameById(int id) {
+        ArrayList<Game> newGames = new ArrayList<Game>();
         int oldSize = games.size();
-        games.forEach((product -> {
-            if(product.getId() != id)
-                    newProducts.add(product);
+        games.forEach((Game -> {
+            if(Game.getId() != id)
+                    newGames.add(Game);
         }));
-        games = newProducts;
+        games = newGames;
         return oldSize < games.size() ? true : false;
     }
 }
