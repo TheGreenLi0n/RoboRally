@@ -93,7 +93,19 @@ public class AppController implements Observer {
      * If result.isPresent is true the program will create the board, gameController and players.
      *
      */
-    public void newGame() {
+    public void newGame() throws ExecutionException, InterruptedException, TimeoutException {
+        HttpRequest request = HttpRequest.newBuilder()
+                .GET()
+                .uri(URI.create("http://localhost:8080/games"))
+                .build();
+
+        CompletableFuture<HttpResponse<String>> response =
+                httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+
+        String games = response.thenApply((r)->r.body()).get(5, TimeUnit.SECONDS);
+
+        //System.out.println(Integer.parseInt(games.substring(games.lastIndexOf(":") + 1,games.lastIndexOf("}")))+1);
+
         ChoiceDialog<Integer> dialog = new ChoiceDialog<>(PLAYER_NUMBER_OPTIONS.get(0), PLAYER_NUMBER_OPTIONS);
         dialog.setTitle("Player number");
         dialog.setHeaderText("Select number of players");
@@ -111,6 +123,7 @@ public class AppController implements Observer {
             // XXX the board should eventually be created programmatically or loaded from a file
             //     here we just create an empty board with the required number of players.
             board = LoadBoard.loadBoard("defaultboard1");
+            board.setGameId(Integer.parseInt(games.substring(games.lastIndexOf(":") + 1,games.indexOf("}")))+1);
             //Board board = new Board(8,8);
             gameController = new GameController(board);
             int no = result.get();

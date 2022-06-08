@@ -128,6 +128,7 @@ public class LoadBoard {
 
     public static void saveBoard(Board board, String name) {
         BoardTemplate template = new BoardTemplate();
+        template.gameID = board.getGameId();
         template.width = board.width;
         template.height = board.height;
         template.currentPlayer = board.getPlayerNumber(board.getCurrentPlayer());
