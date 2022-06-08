@@ -69,6 +69,10 @@ import java.util.Map;
  */
 public class AppController implements Observer {
 
+    private static final String BOARDSFOLDER = "boards";
+    private static final String DEFAULTBOARD = "defaultboard";
+    private static final String JSON_EXT = "json";
+
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
     final private List<String> PLAYER_COLORS = Arrays.asList("red", "green", "blue", "orange", "grey", "magenta");
 
@@ -91,7 +95,7 @@ public class AppController implements Observer {
      * If result.isPresent is true the program will create the board, gameController and players.
      *
      */
-    public void newGame() throws ExecutionException, InterruptedException, TimeoutException {
+    public void newGame() throws ExecutionException, InterruptedException, TimeoutException, FileNotFoundException {
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
                 .uri(URI.create("http://localhost:8080/games"))
@@ -130,10 +134,22 @@ public class AppController implements Observer {
                 board.addPlayer(player);
                 player.setSpace(board.getSpace(i % board.width, i));
             }
-
             // XXX: V2
             // board.setCurrentPlayer(board.getPlayer(0));
             gameController.startProgrammingPhase();
+
+            HttpRequest postRequest = HttpRequest.newBuilder()
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofFile(Paths.get("RoboRally/roborally-1.2.0-java17/roborally/target/classes/boards/GameID.json")))
+                    .uri(URI.create("http://localhost:8080/games"))
+                    .build();
+
+            CompletableFuture<HttpResponse<String>> postResponse =
+                    httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+
+            String postResult = response.thenApply((r)->r.body()).get(5, TimeUnit.SECONDS);
+
+            System.out.println(postResult);
 
             roboRally.createBoardView(gameController);
         }

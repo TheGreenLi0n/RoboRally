@@ -1,7 +1,8 @@
 package com.example.demoRest;
 
 import java.util.List;
-public interface IGameService
+import com.example.demoRest.model.*;
+public interface IServerGamesService
 {
     List<Game> findAll();
     public Game getGameById(int id);

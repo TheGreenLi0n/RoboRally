@@ -1,15 +1,16 @@
 package com.example.demoRest;
 
 import java.util.List;
+import com.example.demoRest.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class GameController
+public class ServerGamesController
 {
     @Autowired
-    private IGameService GameService;
+    private IServerGamesService GameService;
 
     @GetMapping(value = "/games")
     public ResponseEntity<List<Game>> getGame()

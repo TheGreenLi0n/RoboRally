@@ -2,15 +2,16 @@ package com.example.demoRest;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.example.demoRest.model.*;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GameService implements IGameService
+public class ServerGamesService implements IServerGamesService
 {
     //creating an object of ArrayList
     ArrayList<Game> games = new ArrayList<Game>();
 
-    public GameService() {
+    public ServerGamesService() {
 
         games.add(new Game(101));
 

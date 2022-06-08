@@ -26,6 +26,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 
+import java.io.FileNotFoundException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -62,7 +63,7 @@ public class RoboRallyMenuBar extends MenuBar {
         this.getMenus().add(controlMenu);
 
         hostGame = new Menu(("Host Game"));
-        hostGame.setOnAction( e -> {
+        /*hostGame.setOnAction( e -> {
             try {
                 this.appController.hostGame();
             } catch (ExecutionException ex) {
@@ -72,7 +73,7 @@ public class RoboRallyMenuBar extends MenuBar {
             } catch (TimeoutException ex) {
                 ex.printStackTrace();
             }
-        });
+        });*/
         controlMenu.getItems().add(hostGame);
 
 
@@ -86,6 +87,8 @@ public class RoboRallyMenuBar extends MenuBar {
                 ex.printStackTrace();
             } catch (TimeoutException ex) {
                 ex.printStackTrace();
+            } catch (FileNotFoundException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
             }
         });
         hostGame.getItems().add(newGame);
