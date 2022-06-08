@@ -20,7 +20,7 @@ public class GameController
 
     @PostMapping("/games")
     public ResponseEntity<String > addGame(@RequestBody Game p) {
-        boolean added = GameService.addGame(p);
+        boolean added = GameService.createGame(p);
         if(added)
             return ResponseEntity.ok().body("added");
         else

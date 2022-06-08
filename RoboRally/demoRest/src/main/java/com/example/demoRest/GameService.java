@@ -24,7 +24,7 @@ public class GameService implements IGameService
     }
 
     @Override
-    public boolean addGame(Game p) {
+    public boolean createGame(Game p) {
         games.add(p);
         return true;
     }

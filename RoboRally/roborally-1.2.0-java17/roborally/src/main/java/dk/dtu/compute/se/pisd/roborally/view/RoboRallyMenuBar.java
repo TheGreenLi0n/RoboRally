@@ -41,17 +41,17 @@ public class RoboRallyMenuBar extends MenuBar {
 
     private Menu controlMenu;
 
-    private MenuItem saveGame;
-
-    private MenuItem newGame;
-
     private MenuItem loadGame;
 
     private MenuItem stopGame;
 
     private MenuItem joinGame;
 
-    private MenuItem hostGame;
+    private Menu hostGame;
+
+    private MenuItem saveGame;
+
+    private MenuItem newGame;
 
     private MenuItem exitApp;
 
@@ -61,11 +61,7 @@ public class RoboRallyMenuBar extends MenuBar {
         controlMenu = new Menu("File");
         this.getMenus().add(controlMenu);
 
-        newGame = new MenuItem("New Game");
-        newGame.setOnAction( e -> this.appController.newGame());
-        controlMenu.getItems().add(newGame);
-
-        hostGame = new MenuItem(("Host Game"));
+        hostGame = new Menu(("Host Game"));
         hostGame.setOnAction( e -> {
             try {
                 this.appController.hostGame();
@@ -79,9 +75,10 @@ public class RoboRallyMenuBar extends MenuBar {
         });
         controlMenu.getItems().add(hostGame);
 
-        stopGame = new MenuItem("Stop Game");
-        stopGame.setOnAction( e -> this.appController.stopGame());
-        controlMenu.getItems().add(stopGame);
+
+        newGame = new MenuItem("New Game");
+        newGame.setOnAction( e -> this.appController.newGame());
+        hostGame.getItems().add(newGame);
 
         saveGame = new MenuItem("Save Game");
         saveGame.setOnAction( e -> this.appController.saveGame());
@@ -89,7 +86,11 @@ public class RoboRallyMenuBar extends MenuBar {
 
         loadGame = new MenuItem("Load Game");
         loadGame.setOnAction( e -> this.appController.loadGame());
-        controlMenu.getItems().add(loadGame);
+        hostGame.getItems().add(loadGame);
+
+        stopGame = new MenuItem("Stop Game");
+        stopGame.setOnAction( e -> this.appController.stopGame());
+        controlMenu.getItems().add(stopGame);
 
         joinGame = new MenuItem(("Join Game"));
         joinGame.setOnAction( e -> {
