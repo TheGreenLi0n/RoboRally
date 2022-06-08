@@ -45,15 +45,13 @@ import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextInputDialog;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -206,7 +204,48 @@ public class AppController implements Observer {
         System.out.println(result);
     }
 
-    public void hostGame() throws ExecutionException, InterruptedException, TimeoutException {
+    public void hostGame() throws ExecutionException, InterruptedException, TimeoutException, FileNotFoundException {
+
+        if (gameController == null) {
+            String path = "RoboRally/roborally-1.2.0-java17/roborally/target/classes/boards";
+            File file = new File(path);
+            String absPath = file.getAbsolutePath();
+            absPath =absPath.replaceAll("\\\\", "$0$0");
+            File filePath = new File(absPath);
+            File[] folder = filePath.listFiles();
+            String[] filenames = new String[folder.length];
+            for (int i = 0; i < filenames.length; i++) {
+                filenames[i] = folder[i].getName().substring(0,folder[i].getName().length()-5);
+            }
+
+            ChoiceDialog<String> dialogmap = new ChoiceDialog<>(filenames[0],filenames);
+            dialogmap.setTitle("Load Game");
+            dialogmap.setHeaderText("Select a game to load");
+            Optional<String> resultmap = dialogmap.showAndWait();
+
+            resultmap.ifPresent(choice->{
+                board = LoadBoard.loadBoard(choice);
+            });
+
+
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofFile(Paths.get("RoboRally/roborally-1.2.0-java17/roborally/src/main/resources/boards/test.json")))
+                    .uri(URI.create("http://localhost:8080/games"))
+                    .build();
+
+            CompletableFuture<HttpResponse<String>> response =
+                    httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+
+            String result = response.thenApply((r)->r.body()).get(5, TimeUnit.SECONDS);
+
+            System.out.println(result);
+
+
+            // display lobby, and code for host to send to other players.
+        }
+
 
     }
 
