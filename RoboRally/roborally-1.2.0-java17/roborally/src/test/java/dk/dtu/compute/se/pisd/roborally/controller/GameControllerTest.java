@@ -178,6 +178,7 @@ class GameControllerTest {
 
         gameController.moveCurrentPlayerToSpace(board.getSpace(2, 1));
         player1.getProgramField(1).setCard(new CommandCard(Command.FORWARD_1));
+        player1.getProgramField(2).setCard(new CommandCard(Command.FORWARD_1));
         gameController.finishProgrammingPhase();
         gameController.executePrograms();
 
