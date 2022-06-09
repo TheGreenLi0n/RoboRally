@@ -624,9 +624,9 @@ public class GameController {
      */
     public void setPlayerPrio() {
         PriorityQueue tmpQue = new PriorityQueue();
+        Antenna antenna = board.getAntenna();
         for (int i = 0; 1 >= board.getPlayersNumber(); i++) {
             Player player = board.getPlayer(i);
-            Antenna antenna = board.getAntenna();
             tmpQue.add(player);
             player.getSpace();
             int dist = Math.abs(antenna.x - player.getSpace().x) + Math.abs(antenna.y - player.getSpace().y);

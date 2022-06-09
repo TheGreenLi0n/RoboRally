@@ -132,7 +132,8 @@ public class AppController implements Observer {
             for (int i = 0; i < no; i++) {
                 Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
                 board.addPlayer(player);
-                player.setSpace(board.getSpace(i % board.width, i));
+                player.setSpace(GetStartSpace(i+1));
+
             }
 
             idleMenu();
@@ -421,6 +422,22 @@ public class AppController implements Observer {
         // XXX do nothing for now
     }
 
+    private Space GetStartSpace(int i){
+        for (int x = 0; x < board.width-1; x++){
+            for (int y = 0; y < board.height-1; y++){
+                List<FieldAction> actions = board.getSpace(x,y).getActions();
+                if (actions != null) {
+                    for (FieldAction action : actions) {
+                        if (action.getClass() == StartSpace.class) {
+                            if (((StartSpace) action).getPrio() == i) {
+                                return board.getSpace(x, y);
+                            }
 
-
+                        }
+                    }
+                }
+            }
+        }
+        return board.getSpace(i % board.width, i);
+    }
 }

@@ -183,6 +183,10 @@ public class SpaceView extends StackPane implements ViewObserver {
                 if (action.getClass() == Antenna.class){
                     addImage("images/PrioAntenna.png", 0);
                 }
+                if (action.getClass() == StartSpace.class){
+
+                    addImage("images/StartSpace.png", 0);
+                }
             }
         }
     }

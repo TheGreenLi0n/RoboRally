@@ -43,6 +43,7 @@ public class Space extends Subject {
     private ConveyorBelt conveyorBelt;
     private Antenna antenna;
     private Gear gear;
+    private StartSpace startSpace;
 
 
 
@@ -176,7 +177,14 @@ public class Space extends Subject {
         this.actions.add(gear);
     }
 
+    public StartSpace getStartSpace() {
+        return startSpace;
+    }
 
+    public void setStartSpace(StartSpace startSpace) {
+        this.startSpace = startSpace;
+        this.actions.add(startSpace);
+    }
 
 
     public void addAllFieldActions(List<FieldAction> list){

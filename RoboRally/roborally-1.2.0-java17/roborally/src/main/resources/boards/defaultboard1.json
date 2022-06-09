@@ -125,15 +125,17 @@
     },
     {
       "walls": [],
-      "actions": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Checkpoint",
+          "INSTANCE": {
+            "x": 1,
+            "y": 4
+          }
+        }
+      ],
       "x": 1,
       "y": 4
-    },
-    {
-      "walls": [],
-      "actions": [],
-      "x": 1,
-      "y": 5
     },
     {
       "walls": [],
