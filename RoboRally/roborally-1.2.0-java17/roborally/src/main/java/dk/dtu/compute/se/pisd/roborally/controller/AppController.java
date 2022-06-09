@@ -33,11 +33,8 @@ import dk.dtu.compute.se.pisd.roborally.RoboRally;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.Adapter;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.model.BoardTemplate;
-import dk.dtu.compute.se.pisd.roborally.model.Board;
-import dk.dtu.compute.se.pisd.roborally.model.FieldAction;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
+import dk.dtu.compute.se.pisd.roborally.model.*;
 
-import dk.dtu.compute.se.pisd.roborally.model.WaitingRoom;
 import dk.dtu.compute.se.pisd.roborally.view.RoboRallywaitiingForPlayers;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
@@ -276,10 +273,15 @@ public class AppController implements Observer {
     public void idleMenu(){
 
         WaitingRoom idleroom = new WaitingRoom();
-        roboRally.lobbyView(idleroom);
-        idleroom.setMessage("host" + board.getPlayer(0).getName());
+        RoboRallywaitiingForPlayers idleview = new RoboRallywaitiingForPlayers(idleroom);
+        roboRally.lobbyView(idleview);
+        idleroom.setMessage(board.getPlayer(0).getName() +" Host"+"\n");
+        for (int i = 1; i < board.getPlayersNumber(); i++) {
+            idleroom.setMessage(board.getPlayer(i).getName() + "\n");
+        }
+        StopWatch timer = new StopWatch(5);
+        timer.startTimer();
 
-        System.out.println("i get executed");
 
     }
 

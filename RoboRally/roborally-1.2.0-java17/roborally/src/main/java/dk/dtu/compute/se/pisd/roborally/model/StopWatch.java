@@ -8,8 +8,9 @@ import java.util.TimerTask;
 /**
  * ...
  *
- * This class, is fortaking time during a players turn.
- * it's not quite implmented yet but works as proof of concept. 
+ * This class, primary use is for keeping track of player time and how often the lobby should refresh to check if all
+ * players have joined .
+ * it's not quite implmented yet but works as proof of concept for the player timing.
  */
 public class StopWatch extends Subject {
     private int timetotake;
@@ -21,7 +22,7 @@ public class StopWatch extends Subject {
     }
 
     /**
-     * Starts the timer at 60 seconds.
+     * lets the timer cycle 60 times with timetotake seconds in between
      */
     public void startTimer(){
         clock.schedule(new RemindTask(60),0,getTimetotake());
@@ -43,6 +44,7 @@ public class StopWatch extends Subject {
         public void run(){
             if (times == 0) clock.cancel();
             times--;
+
         }
     }
 
