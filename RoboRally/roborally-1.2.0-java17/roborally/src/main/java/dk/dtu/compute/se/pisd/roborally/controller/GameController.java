@@ -25,7 +25,7 @@ import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.scene.control.Alert;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * ...
@@ -36,7 +36,7 @@ public class GameController {
 
     final public Board board;
     public boolean winner = false;
-    private PriorityQueue<Player> playerOrder;
+    private LinkedList<Player> playerOrder = new LinkedList<>();
 
     public GameController(@NotNull Board board) {
         this.board = board;
@@ -623,16 +623,44 @@ public class GameController {
      * then have priority over the others.
      */
     public void setPlayerPrio() {
-        PriorityQueue tmpQue = new PriorityQueue();
         Antenna antenna = board.getAntenna();
         for (int i = 0; 1 >= board.getPlayersNumber(); i++) {
             Player player = board.getPlayer(i);
-            tmpQue.add(player);
-            player.getSpace();
             int dist = Math.abs(antenna.x - player.getSpace().x) + Math.abs(antenna.y - player.getSpace().y);
+            player.setAntennaDist(dist);
         }
-        playerOrder = tmpQue;
-        board.setCurrentPlayer(playerOrder.poll());
+
+        playerOrder = new LinkedList<>();
+        Collections.sort(playerOrder, (Comparator<Player>) (p1, p2) -> {
+            if(p1.getAntennaDist() == p2.getAntennaDist()) {
+                if (p2.getSpace().y > antenna.y && p1.getSpace().y > antenna.y) {
+                    if (p2.getSpace().x > antenna.x && p1.getSpace().x > antenna.x) {
+                        return p1.getSpace().x - p2.getSpace().x;
+                    } else {
+                        return p2.getSpace().x - p1.getSpace().x;
+                    }
+                }
+                if (p2.getSpace().y < antenna.y && p1.getSpace().y < antenna.y) {
+                    return p2.getSpace().x - p1.getSpace().x;
+                }
+                if (p2.getSpace().y > antenna.y || p1.getSpace().y > antenna.y) {
+                    if (p2.getSpace().x > antenna.x && p1.getSpace().x > antenna.x) {
+                        return p2.getSpace().x - p1.getSpace().x;
+                    } else {
+                        return p1.getSpace().x - p2.getSpace().x;
+                    }
+                }
+            }
+            else {
+                return p1.getAntennaDist() - p2.getAntennaDist();
+            }
+            return 0;
+        });
+        for (int i = 0; i < playerOrder.size(); i++) {
+            playerOrder.get(i).setPrioNo(i);
+        }
+        this.board.setCurrentPlayer(playerOrder.get(0));
+
     }
 
     /**
