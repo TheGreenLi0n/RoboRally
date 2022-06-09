@@ -214,7 +214,7 @@ public class GameController {
                     }
 
 
-                    firinMahLazer();
+                    robotLaser();
                     step++;
                     if (step < Player.NO_REGISTERS) {
                         makeProgramFieldsVisible(step);
@@ -520,7 +520,7 @@ public class GameController {
         if (nextPlayerNumber < board.getPlayersNumber()) {
             board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
         } else {
-            firinMahLazer();
+            robotLaser();
             step++;
             if (step < Player.NO_REGISTERS) {
                 makeProgramFieldsVisible(step);
@@ -540,7 +540,7 @@ public class GameController {
      * takes 1 damage.
      * If the laser hits a wall before it hits a player, then the laser stops.
      */
-    public void firinMahLazer() {
+    public void robotLaser() {
         for (int i = 0; i < board.getPlayersNumber(); i++) {
             Heading direction = board.getPlayer(i).getHeading();
             Space position = board.getPlayer(i).getSpace();
