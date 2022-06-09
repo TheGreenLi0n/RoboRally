@@ -37,12 +37,15 @@ import dk.dtu.compute.se.pisd.roborally.model.Board;
 import dk.dtu.compute.se.pisd.roborally.model.FieldAction;
 import dk.dtu.compute.se.pisd.roborally.model.Player;
 
+import dk.dtu.compute.se.pisd.roborally.model.WaitingRoom;
+import dk.dtu.compute.se.pisd.roborally.view.RoboRallywaitiingForPlayers;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceDialog;
 import javafx.scene.control.TextInputDialog;
+import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
@@ -80,7 +83,7 @@ public class AppController implements Observer {
 
     private GameController gameController;
     private Board board;
-
+    private RoboRallywaitiingForPlayers idlemenu;
     private static final HttpClient httpClient = HttpClient.newBuilder()
             .version(HttpClient.Version.HTTP_2)
             .connectTimeout(Duration.ofSeconds(10))
@@ -114,6 +117,9 @@ public class AppController implements Observer {
         Optional<Integer> result = dialog.showAndWait();
 
         if (result.isPresent()) {
+
+
+
             if (gameController != null) {
                 // The UI should not allow this, but in case this happens anyway.
                 // give the user the option to save the game or abort this operation!
@@ -152,8 +158,8 @@ public class AppController implements Observer {
             System.out.println(postResult);
 
             roboRally.createBoardView(gameController);
-        }
-    }
+
+        }}
 
     /**
      * Saving the current game by the name entered by the player.
@@ -222,6 +228,8 @@ public class AppController implements Observer {
 
     public void hostGame() throws ExecutionException, InterruptedException, TimeoutException, FileNotFoundException {
 
+
+
         if (gameController == null) {
             String path = "RoboRally/roborally-1.2.0-java17/roborally/target/classes/boards";
             File file = new File(path);
@@ -262,6 +270,16 @@ public class AppController implements Observer {
             // display lobby, and code for host to send to other players.
         }
 
+
+
+    }
+    public void idleMenu(){
+
+        WaitingRoom idleroom = new WaitingRoom();
+        roboRally.lobbyView(idleroom);
+        idleroom.setMessage("host" + board.getPlayer(0).getName());
+
+        System.out.println("i get executed");
 
     }
 

@@ -56,6 +56,8 @@ public class RoboRallyMenuBar extends MenuBar {
 
     private MenuItem exitApp;
 
+    private MenuItem idleMenu;
+
     public RoboRallyMenuBar(AppController appController) {
         this.appController = appController;
 
@@ -125,6 +127,10 @@ public class RoboRallyMenuBar extends MenuBar {
 
         controlMenu.setOnShowing(e -> update());
         controlMenu.setOnShown(e -> this.updateBounds());
+
+        idleMenu = new MenuItem("Idle");
+        idleMenu.setOnAction( e -> this.appController.idleMenu());
+        controlMenu.getItems().add(idleMenu);
         update();
     }
 

@@ -23,11 +23,15 @@ package dk.dtu.compute.se.pisd.roborally;
 
 import dk.dtu.compute.se.pisd.roborally.controller.AppController;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
+import dk.dtu.compute.se.pisd.roborally.model.WaitingRoom;
 import dk.dtu.compute.se.pisd.roborally.view.BoardView;
 import dk.dtu.compute.se.pisd.roborally.view.RoboRallyMenuBar;
+import dk.dtu.compute.se.pisd.roborally.view.RoboRallywaitiingForPlayers;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -112,7 +116,14 @@ public class RoboRally extends Application {
         //     is delegated to the exit() method in the AppController,
         //     so that the AppController can take care of that.
     }
+    public void lobbyView(WaitingRoom idleroom){
+        boardRoot.getChildren().clear();
+        boardRoot.setCenter(new RoboRallywaitiingForPlayers(idleroom));
+        stage.setResizable(false);
+        stage.setHeight(220);
+        stage.setWidth(220);
 
+    }
     public static void main(String[] args) {
         launch(args);
     }
