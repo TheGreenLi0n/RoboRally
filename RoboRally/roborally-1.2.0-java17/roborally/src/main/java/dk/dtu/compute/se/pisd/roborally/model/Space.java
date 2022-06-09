@@ -42,6 +42,7 @@ public class Space extends Subject {
     private Checkpoint checkpoint;
     private ConveyorBelt conveyorBelt;
     private Antenna antenna;
+    private Gear gear;
 
 
 
@@ -165,4 +166,15 @@ public class Space extends Subject {
         this.antenna = antenna;
         this.actions.add(antenna);
     }
+
+    public Gear getGear() {
+        return gear;
+    }
+
+    public void setGear(Gear gear) {
+        this.gear = gear;
+        this.actions.add(gear);
+    }
+
+
 }

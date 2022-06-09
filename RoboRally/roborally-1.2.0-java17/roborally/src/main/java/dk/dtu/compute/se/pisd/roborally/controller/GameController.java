@@ -617,6 +617,10 @@ public class GameController {
 
     /**
      * WIP, very early code. not functional yet.
+     * Supposed to set the priority of all the players, depending on their distance to the antenna.
+     * If 2 or more players are the same distance from the antenna, it should then draw a theoretical
+     * line in the middle of the players and turn the line clockwise, and the first player it hit would
+     * then have priority over the others.
      */
     public void setPlayerPrio() {
         PriorityQueue tmpQue = new PriorityQueue();
@@ -632,7 +636,7 @@ public class GameController {
     }
 
     /**
-     * This method is used to declare a player the
+     * This method is used to declare a player the winner
      *
      * @param player - the player that is to be declared winner
      */
