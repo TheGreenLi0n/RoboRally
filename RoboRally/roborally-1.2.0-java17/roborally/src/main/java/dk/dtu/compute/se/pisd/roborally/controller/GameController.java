@@ -402,7 +402,7 @@ public class GameController {
      * The method for drag and dropping cards into the register and reverse.
      * @param source
      * @param target
-     * @return
+     * @return returns a boolean depending on the action happened or not
      */
     public boolean moveCards(@NotNull CommandCardField source, @NotNull CommandCardField target) {
         CommandCard sourceCard = source.getCard();

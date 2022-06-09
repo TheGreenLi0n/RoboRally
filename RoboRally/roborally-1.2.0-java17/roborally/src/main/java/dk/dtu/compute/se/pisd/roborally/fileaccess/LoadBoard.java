@@ -48,6 +48,11 @@ public class LoadBoard {
     private static final String DEFAULTBOARD = "defaultboard";
     private static final String JSON_EXT = "json";
 
+    /**
+     * Used to get board with a given name to the player(s)
+     * @param boardname the name of the board that the player wants to get
+     * @return returns the board with the name the player specified
+     */
     public static Board loadBoard(String boardname) {
         if (boardname == null) {
             boardname = DEFAULTBOARD;
@@ -126,6 +131,11 @@ public class LoadBoard {
 		return null;
     }
 
+    /**
+     * Method used to save the current board to a json file with the name given by the player
+     * @param board the board the player is playing on
+     * @param name the name that the player wants to save the board as
+     */
     public static void saveBoard(Board board, String name) {
         BoardTemplate template = new BoardTemplate();
         template.width = board.width;

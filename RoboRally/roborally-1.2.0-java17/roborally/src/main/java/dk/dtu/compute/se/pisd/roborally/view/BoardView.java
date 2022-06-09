@@ -106,7 +106,7 @@ public class BoardView extends VBox implements ViewObserver {
         }
 
         /**
-         * Method to use the mouse to move objects?
+         * Method to use the mouse to move objects
          * @param event
          */
         @Override
