@@ -165,4 +165,13 @@ public class Space extends Subject {
         this.antenna = antenna;
         this.actions.add(antenna);
     }
+    public void addAllFieldActions(List<FieldAction> list){
+        actions.addAll(list);
+        for (FieldAction fa : list) {
+            if (fa.getClass() == Checkpoint.class){
+                board.addCheckpoint((Checkpoint) fa);
+            }
+
+        }
+    }
 }
