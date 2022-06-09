@@ -39,9 +39,11 @@ public class ConveyorBelt extends FieldAction {
                 player.setSpace(neighborSpace);
                 if (speed == 2) {
                     for (FieldAction action : neighborSpace.actions) {
-                        Space newSpace = space.board.getNeighbour(neighborSpace,((ConveyorBelt) action).getHeading());
-                        if(newSpace.getPlayer() == null) {
-                            player.setSpace(newSpace);
+                        if (action.getClass() == ConveyorBelt.class) {
+                            Space newSpace = space.board.getNeighbour(neighborSpace, ((ConveyorBelt) action).getHeading());
+                            if (newSpace.getPlayer() == null) {
+                                player.setSpace(newSpace);
+                            }
                         }
                     }
                 }

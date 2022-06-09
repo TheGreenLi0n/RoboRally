@@ -43,7 +43,7 @@ public class Board extends Subject {
 
     public final String boardName;
 
-    private Integer gameId;
+    private Integer id;
 
     private final Space[][] spaces;
 
@@ -79,15 +79,15 @@ public class Board extends Subject {
         this(width, height, "defaultboard");
     }
 
-    public Integer getGameId() {
-        return gameId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setGameId(int gameId) {
-        if (this.gameId == null) {
-            this.gameId = gameId;
+    public void setId(int id) {
+        if (this.id == null || this.id == 0) {
+            this.id = id;
         } else {
-            if (!this.gameId.equals(gameId)) {
+            if (!this.id.equals(id)  && this.id != 0) {
                 throw new IllegalStateException("A game with a set id may not be assigned a new id!");
             }
         }
@@ -234,6 +234,7 @@ public class Board extends Subject {
                 ", Damage taken: " + getCurrentPlayer().getDamage();
 
     }
+
 
 
 }

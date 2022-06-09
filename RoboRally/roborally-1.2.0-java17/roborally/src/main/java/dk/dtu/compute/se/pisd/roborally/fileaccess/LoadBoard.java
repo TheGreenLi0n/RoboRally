@@ -80,6 +80,7 @@ public class LoadBoard {
 
 			result = new Board(template.width, template.height);
 
+            result.setId(template.id);
             result.setPhase(template.phase);
             result.setStep(template.step);;
 			for (SpaceTemplate spaceTemplate: template.spaces) {
@@ -138,6 +139,7 @@ public class LoadBoard {
      */
     public static void saveBoard(Board board, String name) {
         BoardTemplate template = new BoardTemplate();
+        template.id = board.getId();
         template.width = board.width;
         template.height = board.height;
         template.currentPlayer = board.getPlayerNumber(board.getCurrentPlayer());
