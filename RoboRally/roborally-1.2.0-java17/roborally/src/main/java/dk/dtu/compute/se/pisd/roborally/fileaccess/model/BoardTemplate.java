@@ -36,7 +36,7 @@ import java.util.List;
  */
 public class BoardTemplate {
 
-    public int gameID;
+    public int id;
     public int width;
     public int height;
     public Phase phase;

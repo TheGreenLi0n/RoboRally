@@ -51,6 +51,8 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.*;
@@ -95,7 +97,7 @@ public class AppController implements Observer {
      * If result.isPresent is true the program will create the board, gameController and players.
      *
      */
-    public void newGame() throws ExecutionException, InterruptedException, TimeoutException, FileNotFoundException {
+    public void newGame() throws ExecutionException, InterruptedException, TimeoutException, IOException {
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
                 .uri(URI.create("http://localhost:8080/games"))
@@ -125,7 +127,7 @@ public class AppController implements Observer {
             // XXX the board should eventually be created programmatically or loaded from a file
             //     here we just create an empty board with the required number of players.
             board = LoadBoard.loadBoard("defaultboard1");
-            board.setGameId(Integer.parseInt(games.substring(games.lastIndexOf(":") + 1,games.indexOf("}")))+1);
+            board.setId(Integer.parseInt(games.substring(games.lastIndexOf("\"id\":") + 5, games.indexOf(",",games.lastIndexOf("\"id\":")+5)))+1);
             //Board board = new Board(8,8);
             gameController = new GameController(board);
             int no = result.get();
@@ -137,17 +139,18 @@ public class AppController implements Observer {
             // XXX: V2
             // board.setCurrentPlayer(board.getPlayer(0));
             gameController.startProgrammingPhase();
+            LoadBoard.saveBoard(board,"Game"+board.getId().toString());
 
+            String s = Files.readString(Paths.get("RoboRally/roborally-1.2.0-java17/roborally/target/classes/boards/Game" + board.getId().toString() + ".json"));
             HttpRequest postRequest = HttpRequest.newBuilder()
                     .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofFile(Paths.get("RoboRally/roborally-1.2.0-java17/roborally/target/classes/boards/GameID.json")))
-                    .uri(URI.create("http://localhost:8080/games"))
+                    .PUT(HttpRequest.BodyPublishers.ofString(s))
+                    .uri(URI.create("http://localhost:8080/games/" + board.getId()))
                     .build();
 
-            CompletableFuture<HttpResponse<String>> postResponse =
-                    httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+            CompletableFuture<HttpResponse<String>> postResponse = httpClient.sendAsync(postRequest, HttpResponse.BodyHandlers.ofString());
 
-            String postResult = response.thenApply((r)->r.body()).get(5, TimeUnit.SECONDS);
+            String postResult = postResponse.thenApply((r)->r.body()).get(5, TimeUnit.SECONDS);
 
             System.out.println(postResult);
 
