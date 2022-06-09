@@ -149,10 +149,8 @@ class GameControllerTest {
         Board board = gameController.board;
         Checkpoint checkpoint1 = new Checkpoint(1, 2, 2);
         Checkpoint checkpoint2 = new Checkpoint(2, 3, 2);
-        Checkpoint checkpoint3 = new Checkpoint(3, 4, 2);
         board.addCheckpoint(checkpoint1);
         board.addCheckpoint(checkpoint2);
-        board.addCheckpoint(checkpoint3);
 
         Player player1 = board.getPlayer(0);
         Player player2 = board.getPlayer(1);
@@ -180,9 +178,9 @@ class GameControllerTest {
 
         gameController.moveCurrentPlayerToSpace(board.getSpace(2, 1));
         player1.getProgramField(1).setCard(new CommandCard(Command.FORWARD_1));
-        player1.getProgramField(2).setCard(new CommandCard(Command.FORWARD_1));
         gameController.finishProgrammingPhase();
         gameController.executePrograms();
+
 
         Assertions.assertEquals(2, player1.getReachedCheckpoint(), "The player should have reached all checkpoints (2)");
         Assertions.assertTrue(gameController.winner, "We should have found a winner!");
@@ -276,5 +274,27 @@ class GameControllerTest {
 
         player1.getDamage();
         Assertions.assertEquals(5,player2.getDamage(), "player " + player2.getName() + "should have taken 5 damage! " );
+    }
+
+    @Test
+    void gearsRotation(){
+        Board board = gameController.board;
+        Gear gearRed = new Gear("Red");
+        Gear gearGreen = new Gear("Green");
+        board.getSpace(0,4).setGear(gearRed);
+        board.getSpace(3,5).setGear(gearGreen);
+
+        Player player1 = board.getPlayer(0);
+        Player player2 = board.getPlayer(1);
+
+        gameController.moveCurrentPlayerToSpace(board.getSpace(0, 4));
+        gameController.moveCurrentPlayerToSpace(board.getSpace(3, 5));
+        player1.getProgramField(1).setCard(new CommandCard(Command.FORWARD_1));
+        player2.getProgramField(1).setCard(new CommandCard(Command.FORWARD_1));
+        gameController.finishProgrammingPhase();
+        gameController.executePrograms();
+
+        Assertions.assertEquals(Heading.EAST, player1.getHeading());
+        Assertions.assertEquals(Heading.NORTH, player2.getHeading());
     }
 }

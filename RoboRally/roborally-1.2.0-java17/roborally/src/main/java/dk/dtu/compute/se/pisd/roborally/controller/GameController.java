@@ -551,7 +551,7 @@ public class GameController {
     }
 
     /**
-     * This method is used to declare a player the
+     * This method is used to declare a player the winner
      *
      * @param player - the player that is to be declared winner
      */
