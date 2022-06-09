@@ -393,7 +393,7 @@ public class GameController {
     }
 
     /**
-     * A command that makes the player turn 180 degrees on the board.
+     * A command that makes the player turn 180 degrees on the board..
      *
      * @param player - the player that is executing the command.
      */
