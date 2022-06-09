@@ -37,11 +37,8 @@ import dk.dtu.compute.se.pisd.roborally.model.*;
 
 import dk.dtu.compute.se.pisd.roborally.view.RoboRallywaitiingForPlayers;
 import javafx.application.Platform;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceDialog;
-import javafx.scene.control.TextInputDialog;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
 
@@ -73,7 +70,7 @@ public class AppController implements Observer {
 
     private static final String BOARDSFOLDER = "boards";
     private static final String DEFAULTBOARD = "defaultboard";
-    private static final String JSON_EXT = "json";
+    private static final String JSON_EXT = ".json";
 
     final private List<Integer> PLAYER_NUMBER_OPTIONS = Arrays.asList(2, 3, 4, 5, 6);
     final private List<String> PLAYER_COLORS = Arrays.asList("red", "green", "blue", "orange", "grey", "magenta");
@@ -98,6 +95,7 @@ public class AppController implements Observer {
      *
      */
     public void newGame() throws ExecutionException, InterruptedException, TimeoutException, IOException {
+        getAllGames();
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
                 .uri(URI.create("http://localhost:8080/games"))
@@ -116,9 +114,6 @@ public class AppController implements Observer {
         Optional<Integer> result = dialog.showAndWait();
 
         if (result.isPresent()) {
-
-
-
             if (gameController != null) {
                 // The UI should not allow this, but in case this happens anyway.
                 // give the user the option to save the game or abort this operation!
@@ -139,6 +134,8 @@ public class AppController implements Observer {
                 board.addPlayer(player);
                 player.setSpace(board.getSpace(i % board.width, i));
             }
+
+            idleMenu();
             // XXX: V2
             // board.setCurrentPlayer(board.getPlayer(0));
             gameController.startProgrammingPhase();
@@ -159,7 +156,8 @@ public class AppController implements Observer {
 
             roboRally.createBoardView(gameController);
 
-        }}
+        }
+    }
 
     /**
      * Saving the current game by the name entered by the player.
@@ -172,14 +170,38 @@ public class AppController implements Observer {
         Optional<String> name = input.showAndWait();
 
         name.ifPresent(result ->{
+
+            LoadBoard.saveBoard(board,"Game"+board.getId().toString());
             LoadBoard.saveBoard(board,result);
+            String s = null;
+            try {
+                s = Files.readString(Paths.get("RoboRally/roborally-1.2.0-java17/roborally/target/classes/boards/Game" + board.getId().toString() + ".json"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            HttpRequest postRequest = HttpRequest.newBuilder()
+                    .header("Content-Type", "application/json")
+                    .PUT(HttpRequest.BodyPublishers.ofString(s))
+                    .uri(URI.create("http://localhost:8080/games/" + board.getId()))
+                    .build();
+
+            CompletableFuture<HttpResponse<String>> postResponse = httpClient.sendAsync(postRequest, HttpResponse.BodyHandlers.ofString());
+
+            String postResult = null;
+            try {
+                postResult = postResponse.thenApply((r)->r.body()).get(5, TimeUnit.SECONDS);
+            } catch (InterruptedException | ExecutionException | TimeoutException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println(postResult);
         });
     }
 
     /**
      * Loading a game....
      */
-    public void loadGame() {
+    public void loadGame() throws ExecutionException, InterruptedException, TimeoutException {
         // XXX needs to be implememted eventually
         // for now, we just create a new game
         if (gameController == null) {
@@ -195,15 +217,48 @@ public class AppController implements Observer {
             }
 
 //            newGame();
-            ChoiceDialog<String> dialog = new ChoiceDialog<>(filenames[0],filenames);
+            /*ChoiceDialog<String> dialog = new ChoiceDialog<>(filenames[0],filenames);
             dialog.setTitle("Load Game");
             dialog.setHeaderText("Select a game to load");
-            Optional<String> result = dialog.showAndWait();
+            Optional<String> result = dialog.showAndWait();*/
 
-            result.ifPresent(choice->{
-                board = LoadBoard.loadBoard(choice);
-                gameController = new GameController(board);
-                roboRally.createBoardView(gameController);
+            TextInputDialog input = new TextInputDialog();
+            input.setHeaderText("Enter ID for the saved game");
+            input.setTitle("Load Game");
+            Optional<String> id = input.showAndWait();
+            id.ifPresent(result ->{
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .GET()
+                    .uri(URI.create("http://localhost:8080/games/" + String.valueOf(id.get())))
+                    .build();
+
+            CompletableFuture<HttpResponse<String>> response =
+                    httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+
+                try {
+                    String game = response.thenApply((r) -> r.body()).get(5, TimeUnit.SECONDS);
+
+                    String filepath = BOARDSFOLDER + "Game" + String.valueOf(id.get()) + JSON_EXT;
+                    FileOutputStream outputStream = null;
+
+                    outputStream = new FileOutputStream(filepath);
+
+                    byte[] strToBytes = game.getBytes();
+
+                    outputStream.write(strToBytes);
+
+                    outputStream.close();
+
+                    board = LoadBoard.loadBoard("Game" + String.valueOf(id.get()));
+                    gameController = new GameController(board);
+                    roboRally.createBoardView(gameController);
+
+                }catch (FileNotFoundException e){
+
+                } catch (IOException | ExecutionException | InterruptedException | TimeoutException e) {
+                    e.printStackTrace();
+                }
             });
         }
     }
@@ -335,6 +390,23 @@ public class AppController implements Observer {
         }
     }
 
+    public void getAllGames() throws FileNotFoundException, ExecutionException, InterruptedException, TimeoutException {
+        ArrayList<String> games = new ArrayList<>();
+        HttpRequest request = HttpRequest.newBuilder()
+                .GET()
+                .uri(URI.create("http://localhost:8080/games"))
+                .build();
+
+        CompletableFuture<HttpResponse<String>> response =
+                httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+
+        String result = response.thenApply((r)->r.body()).get(5, TimeUnit.SECONDS);
+
+
+
+        System.out.println(result);
+    }
+
     /**
      * Boolean method to check if the game is running. If the gameController is not null the game is running(true).
      * @return a true or false depending on whether gameController is null or not null.
@@ -348,5 +420,7 @@ public class AppController implements Observer {
     public void update(Subject subject) {
         // XXX do nothing for now
     }
+
+
 
 }

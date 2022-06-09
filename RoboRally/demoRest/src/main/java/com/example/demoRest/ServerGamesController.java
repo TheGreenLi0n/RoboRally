@@ -41,9 +41,15 @@ public class ServerGamesController
     }
 
     @GetMapping("/games/{id}")
-    public ResponseEntity<Game> getGameById(@PathVariable int id) {
-        Game p = GameService.getGameById(id);
-        return ResponseEntity.ok().body(p);
+    public String getGameById(@PathVariable int id)  {
+        String game = null;
+        try {
+            game = GameService.getGameById(id);
+            return game;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "no Game with provided ID";
     }
 
     /*@PutMapping("/games/{id}")

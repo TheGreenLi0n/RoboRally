@@ -1,8 +1,9 @@
 package com.example.demoRest;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import com.example.demoRest.model.*;
@@ -49,13 +50,9 @@ public class ServerGamesService implements IServerGamesService
     }
 
     @Override
-    public Game getGameById(int id) {
-        for(Game p : games) {
-            if(p.getId() == id) {
-                return p;
-            }
-        }
-        return null;
+    public String getGameById(int id) throws IOException {
+        String filepath = GAMESFOLDER + "Game" + id + JSON_EXT;
+        return Files.readString(Paths.get(filepath));
     }
 
     @Override
