@@ -9,6 +9,10 @@ import java.util.List;
 import com.example.demoRest.model.*;
 import org.springframework.stereotype.Service;
 
+/**
+ *
+ * @author Dennis Lolk Løvgreen
+ */
 
 @Service
 public class ServerGamesService implements IServerGamesService

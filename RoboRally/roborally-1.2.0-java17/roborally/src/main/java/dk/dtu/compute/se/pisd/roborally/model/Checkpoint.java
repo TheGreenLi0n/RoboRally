@@ -3,6 +3,9 @@ package dk.dtu.compute.se.pisd.roborally.model;
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 
 /**
+ *
+ * @author Joakim Anker Kruse & Dennis Lolk Løvgreen
+ *
  * This class is used for holding information about the checkpoints on the board
  */
 

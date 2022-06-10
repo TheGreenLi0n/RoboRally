@@ -20,36 +20,22 @@
  *
  */
 package dk.dtu.compute.se.pisd.roborally.controller;
-
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.stream.JsonReader;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Observer;
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
-
 import dk.dtu.compute.se.pisd.roborally.RoboRally;
-
-
-import dk.dtu.compute.se.pisd.roborally.fileaccess.Adapter;
 import dk.dtu.compute.se.pisd.roborally.fileaccess.LoadBoard;
-import dk.dtu.compute.se.pisd.roborally.fileaccess.model.BoardTemplate;
 import dk.dtu.compute.se.pisd.roborally.model.*;
-
 import dk.dtu.compute.se.pisd.roborally.view.RoboRallywaitiingForPlayers;
 import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
-
 import java.io.*;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.*;
@@ -57,13 +43,12 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
+ * @author Martin Wenzel, Dennis Lolk Løvgreen, Joakim Anker Kruse, Simon Simonsen & Noah Grænge Surel
  *
  */
 public class AppController implements Observer {
@@ -282,8 +267,6 @@ public class AppController implements Observer {
     }
 
     public void hostGame() throws ExecutionException, InterruptedException, TimeoutException, FileNotFoundException {
-
-
 
         if (gameController == null) {
             String path = "RoboRally/roborally-1.2.0-java17/roborally/target/classes/boards";

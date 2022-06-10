@@ -16,6 +16,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ *
+ * @author Dennis Lolk Løvgreen
+ */
+
 public class LoadGame {
 
     private static final String GAMESFOLDER = "games";

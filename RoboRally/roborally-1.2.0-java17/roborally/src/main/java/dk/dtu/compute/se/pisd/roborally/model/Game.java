@@ -1,5 +1,10 @@
 package dk.dtu.compute.se.pisd.roborally.model;
 
+/**
+ *
+ * @author Dennis Lolk Løvgreen
+ */
+
 public class Game {
 
     public int id;

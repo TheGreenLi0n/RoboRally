@@ -41,6 +41,7 @@ import java.io.*;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
+ * @author Dennis Lolk Løvgreen, Noah Grænge Surel & Martin Wenzel
  */
 public class LoadBoard {
 

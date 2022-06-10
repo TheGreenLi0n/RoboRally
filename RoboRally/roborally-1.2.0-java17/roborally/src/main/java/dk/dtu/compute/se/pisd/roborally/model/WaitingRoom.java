@@ -2,6 +2,11 @@ package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.designpatterns.observer.Subject;
 
+/**
+ *
+ * @author Martin Wenzel
+ */
+
 public class WaitingRoom extends Subject {
 private String message;
     public WaitingRoom(){

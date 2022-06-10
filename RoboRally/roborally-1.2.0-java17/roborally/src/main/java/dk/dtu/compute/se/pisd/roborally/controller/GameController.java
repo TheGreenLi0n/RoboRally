@@ -31,6 +31,7 @@ import java.util.*;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
+ * @author Dennis Lolk Løvgreen, Martin Wenzel, Joakim Anker Kruse, Simon Simonsen & Noah Grænge Surel
  */
 public class GameController {
 
@@ -218,7 +219,6 @@ public class GameController {
                     if (step < Player.NO_REGISTERS) {
                         makeProgramFieldsVisible(step);
                         board.setStep(step);
-                        //board.setCurrentPlayer(board.getPlayer(0));
                     } else {
                         startProgrammingPhase();
                     }

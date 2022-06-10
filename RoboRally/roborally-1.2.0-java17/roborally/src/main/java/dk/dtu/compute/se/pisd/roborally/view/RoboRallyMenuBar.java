@@ -35,6 +35,7 @@ import java.util.concurrent.TimeoutException;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
+ * @author Noah Grænge Surel, Dennis Lolk Løvgreen & Martin Wenzel
  *
  */
 public class RoboRallyMenuBar extends MenuBar {

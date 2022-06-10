@@ -41,6 +41,7 @@ import java.util.Objects;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
+ * @author Joakim Anker Kruse, Simon Simonsen, Martin Wenzel & Dennis Lolk Løvgreen
  */
 public class SpaceView extends StackPane implements ViewObserver {
 

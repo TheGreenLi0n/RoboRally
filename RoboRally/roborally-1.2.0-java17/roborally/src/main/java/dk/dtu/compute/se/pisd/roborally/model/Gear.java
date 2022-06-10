@@ -6,6 +6,7 @@ import javafx.scene.transform.Rotate;
 
 /**
  * This class is used for holding information about the Gears on the board.
+ * @author Dennis Lolk Løvgreen
  */
 
 public class Gear extends FieldAction {

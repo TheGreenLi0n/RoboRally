@@ -33,6 +33,7 @@ import static dk.dtu.compute.se.pisd.roborally.model.Phase.INITIALISATION;
  * ...
  *
  * @author Ekkart Kindler, ekki@dtu.dk
+ * @author Simon Simonsen, Noah Surel, Dennis Lolk Løvgreen, Joakim Anker Kruse & Martin Wenzel
  *
  */
 public class Board extends Subject {
@@ -230,7 +231,7 @@ public class Board extends Subject {
         return "Phase: " + getPhase().name() +
                 ", Player = " + getCurrentPlayer().getName() +
                 ", Step: " + getStep() +
-                ", Time left on turn: " + "some number" +
+                ", Time left on turn: " + "x" +
                 ", Damage taken: " + getCurrentPlayer().getDamage();
 
     }

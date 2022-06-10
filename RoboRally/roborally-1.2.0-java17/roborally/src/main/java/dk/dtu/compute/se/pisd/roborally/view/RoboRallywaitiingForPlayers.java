@@ -15,6 +15,11 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 
+/**
+ *
+ * @author Martin Wenzel
+ */
+
 public class RoboRallywaitiingForPlayers extends VBox implements ViewObserver {
     private Button button;
     private WaitingRoom idleroom;

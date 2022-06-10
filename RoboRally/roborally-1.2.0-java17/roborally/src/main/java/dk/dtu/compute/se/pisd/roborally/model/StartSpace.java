@@ -2,6 +2,11 @@ package dk.dtu.compute.se.pisd.roborally.model;
 
 import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 
+/**
+ *
+ * @author Dennis Lolk Løvgreen
+ */
+
 public class StartSpace extends FieldAction
 {
     int prio;

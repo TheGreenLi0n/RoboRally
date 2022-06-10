@@ -4,6 +4,8 @@ import dk.dtu.compute.se.pisd.roborally.controller.GameController;
 
 /**
  * This class is used for holding information about the conveyor belts on the board.
+ *
+ * @author Dennis Lolk Løvgreen & Joakim Anker Kruse
  */
 
 public class ConveyorBelt extends FieldAction {

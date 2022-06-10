@@ -4,6 +4,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 import com.example.demoRest.model.*;
+
+/**
+ *
+ * @author Dennis Lolk Løvgreen
+ */
 public interface IServerGamesService
 {
     List<Game> findAll();

@@ -29,6 +29,7 @@ import java.util.List;
  * The different commands that a player can use in their registers with the names in " ".
  *
  * @author Ekkart Kindler, ekki@dtu.dk
+ * @author Dennis Lolk Løvgreen, Joakim Anker Kruse, Noah Grænge Surel, Simon Simonsen & Martin Wenzel
  *
  */
 public enum Command {
