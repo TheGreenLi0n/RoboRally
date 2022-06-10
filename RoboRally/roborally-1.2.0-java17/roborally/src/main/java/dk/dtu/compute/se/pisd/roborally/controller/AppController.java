@@ -131,6 +131,7 @@ public class AppController implements Observer {
                 Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
                 board.addPlayer(player);
                 player.setSpace(GetStartSpace(i+1));
+                player.setHeading(Heading.EAST);
 
             }
 
