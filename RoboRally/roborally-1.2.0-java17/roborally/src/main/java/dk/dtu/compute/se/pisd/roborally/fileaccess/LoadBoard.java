@@ -87,7 +87,7 @@ public class LoadBoard {
 			    Space space = result.getSpace(spaceTemplate.x, spaceTemplate.y);
 			    if (space != null) {
                     space.addAllFieldActions(spaceTemplate.actions);
-
+                    space.getWalls().addAll(spaceTemplate.walls);
                     if (spaceTemplate.player != null) {
                         Player player = new Player(result, spaceTemplate.player.color, spaceTemplate.player.name);
                         player.setSpace(space);
