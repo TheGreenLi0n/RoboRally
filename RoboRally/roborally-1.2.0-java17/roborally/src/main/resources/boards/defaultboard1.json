@@ -6,6 +6,84 @@
       "walls": [],
       "actions": [
         {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.StartSpace",
+          "INSTANCE": {
+            "prio": 1
+          }
+        }
+      ],
+      "x": 0,
+      "y": 3
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.StartSpace",
+          "INSTANCE": {
+            "prio": 2
+          }
+        }
+      ],
+      "x": 0,
+      "y": 4
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.StartSpace",
+          "INSTANCE": {
+            "prio": 3
+          }
+        }
+      ],
+      "x": 0,
+      "y": 6
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.StartSpace",
+          "INSTANCE": {
+            "prio": 4
+          }
+        }
+      ],
+      "x": 0,
+      "y": 7
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.StartSpace",
+          "INSTANCE": {
+            "prio": 5
+          }
+        }
+      ],
+      "x": 0,
+      "y": 1
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.StartSpace",
+          "INSTANCE": {
+            "prio": 6
+          }
+        }
+      ],
+      "x": 0,
+      "y": 0
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
           "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.ConveyorBelt",
           "INSTANCE": {
             "heading": "SOUTH",
@@ -127,7 +205,7 @@
       "walls": [],
       "actions": [
         {
-          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Checkpoint",
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Antenna",
           "INSTANCE": {
             "x": 1,
             "y": 4
