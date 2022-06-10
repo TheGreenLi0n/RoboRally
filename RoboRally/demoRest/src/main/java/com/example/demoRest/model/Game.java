@@ -19,10 +19,7 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
-package dk.dtu.compute.se.pisd.roborally.fileaccess.model;
-
-import dk.dtu.compute.se.pisd.roborally.model.Phase;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
+package com.example.demoRest.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +31,7 @@ import java.util.List;
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
-public class BoardTemplate {
+public class Game {
 
     public int id;
     public int width;
@@ -44,5 +41,26 @@ public class BoardTemplate {
     public int step;
 
     public List<SpaceTemplate> spaces = new ArrayList<>();
+    //default constructor
+    public Game()
+    {
+
+    }
+    //constructor using fields
+    public Game(int id)
+    {
+        super();
+        this.id = id;
+    }
+    //getters and setters
+    public int getId()
+    {
+        return id;
+    }
+    public void setId(int id)
+    {
+        this.id = id;
+    }
+
 
 }

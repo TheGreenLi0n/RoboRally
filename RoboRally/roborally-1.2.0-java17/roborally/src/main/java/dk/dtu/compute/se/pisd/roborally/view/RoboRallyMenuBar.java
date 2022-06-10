@@ -26,6 +26,11 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
+
 /**
  * ...
  *
@@ -38,15 +43,21 @@ public class RoboRallyMenuBar extends MenuBar {
 
     private Menu controlMenu;
 
-    private MenuItem saveGame;
-
-    private MenuItem newGame;
-
     private MenuItem loadGame;
 
     private MenuItem stopGame;
 
+    private MenuItem joinGame;
+
+    private Menu hostGame;
+
+    private MenuItem saveGame;
+
+    private MenuItem newGame;
+
     private MenuItem exitApp;
+
+    private MenuItem idleMenu;
 
     public RoboRallyMenuBar(AppController appController) {
         this.appController = appController;
@@ -54,21 +65,70 @@ public class RoboRallyMenuBar extends MenuBar {
         controlMenu = new Menu("File");
         this.getMenus().add(controlMenu);
 
-        newGame = new MenuItem("New Game");
-        newGame.setOnAction( e -> this.appController.newGame());
-        controlMenu.getItems().add(newGame);
+        hostGame = new Menu(("Host Game"));
+        /*hostGame.setOnAction( e -> {
+            try {
+                this.appController.hostGame();
+            } catch (ExecutionException ex) {
+                ex.printStackTrace();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            } catch (TimeoutException ex) {
+                ex.printStackTrace();
+            }
+        });*/
+        controlMenu.getItems().add(hostGame);
 
-        stopGame = new MenuItem("Stop Game");
-        stopGame.setOnAction( e -> this.appController.stopGame());
-        controlMenu.getItems().add(stopGame);
+
+        newGame = new MenuItem("New Game");
+        newGame.setOnAction( e -> {
+            try {
+                this.appController.newGame();
+            } catch (ExecutionException ex) {
+                ex.printStackTrace();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            } catch (TimeoutException ex) {
+                ex.printStackTrace();
+            } catch (FileNotFoundException fileNotFoundException) {
+                fileNotFoundException.printStackTrace();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
+        hostGame.getItems().add(newGame);
 
         saveGame = new MenuItem("Save Game");
         saveGame.setOnAction( e -> this.appController.saveGame());
         controlMenu.getItems().add(saveGame);
 
         loadGame = new MenuItem("Load Game");
-        loadGame.setOnAction( e -> this.appController.loadGame());
-        controlMenu.getItems().add(loadGame);
+        loadGame.setOnAction( e -> {
+            try {
+                this.appController.loadGame();
+            } catch (ExecutionException | InterruptedException | TimeoutException ex) {
+                ex.printStackTrace();
+            }
+        });
+        hostGame.getItems().add(loadGame);
+
+        stopGame = new MenuItem("Stop Game");
+        stopGame.setOnAction( e -> this.appController.stopGame());
+        controlMenu.getItems().add(stopGame);
+
+        joinGame = new MenuItem(("Join Game"));
+        joinGame.setOnAction( e -> {
+            try {
+                this.appController.joinGame();
+            } catch (ExecutionException ex) {
+                ex.printStackTrace();
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            } catch (TimeoutException ex) {
+                ex.printStackTrace();
+            }
+        });
+        controlMenu.getItems().add(joinGame);
 
         exitApp = new MenuItem("Exit");
         exitApp.setOnAction( e -> this.appController.exit());
@@ -76,6 +136,10 @@ public class RoboRallyMenuBar extends MenuBar {
 
         controlMenu.setOnShowing(e -> update());
         controlMenu.setOnShown(e -> this.updateBounds());
+
+        idleMenu = new MenuItem("Idle");
+        idleMenu.setOnAction( e -> this.appController.idleMenu());
+        controlMenu.getItems().add(idleMenu);
         update();
     }
 

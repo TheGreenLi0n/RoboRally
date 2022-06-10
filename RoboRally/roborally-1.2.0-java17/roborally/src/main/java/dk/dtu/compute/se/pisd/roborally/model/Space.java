@@ -177,4 +177,15 @@ public class Space extends Subject {
     }
 
 
+
+
+    public void addAllFieldActions(List<FieldAction> list){
+        actions.addAll(list);
+        for (FieldAction fa : list) {
+            if (fa.getClass() == Checkpoint.class){
+                board.addCheckpoint((Checkpoint) fa);
+            }
+
+        }
+    }
 }

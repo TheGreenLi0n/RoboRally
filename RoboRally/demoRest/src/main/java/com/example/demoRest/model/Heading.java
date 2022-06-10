@@ -19,14 +19,7 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
-package dk.dtu.compute.se.pisd.roborally.fileaccess.model;
-
-import dk.dtu.compute.se.pisd.roborally.model.Phase;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
-
-import java.util.ArrayList;
-import java.util.List;
-
+package com.example.demoRest.model;
 
 /**
  * ...
@@ -34,15 +27,23 @@ import java.util.List;
  * @author Ekkart Kindler, ekki@dtu.dk
  *
  */
-public class BoardTemplate {
+public enum Heading {
 
-    public int id;
-    public int width;
-    public int height;
-    public Phase phase;
-    public int currentPlayer;
-    public int step;
+    SOUTH, WEST, NORTH, EAST;
 
-    public List<SpaceTemplate> spaces = new ArrayList<>();
+    /**
+     * Method for making the robot or other objects change heading.
+     * @return the next heading
+     */
+    public Heading next() {
+        return values()[(this.ordinal() + 1) % values().length];
+    }
 
+    /**
+     * Method for making the robot or other objects change heading.
+     * @return the previous heading.
+     */
+    public Heading prev() {
+        return values()[(this.ordinal() + values().length - 1) % values().length];
+    }
 }

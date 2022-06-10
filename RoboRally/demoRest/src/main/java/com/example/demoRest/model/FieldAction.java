@@ -19,30 +19,9 @@
  *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  */
-package dk.dtu.compute.se.pisd.roborally.fileaccess.model;
+package com.example.demoRest.model;
 
-import dk.dtu.compute.se.pisd.roborally.model.Phase;
-import dk.dtu.compute.se.pisd.roborally.model.Player;
+public class FieldAction {
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-/**
- * ...
- *
- * @author Ekkart Kindler, ekki@dtu.dk
- *
- */
-public class BoardTemplate {
-
-    public int id;
-    public int width;
-    public int height;
-    public Phase phase;
-    public int currentPlayer;
-    public int step;
-
-    public List<SpaceTemplate> spaces = new ArrayList<>();
 
 }
