@@ -271,7 +271,5 @@ public class SpaceView extends StackPane implements ViewObserver {
         imgToAdd.setRotate(rotation);
 
         this.getChildren().add(imgToAdd);
-
     }
-
 }

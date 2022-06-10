@@ -13,12 +13,17 @@ public class ServerGamesController
     @Autowired
     private IServerGamesService GameService;
 
+    /**
+     *
+     * @return
+     */
     @GetMapping(value = "/games")
     public ResponseEntity<List<Game>> getGame()
     {
         List<Game> Games = GameService.findAll();
         return ResponseEntity.ok().body(Games);
     }
+
 
    @PostMapping("/games")
     public ResponseEntity<String > addGame(@RequestBody String s) throws IOException {
@@ -30,6 +35,13 @@ public class ServerGamesController
 
     }
 
+    /**
+     *
+     * @param s
+     * @param id id of the game.
+     * @return a status of how the operation went.
+     * @throws IOException
+     */
     @PutMapping(value = "/games/{id}")
     public ResponseEntity<String > addGame(@RequestBody String s, @PathVariable int id) throws IOException {
         boolean added = GameService.createGame(s);
@@ -40,6 +52,11 @@ public class ServerGamesController
 
     }
 
+    /**
+     * Get a game from an ID.
+     * @param id the id of the game.
+     * @return a sting in .json format of a game.
+     */
     @GetMapping("/games/{id}")
     public String getGameById(@PathVariable int id)  {
         String game = null;

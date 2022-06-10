@@ -28,6 +28,10 @@ public class ServerGamesService implements IServerGamesService
 
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public List<Game> findAll()
     {
@@ -35,6 +39,12 @@ public class ServerGamesService implements IServerGamesService
         return games;
     }
 
+    /**
+     *
+     * @param s
+     * @return
+     * @throws IOException
+     */
     @Override
     public boolean createGame(String s) throws IOException {
         int id = Integer.parseInt(s.substring(s.indexOf("\"id\": ") + 6, s.indexOf(",",s.indexOf("\"id\": "))));
@@ -49,6 +59,12 @@ public class ServerGamesService implements IServerGamesService
         return true;
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     * @throws IOException
+     */
     @Override
     public String getGameById(int id) throws IOException {
         String filepath = GAMESFOLDER + "Game" + id + JSON_EXT;
