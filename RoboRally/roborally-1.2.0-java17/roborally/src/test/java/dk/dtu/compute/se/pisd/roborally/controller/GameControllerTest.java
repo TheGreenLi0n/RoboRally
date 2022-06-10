@@ -6,6 +6,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ *
+ * @author Dennis Lolk Løvgreen, Joakim Anker Kruse & Noah Græne Surel
+ */
+
 class GameControllerTest {
 
     private final int TEST_WIDTH = 8;
