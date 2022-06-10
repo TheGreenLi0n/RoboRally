@@ -44,7 +44,8 @@ public enum Command {
     U_TURN("U-turn"),
 
     OPTION_LEFT_RIGHT("Left OR Right", LEFT, RIGHT),
-    OPTION_FORWARD_1_2_3("Move fwd 1, 2 or 3",FORWARD_1, FORWARD_2, FORWARD_3);
+    OPTION_FORWARD_1_2_3("Move fwd 1, 2 or 3",FORWARD_1, FORWARD_2, FORWARD_3),
+    OPTION_LEFT_RIGHT_U_TURN("Move fwd 1, 2 or 3",LEFT, RIGHT, U_TURN);
 
     final public String displayName;
 
