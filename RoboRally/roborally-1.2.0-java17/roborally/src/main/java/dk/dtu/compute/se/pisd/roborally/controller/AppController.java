@@ -122,8 +122,6 @@ public class AppController implements Observer {
                 }
             }
 
-            // XXX the board should eventually be created programmatically or loaded from a file
-            //     here we just create an empty board with the required number of players.
             board = LoadBoard.loadBoard("defaultboard1");
             board.setId(Integer.parseInt(games.substring(games.lastIndexOf("\"id\":") + 5, games.indexOf(",",games.lastIndexOf("\"id\":")+5)))+1);
             //Board board = new Board(8,8);
@@ -132,7 +130,8 @@ public class AppController implements Observer {
             for (int i = 0; i < no; i++) {
                 Player player = new Player(board, PLAYER_COLORS.get(i), "Player " + (i + 1));
                 board.addPlayer(player);
-                player.setSpace(board.getSpace(i % board.width, i));
+                player.setSpace(GetStartSpace(i+1));
+
             }
 
             idleMenu();
@@ -421,6 +420,22 @@ public class AppController implements Observer {
         // XXX do nothing for now
     }
 
+    private Space GetStartSpace(int i){
+        for (int x = 0; x < board.width; x++){
+            for (int y = 0; y < board.height; y++){
+                List<FieldAction> actions = board.getSpace(x,y).getActions();
+                if (actions != null) {
+                    for (FieldAction action : actions) {
+                        if (action.getClass() == StartSpace.class) {
+                            if (((StartSpace) action).getPrio() == i) {
+                                return board.getSpace(x, y);
+                            }
 
-
+                        }
+                    }
+                }
+            }
+        }
+        return board.getSpace(i % board.width, i);
+    }
 }

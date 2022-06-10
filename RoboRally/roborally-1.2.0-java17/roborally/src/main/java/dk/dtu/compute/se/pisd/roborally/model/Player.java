@@ -49,6 +49,8 @@ public class Player extends Subject {
 
     private int prioNo;
 
+    private int antennaDist;
+
     private CommandCardField[] program;
 
 
@@ -161,6 +163,14 @@ public class Player extends Subject {
                 space.playerChanged();
             }
         }
+    }
+
+    public int getAntennaDist() {
+        return antennaDist;
+    }
+
+    public void setAntennaDist(int antennaDist) {
+        this.antennaDist = antennaDist;
     }
 
     /**

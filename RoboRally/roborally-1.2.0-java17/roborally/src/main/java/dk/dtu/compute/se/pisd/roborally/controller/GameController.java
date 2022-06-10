@@ -25,7 +25,7 @@ import dk.dtu.compute.se.pisd.roborally.model.*;
 import javafx.scene.control.Alert;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * ...
@@ -36,7 +36,8 @@ public class GameController {
 
     final public Board board;
     public boolean winner = false;
-    private PriorityQueue<Player> playerOrder;
+    private LinkedList<Player> playerOrder = new LinkedList<>();
+    private int playerNum = 0;
 
     public GameController(@NotNull Board board) {
         this.board = board;
@@ -74,8 +75,9 @@ public class GameController {
      * Method for starting the programming phase. Primarily uses the board and player class.
      */
     public void startProgrammingPhase() {
+        setPlayerPrio();
         board.setPhase(Phase.PROGRAMMING);
-        board.setCurrentPlayer(board.getPlayer(0));
+        board.setCurrentPlayer(playerOrder.get(0));
         board.setStep(0);
 
         for (int i = 0; i < board.getPlayersNumber(); i++) {
@@ -116,8 +118,8 @@ public class GameController {
         makeProgramFieldsInvisible();
         makeProgramFieldsVisible(0);
         board.setPhase(Phase.ACTIVATION);
-        board.setCurrentPlayer(board.getPlayer(0));
-        //board.setCurrentPlayer(board.getPlayer( ));
+        setPlayerPrio();
+        board.setCurrentPlayer(playerOrder.get(0));
         board.setStep(0);
     }
 
@@ -201,25 +203,24 @@ public class GameController {
                         return;
                     }
                     executeCommand(currentPlayer, command);
-
                 }
-                int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
-                if (nextPlayerNumber < board.getPlayersNumber()) {
-                    board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
+                if (playerNum < playerOrder.size()) {
+                    board.setCurrentPlayer(playerOrder.get(playerNum));
+                    playerNum++;
                 } else {
                     for (int i = 0; i < board.getPlayersNumber(); i++) {
                         for (FieldAction action : board.getPlayer(i).getSpace().getActions()) {
                             action.doAction(this, board.getPlayer(i).getSpace());
                         }
                     }
-
-
-                    firinMahLazer();
+                    playerNum = 0;
+                    robotLaser();
+                    setPlayerPrio();
                     step++;
                     if (step < Player.NO_REGISTERS) {
                         makeProgramFieldsVisible(step);
                         board.setStep(step);
-                        board.setCurrentPlayer(board.getPlayer(0));
+                        //board.setCurrentPlayer(board.getPlayer(0));
                     } else {
                         startProgrammingPhase();
                     }
@@ -516,16 +517,18 @@ public class GameController {
         int step = board.getStep();
         executeCommand(currentPlayer, command);
         board.setPhase(Phase.ACTIVATION);
-        int nextPlayerNumber = board.getPlayerNumber(currentPlayer) + 1;
-        if (nextPlayerNumber < board.getPlayersNumber()) {
-            board.setCurrentPlayer(board.getPlayer(nextPlayerNumber));
+        if (playerNum < playerOrder.size()) {
+            board.setCurrentPlayer(playerOrder.get(playerNum));
+            playerNum++;
         } else {
-            firinMahLazer();
+            playerNum = 0;
+            robotLaser();
+            setPlayerPrio();
             step++;
             if (step < Player.NO_REGISTERS) {
                 makeProgramFieldsVisible(step);
                 board.setStep(step);
-                board.setCurrentPlayer(board.getPlayer(0));
+                //board.setCurrentPlayer(board.getPlayer(0));
             } else {
                 startProgrammingPhase();
             }
@@ -540,7 +543,7 @@ public class GameController {
      * takes 1 damage.
      * If the laser hits a wall before it hits a player, then the laser stops.
      */
-    public void firinMahLazer() {
+    public void robotLaser() {
         for (int i = 0; i < board.getPlayersNumber(); i++) {
             Heading direction = board.getPlayer(i).getHeading();
             Space position = board.getPlayer(i).getSpace();
@@ -623,16 +626,56 @@ public class GameController {
      * then have priority over the others.
      */
     public void setPlayerPrio() {
-        PriorityQueue tmpQue = new PriorityQueue();
-        for (int i = 0; 1 >= board.getPlayersNumber(); i++) {
+        Antenna antenna = board.getAntenna();
+        LinkedList<Player> tmpList = new LinkedList<>();
+        for (int i = 0; i < board.getPlayersNumber(); i++) {
             Player player = board.getPlayer(i);
-            Antenna antenna = board.getAntenna();
-            tmpQue.add(player);
-            player.getSpace();
             int dist = Math.abs(antenna.x - player.getSpace().x) + Math.abs(antenna.y - player.getSpace().y);
+            player.setAntennaDist(dist);
+            tmpList.add(player);
         }
-        playerOrder = tmpQue;
-        board.setCurrentPlayer(playerOrder.poll());
+
+        playerOrder = new LinkedList<>(tmpList);
+        Collections.sort(playerOrder, (Comparator<Player>) (p1, p2) -> {
+            if(p1.getAntennaDist() == p2.getAntennaDist()) {
+                // Both players above antenna
+                if (p2.getSpace().y <= antenna.y && p1.getSpace().y <= antenna.y) {
+                    // Both players right of antenna
+                    if (p2.getSpace().x >= antenna.x && p1.getSpace().x >= antenna.x) {
+                        return p1.getSpace().x - p2.getSpace().x;
+                    } else {
+                        return p2.getSpace().x - p1.getSpace().x;
+                    }
+                }
+                //Both player under antenna
+                else if (p2.getSpace().y > antenna.y && p1.getSpace().y > antenna.y) {
+                    return p1.getSpace().x - p2.getSpace().x;
+                }
+                //XOR one player above antenna and the other under.
+                else /*((p2.getSpace().y > antenna.y && p1.getSpace().y > antenna.y) || (p1.getSpace().y > antenna.y && p2.getSpace().y > antenna.y))*/ {
+                    //Both to the right of antenna
+                    if (p2.getSpace().x >= antenna.x && p1.getSpace().x >= antenna.x) {
+                        return p1.getSpace().y - p2.getSpace().y;
+                    } else if (p2.getSpace().x < antenna.x && p1.getSpace().x < antenna.x){
+                        return p2.getSpace().y - p1.getSpace().y;
+                    } else {
+                        if (p1.getSpace().x >= antenna.x){
+                            return p1.getSpace().y - p2.getSpace().y;
+                        } else {
+                            return p2.getSpace().y - p1.getSpace().y;
+                        }
+                    }
+                }
+            }
+            else {
+                return p1.getAntennaDist() - p2.getAntennaDist();
+            }
+            //return 0;
+        });
+        for (int i = 0; i < playerOrder.size(); i++) {
+            playerOrder.get(i).setPrioNo(i);
+        }
+        this.board.setCurrentPlayer(playerOrder.get(0));
     }
 
     /**
