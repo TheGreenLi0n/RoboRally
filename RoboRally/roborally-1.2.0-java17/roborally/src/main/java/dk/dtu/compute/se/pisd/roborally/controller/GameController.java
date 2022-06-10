@@ -37,7 +37,7 @@ public class GameController {
     final public Board board;
     public boolean winner = false;
     private LinkedList<Player> playerOrder = new LinkedList<>();
-    private int playerNum = 0;
+    private int playerNum;
 
     public GameController(@NotNull Board board) {
         this.board = board;
@@ -77,7 +77,6 @@ public class GameController {
     public void startProgrammingPhase() {
         setPlayerPrio();
         board.setPhase(Phase.PROGRAMMING);
-        board.setCurrentPlayer(playerOrder.get(0));
         board.setStep(0);
 
         for (int i = 0; i < board.getPlayersNumber(); i++) {
@@ -119,7 +118,6 @@ public class GameController {
         makeProgramFieldsVisible(0);
         board.setPhase(Phase.ACTIVATION);
         setPlayerPrio();
-        board.setCurrentPlayer(playerOrder.get(0));
         board.setStep(0);
     }
 
@@ -204,9 +202,9 @@ public class GameController {
                     }
                     executeCommand(currentPlayer, command);
                 }
-                if (playerNum < playerOrder.size()) {
-                    board.setCurrentPlayer(playerOrder.get(playerNum));
+                if (playerNum < playerOrder.size() - 1) {
                     playerNum++;
+                    board.setCurrentPlayer(playerOrder.get(playerNum));
                 } else {
                     for (int i = 0; i < board.getPlayersNumber(); i++) {
                         for (FieldAction action : board.getPlayer(i).getSpace().getActions()) {
@@ -517,9 +515,9 @@ public class GameController {
         int step = board.getStep();
         executeCommand(currentPlayer, command);
         board.setPhase(Phase.ACTIVATION);
-        if (playerNum < playerOrder.size()) {
-            board.setCurrentPlayer(playerOrder.get(playerNum));
+        if (playerNum < playerOrder.size() - 1) {
             playerNum++;
+            board.setCurrentPlayer(playerOrder.get(playerNum));
         } else {
             playerNum = 0;
             robotLaser();
@@ -528,7 +526,6 @@ public class GameController {
             if (step < Player.NO_REGISTERS) {
                 makeProgramFieldsVisible(step);
                 board.setStep(step);
-                //board.setCurrentPlayer(board.getPlayer(0));
             } else {
                 startProgrammingPhase();
             }
@@ -675,6 +672,7 @@ public class GameController {
         for (int i = 0; i < playerOrder.size(); i++) {
             playerOrder.get(i).setPrioNo(i);
         }
+        playerNum = 0;
         this.board.setCurrentPlayer(playerOrder.get(0));
     }
 

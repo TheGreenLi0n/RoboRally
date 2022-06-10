@@ -165,6 +165,7 @@ public class Space extends Subject {
      */
     public void setAntenna(Antenna antenna) {
         this.antenna = antenna;
+        board.setAntenna(antenna);
         this.actions.add(antenna);
     }
     public Gear getGear() {

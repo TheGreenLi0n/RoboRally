@@ -149,12 +149,16 @@ class GameControllerTest {
         Board board = gameController.board;
         Checkpoint checkpoint1 = new Checkpoint(1, 2, 2);
         Checkpoint checkpoint2 = new Checkpoint(2, 3, 2);
+        Antenna antenna = new Antenna(4,4);
+        board.getSpace(4,4).setAntenna(antenna);
         board.addCheckpoint(checkpoint1);
         board.addCheckpoint(checkpoint2);
 
         Player player1 = board.getPlayer(0);
         Player player2 = board.getPlayer(1);
 
+        player1.setHeading(Heading.SOUTH);
+        player2.setHeading(Heading.SOUTH);
         gameController.moveCurrentPlayerToSpace(board.getSpace(2, 1));
         gameController.moveCurrentPlayerToSpace(board.getSpace(3, 1));
         player1.getProgramField(1).setCard(new CommandCard(Command.FORWARD_1));
@@ -171,6 +175,8 @@ class GameControllerTest {
         Board board = gameController.board;
         Checkpoint checkpoint1 = new Checkpoint(1,2,2);
         Checkpoint checkpoint2 = new Checkpoint(2,2,3);
+        Antenna antenna = new Antenna(4,4);
+        board.getSpace(4,4).setAntenna(antenna);
         board.addCheckpoint(checkpoint1);
         board.addCheckpoint(checkpoint2);
 
@@ -193,6 +199,8 @@ class GameControllerTest {
         Board board = gameController.board;
         ConveyorBelt conveyorBelt1 = new ConveyorBelt(Heading.EAST,2);
         ConveyorBelt conveyorBelt2 = new ConveyorBelt(Heading.NORTH,2);
+        Antenna antenna = new Antenna(4,4);
+        board.getSpace(4,4).setAntenna(antenna);
         board.getSpace(6,2).setConveyorBelt(conveyorBelt1);
         board.getSpace(6,3).setConveyorBelt(conveyorBelt2);
 
@@ -229,6 +237,8 @@ class GameControllerTest {
     void wallStopMove(){
         Board board = gameController.board;
 
+        Antenna antenna = new Antenna(4,4);
+        board.getSpace(4,4).setAntenna(antenna);
         board.getSpace(7,2).walls.add(Heading.NORTH);
 
         Player current = board.getPlayer(0);
@@ -248,6 +258,8 @@ class GameControllerTest {
         Board board = gameController.board;
         Player player1 = board.getPlayer(0);
         Player player2 = board.getPlayer(1);
+        Antenna antenna = new Antenna(4,4);
+        board.getSpace(4,4).setAntenna(antenna);
 
         board.getSpace(4,1).walls.add(Heading.NORTH);
 
@@ -265,6 +277,8 @@ class GameControllerTest {
         Board board = gameController.board;
         Player player1 = board.getPlayer(0);
         Player player2 = board.getPlayer(1);
+        Antenna antenna = new Antenna(4,4);
+        board.getSpace(4,4).setAntenna(antenna);
 
 
         gameController.moveCurrentPlayerToSpace(board.getSpace(4, 0));
@@ -284,6 +298,8 @@ class GameControllerTest {
         Gear gearGreen = new Gear("Green");
         board.getSpace(0,4).setGear(gearRed);
         board.getSpace(3,5).setGear(gearGreen);
+        Antenna antenna = new Antenna(4,4);
+        board.getSpace(4,4).setAntenna(antenna);
 
         Player player1 = board.getPlayer(0);
         Player player2 = board.getPlayer(1);
