@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class Game {
 
-    public int gameID;
+    public int id;
     public int width;
     public int height;
     public Phase phase;
@@ -41,8 +41,6 @@ public class Game {
     public int step;
 
     public List<SpaceTemplate> spaces = new ArrayList<>();
-
-    private int id;
     //default constructor
     public Game()
     {

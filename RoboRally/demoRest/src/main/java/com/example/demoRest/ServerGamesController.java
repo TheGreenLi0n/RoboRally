@@ -1,5 +1,6 @@
 package com.example.demoRest;
 
+import java.io.IOException;
 import java.util.List;
 import com.example.demoRest.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,19 @@ public class ServerGamesController
         return ResponseEntity.ok().body(Games);
     }
 
-    @PostMapping("/games")
-    public ResponseEntity<String > addGame(@RequestBody Game p) {
-        boolean added = GameService.createGame(p);
+   @PostMapping("/games")
+    public ResponseEntity<String > addGame(@RequestBody String s) throws IOException {
+        boolean added = GameService.createGame(s);
+        if(added)
+            return ResponseEntity.ok().body("added");
+        else
+            return ResponseEntity.internalServerError().body("not added");
+
+    }
+
+    @PutMapping(value = "/games/{id}")
+    public ResponseEntity<String > addGame(@RequestBody String s, @PathVariable int id) throws IOException {
+        boolean added = GameService.createGame(s);
         if(added)
             return ResponseEntity.ok().body("added");
         else
@@ -30,16 +41,22 @@ public class ServerGamesController
     }
 
     @GetMapping("/games/{id}")
-    public ResponseEntity<Game> getGameById(@PathVariable int id) {
-        Game p = GameService.getGameById(id);
-        return ResponseEntity.ok().body(p);
+    public String getGameById(@PathVariable int id)  {
+        String game = null;
+        try {
+            game = GameService.getGameById(id);
+            return game;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "no Game with provided ID";
     }
 
-    @PutMapping("/games/{id}")
+    /*@PutMapping("/games/{id}")
     public ResponseEntity<String> updateGame(@PathVariable int id, @RequestBody Game p) {
         boolean added = GameService.updateGame(id, p);
         return ResponseEntity.ok().body("updated");
-    }
+    }*/
 
     @DeleteMapping("/games/{id}")
     public ResponseEntity<String> deleteGame(@PathVariable int id) {
