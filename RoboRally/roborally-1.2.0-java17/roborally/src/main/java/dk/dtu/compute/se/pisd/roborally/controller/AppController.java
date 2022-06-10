@@ -81,15 +81,24 @@ public class AppController implements Observer {
      */
     public void newGame() throws ExecutionException, InterruptedException, TimeoutException, IOException {
         getAllGames();
-        HttpRequest request = HttpRequest.newBuilder()
-                .GET()
-                .uri(URI.create("http://localhost:8080/games"))
-                .build();
 
-        CompletableFuture<HttpResponse<String>> response =
-                httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+        String path = "RoboRally/roborally-1.2.0-java17/roborally/target/classes/boards/defaultBoards";
+        File file = new File(path);
+        String absPath = file.getAbsolutePath();
+        absPath =absPath.replaceAll("\\\\", "$0$0");
+        File filePath = new File(absPath);
+        File[] folder = filePath.listFiles();
+        String[] filenames = new String[folder.length];
+        for (int i = 0; i < filenames.length; i++) {
+            filenames[i] = folder[i].getName().substring(0,folder[i].getName().length()-5);
+        }
+        ChoiceDialog<String> boardDialog = new ChoiceDialog<>(filenames[0],filenames);
+        boardDialog.setTitle("Select board");
+        boardDialog.setHeaderText("Select a board to play");
+        Optional<String> bord = boardDialog.showAndWait();
 
-        String games = response.thenApply((r)->r.body()).get(5, TimeUnit.SECONDS);
+
+        String games = getAllGames();
 
         //System.out.println(Integer.parseInt(games.substring(games.lastIndexOf(":") + 1,games.lastIndexOf("}")))+1);
 
@@ -107,7 +116,7 @@ public class AppController implements Observer {
                 }
             }
 
-            board = LoadBoard.loadBoard("defaultboard1");
+            board = LoadBoard.loadBoard(bord.get());
             board.setId(Integer.parseInt(games.substring(games.lastIndexOf("\"id\":") + 5, games.indexOf(",",games.lastIndexOf("\"id\":")+5)))+1);
             //Board board = new Board(8,8);
             gameController = new GameController(board);
@@ -373,7 +382,7 @@ public class AppController implements Observer {
         }
     }
 
-    public void getAllGames() throws FileNotFoundException, ExecutionException, InterruptedException, TimeoutException {
+    public String  getAllGames() throws FileNotFoundException, ExecutionException, InterruptedException, TimeoutException {
         ArrayList<String> games = new ArrayList<>();
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
@@ -383,11 +392,7 @@ public class AppController implements Observer {
         CompletableFuture<HttpResponse<String>> response =
                 httpClient.sendAsync(request, HttpResponse.BodyHandlers.ofString());
 
-        String result = response.thenApply((r)->r.body()).get(5, TimeUnit.SECONDS);
-
-
-
-        System.out.println(result);
+        return response.thenApply((r)->r.body()).get(5, TimeUnit.SECONDS);
     }
 
     /**

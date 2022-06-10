@@ -1,0 +1,561 @@
+{
+  "width": 10,
+  "height": 8,
+  "spaces": [
+    {
+      "walls": [
+        "SOUTH"
+      ],
+      "actions": [],
+      "x": 0,
+      "y": 0
+    },
+    {
+      "walls": [
+        "NORTH"
+      ],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "NORTH",
+            "speed": 2
+          }
+        }
+      ],
+      "x": 1,
+      "y": 0
+    },{
+      "walls": [
+        "SOUTH"
+      ],
+      "actions": [],
+      "x": 2,
+      "y": 0
+    },{
+      "walls": [
+        "SOUTH"
+      ],
+      "actions": [],
+      "x": 3,
+      "y": 0
+    },{
+      "walls": [
+        "SOUTH"
+      ],
+      "actions": [],
+      "x": 4,
+      "y": 0
+    },{
+      "walls": [
+        "SOUTH"
+      ],
+      "actions": [],
+      "x": 5,
+      "y": 0
+    },{
+      "walls": [
+        "SOUTH"
+      ],
+      "actions": [],
+      "x": 6,
+      "y": 0
+    },{
+      "walls": [
+        "SOUTH"
+      ],
+      "actions": [],
+      "x": 7,
+      "y": 0
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 1,
+      "y": 1
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "NORTH",
+            "speed": 1
+          }
+        }
+      ],
+      "x": 1,
+      "y": 2
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 1,
+      "y": 3
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 1,
+      "y": 4
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 1,
+      "y": 5
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Checkpoint",
+          "INSTANCE": {
+            "checkpointNo": 1,
+            "x": 1,
+            "y": 6
+          }
+        }
+      ],
+      "x": 1,
+      "y": 6
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 1,
+      "y": 7
+    },
+    {
+      "walls": [
+      ],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Antenna",
+          "INSTANCE": {
+          }
+        }
+      ],
+      "x": 2,
+      "y": 0
+    },{
+      "walls": [
+        "SOUTH"
+      ],
+      "actions": [],
+      "x": 2,
+      "y": 1
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "WEST",
+            "speed": 2
+          }
+        }
+      ],
+      "x": 2,
+      "y": 2
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.ConveyorBelt",
+          "INSTANCE": {
+            "heading": "NORTH",
+            "speed": 2
+          }
+        }
+      ],
+      "x": 2,
+      "y": 3
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 2,
+      "y": 4
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 2,
+      "y": 5
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 2,
+      "y": 6
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 2,
+      "y": 7
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 3,
+      "y": 0
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 3,
+      "y": 1
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 3,
+      "y": 2
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 3,
+      "y": 3
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 3,
+      "y": 4
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 3,
+      "y": 5
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Gear",
+          "INSTANCE": {
+            "color": "Green"
+          }
+        }
+      ],
+      "x": 3,
+      "y": 6
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 3,
+      "y": 7
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 4,
+      "y": 0
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 4,
+      "y": 1
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 4,
+      "y": 2
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 4,
+      "y": 3
+    },
+    {
+      "walls": [
+        "SOUTH"
+      ],
+      "actions": [],
+      "x": 4,
+      "y": 4
+    },
+    {
+      "walls": [],
+      "actions": [
+        {
+          "CLASSNAME": "dk.dtu.compute.se.pisd.roborally.model.Gear",
+          "INSTANCE": {
+            "color": "Red"
+          }
+        }
+      ],
+      "x": 4,
+      "y": 5
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 4,
+      "y": 6
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 4,
+      "y": 7
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 5,
+      "y": 0
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 5,
+      "y": 1
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 5,
+      "y": 2
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 5,
+      "y": 3
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 5,
+      "y": 4
+    },
+    {
+      "walls": [
+        "WEST"
+      ],
+      "actions": [],
+      "x": 5,
+      "y": 5
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 5,
+      "y": 6
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 5,
+      "y": 7
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 6,
+      "y": 0
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 6,
+      "y": 1
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 6,
+      "y": 2
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 6,
+      "y": 3
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 6,
+      "y": 4
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 6,
+      "y": 5
+    },
+    {
+      "walls": [
+        "NORTH"
+      ],
+      "actions": [],
+      "x": 6,
+      "y": 6
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 6,
+      "y": 7
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 7,
+      "y": 0
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 7,
+      "y": 1
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 7,
+      "y": 2
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 7,
+      "y": 3
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 7,
+      "y": 4
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 7,
+      "y": 5
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 7,
+      "y": 6
+    },
+    {
+      "walls": [
+        "EAST"
+      ],
+      "actions": [],
+      "x": 7,
+      "y": 7
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 8,
+      "y": 0
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 8,
+      "y": 1
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 8,
+      "y": 2
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 8,
+      "y": 3
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 8,
+      "y": 4
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 8,
+      "y": 5
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 8,
+      "y": 6
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 8,
+      "y": 7
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 9,
+      "y": 0
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 9,
+      "y": 1
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 9,
+      "y": 2
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 9,
+      "y": 3
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 9,
+      "y": 4
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 9,
+      "y": 5
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 9,
+      "y": 6
+    },
+    {
+      "walls": [],
+      "actions": [],
+      "x": 9,
+      "y": 7
+    }
+  ]
+}

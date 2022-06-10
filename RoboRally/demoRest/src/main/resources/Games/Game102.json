@@ -47,7 +47,7 @@
         "color": "red",
         "damage": 0,
         "reachedCheckpoint": 0,
-        "heading": "SOUTH",
+        "heading": "EAST",
         "program": [
           {
             "visibility": true
@@ -68,7 +68,35 @@
         "cards": [
           {
             "card": {
-              "command": "OPTION_FORWARD_1_2_3",
+              "command": "OPTION_LEFT_RIGHT",
+              "observers": []
+            },
+            "visibility": true
+          },
+          {
+            "card": {
+              "command": "FORWARD_3",
+              "observers": []
+            },
+            "visibility": true
+          },
+          {
+            "card": {
+              "command": "OPTION_LEFT_RIGHT",
+              "observers": []
+            },
+            "visibility": true
+          },
+          {
+            "card": {
+              "command": "OPTION_LEFT_RIGHT",
+              "observers": []
+            },
+            "visibility": true
+          },
+          {
+            "card": {
+              "command": "U_TURN",
               "observers": []
             },
             "visibility": true
@@ -89,35 +117,7 @@
           },
           {
             "card": {
-              "command": "MOVE_BACK",
-              "observers": []
-            },
-            "visibility": true
-          },
-          {
-            "card": {
-              "command": "RIGHT",
-              "observers": []
-            },
-            "visibility": true
-          },
-          {
-            "card": {
               "command": "LEFT",
-              "observers": []
-            },
-            "visibility": true
-          },
-          {
-            "card": {
-              "command": "OPTION_LEFT_RIGHT",
-              "observers": []
-            },
-            "visibility": true
-          },
-          {
-            "card": {
-              "command": "OPTION_LEFT_RIGHT",
               "observers": []
             },
             "visibility": true
@@ -142,7 +142,7 @@
         "color": "green",
         "damage": 0,
         "reachedCheckpoint": 0,
-        "heading": "SOUTH",
+        "heading": "EAST",
         "program": [
           {
             "visibility": true
@@ -170,14 +170,28 @@
           },
           {
             "card": {
-              "command": "OPTION_FORWARD_1_2_3",
+              "command": "OPTION_LEFT_RIGHT",
               "observers": []
             },
             "visibility": true
           },
           {
             "card": {
-              "command": "RIGHT",
+              "command": "LEFT",
+              "observers": []
+            },
+            "visibility": true
+          },
+          {
+            "card": {
+              "command": "LEFT",
+              "observers": []
+            },
+            "visibility": true
+          },
+          {
+            "card": {
+              "command": "FORWARD_3",
               "observers": []
             },
             "visibility": true
@@ -191,28 +205,14 @@
           },
           {
             "card": {
-              "command": "FORWARD_1",
+              "command": "OPTION_LEFT_RIGHT",
               "observers": []
             },
             "visibility": true
           },
           {
             "card": {
-              "command": "OPTION_FORWARD_1_2_3",
-              "observers": []
-            },
-            "visibility": true
-          },
-          {
-            "card": {
-              "command": "MOVE_BACK",
-              "observers": []
-            },
-            "visibility": true
-          },
-          {
-            "card": {
-              "command": "OPTION_LEFT_RIGHT_U_TURN",
+              "command": "OPTION_LEFT_RIGHT",
               "observers": []
             },
             "visibility": true
@@ -403,6 +403,22 @@
       "y": 1
     },
     {
+      "walls": [
+        "WEST"
+      ],
+      "actions": [],
+      "x": 3,
+      "y": 3
+    },
+    {
+      "walls": [
+        "WEST"
+      ],
+      "actions": [],
+      "x": 3,
+      "y": 6
+    },
+    {
       "walls": [],
       "actions": [
         {
@@ -515,6 +531,22 @@
       ],
       "x": 6,
       "y": 2
+    },
+    {
+      "walls": [
+        "EAST"
+      ],
+      "actions": [],
+      "x": 6,
+      "y": 3
+    },
+    {
+      "walls": [
+        "EAST"
+      ],
+      "actions": [],
+      "x": 6,
+      "y": 6
     },
     {
       "walls": [],
