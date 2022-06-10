@@ -421,8 +421,8 @@ public class AppController implements Observer {
     }
 
     private Space GetStartSpace(int i){
-        for (int x = 0; x < board.width-1; x++){
-            for (int y = 0; y < board.height-1; y++){
+        for (int x = 0; x < board.width; x++){
+            for (int y = 0; y < board.height; y++){
                 List<FieldAction> actions = board.getSpace(x,y).getActions();
                 if (actions != null) {
                     for (FieldAction action : actions) {
