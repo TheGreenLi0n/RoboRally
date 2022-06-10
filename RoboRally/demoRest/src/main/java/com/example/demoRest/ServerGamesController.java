@@ -41,8 +41,8 @@ public class ServerGamesController
     }
 
     /**
-     *
-     * @param s
+     * adds a game to the list of games and saves a game to a .json file.
+     * @param s a String in .json format containing a game.
      * @param id id of the game.
      * @return a status of how the operation went.
      * @throws IOException

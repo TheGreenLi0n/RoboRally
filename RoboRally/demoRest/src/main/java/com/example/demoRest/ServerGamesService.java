@@ -44,9 +44,9 @@ public class ServerGamesService implements IServerGamesService
     }
 
     /**
-     *
-     * @param s
-     * @return
+     * adds a game to the list of games and saves a game to a .json file.
+     * @param s a String in .json format containing a game.
+     * @return a boolean if the operation was successful.
      * @throws IOException
      */
     @Override
@@ -65,8 +65,9 @@ public class ServerGamesService implements IServerGamesService
 
     /**
      *
-     * @param id
-     * @return
+     * Get a game from an ID.
+     * @param id the id of the game.
+     * @return a sting in .json format of a game.
      * @throws IOException
      */
     @Override
