@@ -313,7 +313,7 @@ public class GameController {
     }
 
     /**
-     * A command that makes the player move 2 space forward on the board.
+     * A command that makes the player move 2 spaces forward on the board.
      *
      * @param player - the player that is executing the command.
      */
@@ -323,7 +323,7 @@ public class GameController {
     }
 
     /**
-     * A command that makes the player move 1 space forward on the board.
+     * A command that makes the player move 3 spaces forward on the board.
      *
      * @param player - the player that is executing the command.
      */
