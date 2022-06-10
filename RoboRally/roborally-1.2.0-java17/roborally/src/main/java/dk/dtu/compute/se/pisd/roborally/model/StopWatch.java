@@ -42,7 +42,7 @@ public class StopWatch extends Subject {
          */
         @Override
         public void run(){
-            if (times == 0) clock.cancel();
+            if (times > 0) clock.cancel();
             times--;
 
         }

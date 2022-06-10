@@ -166,7 +166,6 @@ public class Space extends Subject {
         this.antenna = antenna;
         this.actions.add(antenna);
     }
-
     public Gear getGear() {
         return gear;
     }
