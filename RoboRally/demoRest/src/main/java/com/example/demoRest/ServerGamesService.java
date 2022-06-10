@@ -33,8 +33,8 @@ public class ServerGamesService implements IServerGamesService
     }
 
     /**
-     *
-     * @return
+     * gets a list of games.
+     * @return a lst of games.
      */
     @Override
     public List<Game> findAll()
