@@ -14,15 +14,18 @@ This is the current iteration of the RoboRally project from group 16 in DTU's co
 ## Current features
 1. Programming cards.
 2. Pushing - robots can push each other.
-3. Walls - represented by a red line on the board that the player can't walk through.
-4. Conveyor - belts, both green and blue which respectively move the robots one and two spaces. These are shown on the board with the original images from the RoboRally ruleset.
+3. Walls - a yellow wall the robots cannot pass through. These are shown on the board with the original images from the RoboRally ruleset.
+4. Conveyor belts - both green and blue which respectively move the robots one and two spaces. These are shown on the board with the original images from the RoboRally ruleset.
 5. Checkpoints - the players have to go through them in the correct order, and these are shown on the board with the original images from the RoboRally ruleset.
 6. Win - winning the game by going through the correct order of checkpoints.
 7. Checkpoint counter - a checkpoint counter for each player that shows the last valid checkpoint they visited.
 8. Lasers - robots can shoot a laser in their headed position to damage other robots. The lasers are currently invisible.
-9. Loading a board - it is possible to load an already made board.
-10. Saving a game - it is possible to save a game.
-11. Loading a saved game - it is possible to load a previous saved game.
+9. Pre-made board - it is possible to load an already made board.
+10. Saving a game - it is possible to save a game on a server.
+11. Loading a saved game - it is possible to load a previous saved game from a server.'
+12. Start spaces - players begin the game on a start space. These are shown with the orignal image from the RoboRally ruleset.
+13. Gears - both red and green gears that rotate the robot 90 degrees clockwise or counter clockwise. These are shown with the original image from the RoboRally ruleset.
+14. Priority antenna - the priority antenna is not perfect, but it works satisfyingly enough. It is shown with the original image from the RoboRally ruleset.
 
 
 ## How to play RoboRally
