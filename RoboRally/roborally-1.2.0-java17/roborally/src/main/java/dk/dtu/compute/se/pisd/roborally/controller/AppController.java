@@ -116,7 +116,7 @@ public class AppController implements Observer {
                 }
             }
 
-            board = LoadBoard.loadBoard(bord.get());
+            board = LoadBoard.loadBoard("defaultBoards/" + bord.get());
             board.setId(Integer.parseInt(games.substring(games.lastIndexOf("\"id\":") + 5, games.indexOf(",",games.lastIndexOf("\"id\":")+5)))+1);
             //Board board = new Board(8,8);
             gameController = new GameController(board);

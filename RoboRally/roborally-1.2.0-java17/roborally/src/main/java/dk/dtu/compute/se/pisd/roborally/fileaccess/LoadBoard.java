@@ -45,7 +45,7 @@ import java.io.*;
  */
 public class LoadBoard {
 
-    private static final String BOARDSFOLDER = "boards";
+    private static final String BOARDSFOLDER = "boards/";
     private static final String DEFAULTBOARD = "defaultboard";
     private static final String JSON_EXT = "json";
 
@@ -60,7 +60,7 @@ public class LoadBoard {
         }
 
         ClassLoader classLoader = LoadBoard.class.getClassLoader();
-        InputStream inputStream = classLoader.getResourceAsStream(BOARDSFOLDER + "/defaultBoards/" + boardname + "." + JSON_EXT);
+        InputStream inputStream = classLoader.getResourceAsStream(BOARDSFOLDER + boardname + "." + JSON_EXT);
         if (inputStream == null) {
             // TODO these constants should be defined somewhere
             return new Board(8,8);
