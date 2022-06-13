@@ -233,7 +233,7 @@ public class AppController implements Observer {
                 try {
                     String game = response.thenApply((r) -> r.body()).get(5, TimeUnit.SECONDS);
 
-                    String filepath = BOARDSFOLDER + "Game" + String.valueOf(id.get()) + JSON_EXT;
+                    String filepath = path + "/Game" + String.valueOf(id.get()) + JSON_EXT;
                     FileOutputStream outputStream = null;
 
                     outputStream = new FileOutputStream(filepath);
